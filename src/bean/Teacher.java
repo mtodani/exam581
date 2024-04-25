@@ -6,7 +6,7 @@ public class Teacher extends User implements Serializable {
 	/**
 	 * 教員ID:String
 	 */
-	private String id;
+	private String teacher_id;
 
 	/**
 	 * パスワード:String
@@ -16,22 +16,24 @@ public class Teacher extends User implements Serializable {
 	/**
 	 * 教員名:String
 	 */
-	private String name;
+	private String teacher_name;
 
 	/**
 	 * 所属校:School
 	 */
 	private School school;
 
+
 	/**
 	 * ゲッター、セッター
 	 */
-	public String getId() {
-		return id;
+
+	public String getTeacher_id() {
+		return teacher_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setTeacher_id(String teacher_id) {
+		this.teacher_id = teacher_id;
 	}
 
 	public String getPassword() {
@@ -42,12 +44,12 @@ public class Teacher extends User implements Serializable {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+	public String getTeacher_name() {
+		return teacher_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTeacher_name(String teacher_name) {
+		this.teacher_name = teacher_name;
 	}
 
 	public School getSchool() {
@@ -57,5 +59,7 @@ public class Teacher extends User implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
+
+
 
 }
