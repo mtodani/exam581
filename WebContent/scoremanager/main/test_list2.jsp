@@ -10,10 +10,13 @@
 
 	<h2>科目成績参照２</h2>
 
-	<form method="get">
+    <%-- フォームで検索条件をexecuteファイルに渡す --%>
+	<form action = "TestListSubjectExecute.action2" method="post">
 		<label>入学年度 </label>
 		<select name="f1">
 			<option value="0">--------</option>
+
+			<%-- 入学年度の一覧から選択する --%>
 			<c:forEach var="year" items="${ent_year_set}">
 				<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
 				<option value="${year}" <c:if test="${year==f1}">selected</c:if>>${year}</option>
@@ -30,18 +33,16 @@
 		</select>
 
 		<label>科目</label>
+		<select name="f3">
 			<option value="0">--------</option>
 				<c:forEach var="sub" items="${subject_set}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
 				<option value="${sub}" <c:if test="${sub==f3}">selected</c:if>>${sub}</option>
 			</c:forEach>
-		</label>
+		</select>
 
-
-
-		<div>${errors.get("f1")}</div>
+		<input type="submit" value="科目参照">
 	</form>
-
 
 </body>
 </html>

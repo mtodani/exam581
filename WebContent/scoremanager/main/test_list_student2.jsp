@@ -8,5 +8,9 @@
 </head>
 <body>
 
+<%-- 科目検索と学生検索に二通りの検索ボックスを作る（StudentExecuteAction or SubjectExecuteAction） --%>
+
+
+<%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 </body>
 </html>

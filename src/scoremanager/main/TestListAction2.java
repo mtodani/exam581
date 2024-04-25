@@ -20,6 +20,7 @@ public class TestListAction2 extends Action{
 		Teacher teacher = (Teacher)session.getAttribute("user");//ログインユーザー
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		SubjectDao subDao = new SubjectDao();// 科目Daoを初期化
+		int entYear = 0;// 入学年度
 
 		String entYearStr="";// 入力された入学年度
 		String classNum = "";//入力されたクラス番号
@@ -53,19 +54,14 @@ public class TestListAction2 extends Action{
 		req.setAttribute("f1", entYear);
 		// リクエストにクラス番号をセット
 		req.setAttribute("f2", classNum);
-		// 在学フラグが送信されていた場合
-		if (isAttendStr != null) {
-			// リクエストに在学フラグをセット
-			req.setAttribute("f3", isAttendStr);
-		}
 		// リクエストに学生リストをセット
-		req.setAttribute("students", students);
+		req.setAttribute("f3", subject);
+
 		// リクエストにデータをセット
 		req.setAttribute("class_num_set", clist);
 		req.setAttribute("subject_set", slist);
 
-
 		//JSPへフォワード 7
-		req.getRequestDispatcher("test_list.jsp").forward(req, res);
+		req.getRequestDispatcher("test_list2.jsp").forward(req, res);
 	}
 }
