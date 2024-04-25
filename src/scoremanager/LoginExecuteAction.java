@@ -28,9 +28,9 @@ public class LoginExecuteAction extends Action{
 		//なし
 		//ビジネスロジック 4
 
-		teacher.setId(id);
+		teacher.setTeacher_id(id);
 		teacher.setPassword(password);
-		teacher.setName(name);
+		teacher.setTeacher_name(name);
 
 		school.setSchool_cd(school_cd);
 		school.setSchool_name("金沢校");
