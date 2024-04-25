@@ -17,6 +17,7 @@ import bean.School;
  * @throws Exception
  */
 public class ClassNumDao extends Dao {
+	
 	public List<String> filter(School school) throws Exception {
 		// 戻り値用のリストを作成
 		// new演算子とArrayListで空のListを用意
