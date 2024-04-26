@@ -42,11 +42,34 @@ public class TestListSubject implements java.io.Serializable{
 	public void setPoints(Map<Integer, Integer> points) {
 		this.points = points;
 	}
-//	public String getPoint(int key) {
-//		return ;
-//	}
-//	public void putPoint(int key, int value) {
-//
-//	}
+
+	/**
+	 * getPointメソッド 得点マップから値を取得する
+	 *
+	 * @param key:int
+	 * 			回数
+	 * @return 得点:String
+	 */
+	public String getPoint(int key) {
+		// 得点マップから値を取得
+		Integer k = points.get(key);
+		if(k == null) {
+			// 得点マップに値が存在しなかった場合、"-"を返却
+			return "-";
+		} else {
+			// 得点マップに値が存在した場合、文字列で得点を返却
+			return k.toString();
+		}
+	}
+
+	/**
+	 * putPointメソッド 得点マップに値を格納する
+	 *
+	 * @param key:int
+	 * @param value:int
+	 */
+	public void putPoint(int key, int value) {
+		points.get(key);
+	}
 
 }
