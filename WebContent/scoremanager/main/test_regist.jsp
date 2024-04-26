@@ -41,14 +41,14 @@
 			<option value="0">--------</option>
 			<c:forEach var="num" items="${class_num_set}">
 				<%-- 現在のnumと選択されていたf3が一致していた場合selectedを追記 --%>
-				<option value="${num}" <c:if test="${num==f3}">selected</c:if>>${subject.cd}</option>
+				<option value="${subject.cd}" <c:if test="${subject.cd==f3}">selected</c:if>>${subject.cd}</option>
 			</c:forEach>
 		</select>
 
 		<label>回数</label>
 		<select name="f4">
 			<option value="0">--------</option>
-			<c:forEach var="num" items="${class_num_set}">
+			<c:forEach var="num" items="${num_set?}">
 				<%-- 現在のnumと選択されていたf4が一致していた場合selectedを追記 --%>
 				<option value="${num}" <c:if test="${num==f4}">selected</c:if>>${num}</option>
 			</c:forEach>
