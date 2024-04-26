@@ -31,8 +31,11 @@ public class StudentListAction extends Action {
 		int entYear = 0;// 入学年度
 		boolean isAttend = false;// 在学フラグ
 		List<Student> students = null;// 学生リスト
+
+
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
+
 		StudentDao sDao = new StudentDao();//学生Dao
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
@@ -56,42 +59,6 @@ public class StudentListAction extends Action {
 			// 数値に変換
 			entYear = Integer.parseInt(entYearStr);
 		}
-
-
-
-			//ここに昨日作成した部分をコピペしてみよう！！
-		if (entYear != 0 && !classNum.equals("0")) {
-			// 入学年度とクラス番号を指定
-			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
-			System.out.println("1");
-		} else if (entYear != 0 && classNum.equals("0")) {
-			// 入学年度のみ指定
-			students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-			System.out.println("2");
-
-		} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
-			// 指定なしの場合
-			// 全学生情報を取得
-			students = sDao.filter(teacher.getSchool(), isAttend);
-			System.out.println("3");
-
-		} else {
-			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-			req.setAttribute("errors", errors);
-			// 全学生情報を取得
-			students = sDao.filter(teacher.getSchool(), isAttend);
-			System.out.println("4");
-
-		}
-
-
-//		//ビジネスロジック 4
-//		if (entYearStr != null) {
-//			// 数値に変換
-//			entYear = Integer.parseInt(entYearStr);
-//		}
-
-
 
 
 		// リストを初期化
