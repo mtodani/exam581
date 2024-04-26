@@ -1,48 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>得点管理システム</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>得点管理システム</title>
 </head>
 <body>
 
-<form action = "LoginExecute.action" method="post">
+<header>
+ 	<h1>得点管理システム</h1>
 
-<!--
-	autocomplete
-	on/off:自動補完の制御
+</header>
 
-	ime-mode
-	active:漢字（全角）モードにします
-	disabled:日本語入力機能(IME)そのものを使用不可能
+    <h2>ログインするよ</h2>
 
-	required:input要素を入力必須にする属性
- -->
+    <form action="LoginExecute.action" method="post">
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" autocomplete="off" style="ime-mode:disabled"  required><br>
 
-	<!-- ＩＤ -->
-	<label>ＩＤ</label>
-	<input type="text" name="id" maxlength="20" placeholder="20文字以内の半角英数字でご入力下さい"
-	 autocomplete="off" style="ime-mode: disabled" value="ABC123XYZ1" required/>
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" required><br>
 
-	<!-- パスワード -->
-	<label>パスワード</label>
-	<input type="password" name="password" value="password1">
+        <input type="checkbox" id="showPassword" name="showPassword">
+        <label for="showPassword">パスワードを表示（まだできません）</label><br>
 
-	<!-- 名前 -->
-	<label>名前</label>
-	<input type="text" name="teacher_name" value="masato">
+        <input type="submit" value="ログイン">
+    </form>
 
-	<!-- 学校コード -->
-	<label>学校コード</label>
-	<input type="text" name="school_cd" value="knz">
-
-	<!-- ログイン用ボタン -->
-	<input type="submit" name="login" value="ログイン"/>
-
-</form>
-
-
+    <footer>
+        &copy; 2024 TIC 大原学園
+    </footer>
 </body>
 </html>

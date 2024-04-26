@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Teacher;
+import dao.TeacherDao;
 import tool.Action;
 
 public class LoginExecuteAction extends Action{
@@ -16,33 +16,21 @@ public class LoginExecuteAction extends Action{
 		String url = "";
 
 		Teacher teacher = new Teacher();
-		School school = new School();
 
 		//リクエストパラメータ―の取得 2
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
-		String name = req.getParameter("name");
-		String school_cd = req.getParameter("school_cd");
+
 
 		//DBからデータ取得 3
-		//なし
+		TeacherDao teacherDao = new TeacherDao();
+		teacher = teacherDao.login(id, password);
+
 		//ビジネスロジック 4
-
-		teacher.setTeacher_id(id);
-		teacher.setPassword(password);
-		teacher.setTeacher_name(name);
-
-		school.setSchool_cd(school_cd);
-		school.setSchool_name("金沢校");
-
-		teacher.setSchool(school);//School型
-
-		// 認証済みフラグを立てる
-		teacher.setAuthenticated(true);
 
 		//Sessionを有効にする
 		HttpSession session = req.getSession(true);
-		//セッションに"user"という変数名で値はTeacher変数の中身
+		//セッションに"user"という変数名で値はTeacher型
 		session.setAttribute("user", teacher);
 
 		//DBへデータ保存 5

@@ -8,6 +8,12 @@
 </head>
 <body>
 
+	<header>
+	 	<h1>得点管理システム</h1>
+		<p>${user.school.school_name}　${user.teacher_name}　様</p>
+		<a href="#">ログアウト</a>
+	</header>
+
 <h2>メニュー</h2>
 
 <a href="StudentList.action">学生管理</a>
@@ -17,6 +23,9 @@
 <a href="TestList2.action">成績参照2</a>
 
 
+<footer>
+        &copy; 2024 TIC 大原学園
+</footer>
 
 </body>
 </html>
