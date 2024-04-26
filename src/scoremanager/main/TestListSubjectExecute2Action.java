@@ -17,7 +17,7 @@ import dao.SubjectDao;
 import dao.TestListSubjectDao2;
 import tool.Action;
 
-public class TestListSubjectExecuteAction2 extends Action{
+public class TestListSubjectExecute2Action extends Action{
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -45,7 +45,6 @@ public class TestListSubjectExecuteAction2 extends Action{
 		entYear = Integer.parseInt(req.getParameter("f1"));//入学年度
 		classNum = req.getParameter("f2");//クラス番号
 		subjectCd = req.getParameter("f3");
-
 
 
 		//ビジネスロジック 4

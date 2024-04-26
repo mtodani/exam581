@@ -1,30 +1,39 @@
 package scoremanager.main;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.SubjectDao;
 import tool.Action;
 
-public class TestListAction2 extends Action{
+public class TestList2Action extends Action{
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
 		HttpSession session = req.getSession();//セッション
 		Teacher teacher = (Teacher)session.getAttribute("user");//ログインユーザー
-		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
-		SubjectDao subDao = new SubjectDao();// 科目Daoを初期化
-		int entYear = 0;// 入学年度
+
 
 		String entYearStr="";// 入力された入学年度
 		String classNum = "";//入力されたクラス番号
 		String subject="";//入力された科目
+		int entYear = 0;// 入学年度
+
+		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
+		SubjectDao subDao = new SubjectDao();// 科目Daoを初期化
+
+		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
+		int year = todaysDate.getYear();// 現在の年を取得
+
 
 		//リクエストパラメータ―の取得 2
 		entYearStr = req.getParameter("f1");
@@ -37,7 +46,7 @@ public class TestListAction2 extends Action{
 		List<String> clist = cNumDao.filter(teacher.getSchool());
 
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
-		List<String> slist = subDao.filter(teacher.getSchool());
+		List<Subject> slist = subDao.filter(teacher.getSchool());
 
 
 		//ビジネスロジック 4
@@ -45,6 +54,19 @@ public class TestListAction2 extends Action{
 			// 数値に変換
 			entYear = Integer.parseInt(entYearStr);
 		}
+
+		System.out.println(year);
+
+		// リストを初期化
+		List<Integer> entYearSet = new ArrayList<>();
+		// 10年前から1年後まで年をリストに追加
+		for (int i = year - 10; i < year + 10; i++) {
+			entYearSet.add(i);
+		}
+
+		System.out.println(entYearSet);
+		System.out.println(clist);
+		System.out.println(slist);
 
 
 		//DBへデータ保存 5
@@ -58,8 +80,11 @@ public class TestListAction2 extends Action{
 		req.setAttribute("f3", subject);
 
 		// リクエストにデータをセット
-		req.setAttribute("class_num_set", clist);
-		req.setAttribute("subject_set", slist);
+
+		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("clist", clist);
+		req.setAttribute("slist", slist);
+
 
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_list2.jsp").forward(req, res);

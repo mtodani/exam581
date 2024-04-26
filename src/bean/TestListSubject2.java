@@ -61,7 +61,9 @@ public class TestListSubject2 {
 
 	//点数をマップリストから取得？
 	public String getPoint(int key){
-
+		
+		
+		return point
 	}
 
 	//点数をマップリストから取得？
