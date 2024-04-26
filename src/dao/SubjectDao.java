@@ -32,7 +32,7 @@ public class SubjectDao extends Dao{
 	    try {
 
 	        // SQL文を作成
-	        String sql = "SELECT * FROM subject WHERE subject_cd = ?subject_cd = ? AND school_cd = ?";
+	        String sql = "SELECT * FROM subject WHERE subject_cd = ? AND school_cd = ?";
 	        statement = connection.prepareStatement(sql);
 	        statement.setString(1, subject_cd);
 	        statement.setString(2, school.getSchool_cd());

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Teacher;
 import bean.TestListSubject2;
 import dao.ClassNumDao;
@@ -47,14 +48,25 @@ public class TestListSubjectExecute2Action extends Action{
 		subjectCd = req.getParameter("f3");
 
 
+		req.setAttribute("f1", entYear);
+		req.setAttribute("f2", classNum);
+		req.setAttribute("f3", subjectCd);
+
+		System.out.println(entYear);
+		System.out.println(classNum);
+		System.out.println(subjectCd);
+
 		//ビジネスロジック 4
 		if (entYear == 0 || classNum == "0" || subjectCd == "0") {// 入学年度が選択されていない場合
 			errors.put("select", "入学年度、クラス、科目のすべてを選択してください");
 		}else{
 
 			//DBからデータ取得 3
+			School school = teacher.getSchool();
+			System.out.println(school.getSchool_name());
+
 			TLSubList = TLSubDao2.filter
-			(teacher.getSchool(), entYear, classNum, SubDao.get(subjectCd, teacher.getSchool()));
+			(school, entYear, classNum, SubDao.get(subjectCd,school));
 			//DBから成績表示に必要なデータをリスト形式で取得
 
 			if (TLSubList == null || TLSubList.size() == 0) {// 検索結果がない場合

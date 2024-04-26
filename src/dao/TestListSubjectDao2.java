@@ -61,7 +61,7 @@ public class TestListSubjectDao2 extends Dao{
         try {
             statement = connection.prepareStatement(
             "SELECT ent_year,test.student_no ,student_name,test.class_num,test.test_no,point "
-            + "FROM TEST inner join student on test.student_no = student.student_no"
+            + "FROM TEST inner join student on test.student_no = student.student_no "
             + "where ent_year = ? and test.class_num = ? and subject_cd = ? and test.school_cd = ?");
             statement.setInt(1, entYear);
             statement.setString(2, classNum);

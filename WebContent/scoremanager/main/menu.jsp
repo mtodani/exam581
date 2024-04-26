@@ -12,14 +12,9 @@
 
 <a href="StudentList.action">学生管理</a>
 <a href="#">成績登録</a>
-<<<<<<< HEAD
-<a href="#">成績参照</a>
 <a href="SubjectList.action">科目管理</a>
-=======
 <a href="TestList.action">成績参照1</a>
 <a href="TestList2.action">成績参照2</a>
-<a href="#">科目管理</a>
->>>>>>> branch 'master' of https://github.com/mtodani/exam581.git
 
 
 

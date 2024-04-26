@@ -61,9 +61,12 @@ public class TestListSubject2 {
 
 	//点数をマップリストから取得？
 	public String getPoint(int key){
-		
-		
-		return point
+
+		Map<Integer,Integer> points = getPoints();
+		int result = points.get(key);
+		String str = String.valueOf(result);
+
+		return str;
 	}
 
 	//点数をマップリストから取得？

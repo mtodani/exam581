@@ -22,7 +22,7 @@
 			<%-- 入学年度の一覧から選択する --%>
 			<c:forEach var="year" items="${ent_year_set}">
 				<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-				<option value="${year}" >${year}</option>
+				<option value="${year}"<c:if test="${year==f1}">selected</c:if> >${year}</option>
 			</c:forEach>
 		</select>
 
@@ -50,9 +50,9 @@
 <%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 
     <c:choose>
-		<c:when test="${NoIns.size()==0}">
+		<c:when test="${test_list_subs > 0}">
 
-			<div>検索結果：${students.size()}件</div>
+			<div></div>
 
 			<table>
 				<tr>
@@ -72,21 +72,31 @@
 						<td class="text-center">
 							<%-- keyが1か2で条件分岐 --%>
 							<c:choose>
-								<c:when test="${test.get}">
-									○
+								<c:when test="${test.getPoint(1) != null}">
+									test.getPoint(1)
 								</c:when>
 								<c:otherwise>
 									×
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>
+						<td class="text-center">
+							<%-- keyが1か2で条件分岐 --%>
+							<c:choose>
+								<c:when test="${test.getPoint(2) != null}">
+									test.getPoint(2)
+								</c:when>
+								<c:otherwise>
+									×
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</c:when>
 		<c:otherwise>
-			<div></div>
+			<div>0件</div>
 		</c:otherwise>
 	</c:choose>
 

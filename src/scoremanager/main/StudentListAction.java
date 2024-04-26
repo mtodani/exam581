@@ -59,6 +59,27 @@ public class StudentListAction extends Action {
 			// 数値に変換
 			entYear = Integer.parseInt(entYearStr);
 		}
+		if(entYear!= 0 && !classNum.equals("0")){
+			//入学年度とクラス番号を指定
+
+			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
+		}else if (entYear!= 0 && classNum.equals("0")){
+			//入学年度のみ指定
+
+			students = sDao.filter(teacher.getSchool(), entYear, isAttend);
+		}else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")){
+			//指定なしの場合
+			//全学年情報を取得
+
+			students = sDao.filter(teacher.getSchool(),isAttend);
+		}else {
+			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
+			req.setAttribute("errors", errors);
+
+			//全学年情報を取得
+			students =sDao.filter(teacher.getSchool(), isAttend);
+		}
+
 
 
 		// リストを初期化
