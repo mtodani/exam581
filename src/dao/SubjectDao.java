@@ -37,11 +37,9 @@ public class SubjectDao extends Dao{
 	        statement.setString(1, subject_cd);
 	        statement.setString(2, school.getSchool_cd());
 
-
 		    ResultSet rSet = statement.executeQuery();
 
 		    SchoolDao schoolDao = new SchoolDao();
-
 
 	        // リザルトセットから学生インスタンスを作成
 	        if (rSet.next()) {
@@ -84,14 +82,49 @@ public class SubjectDao extends Dao{
 	 */
 	private String baseSql = "select * from subject where school_cd=? ";
 
+	/**
+	 * postFilterメソッド フィルター後のリストへの格納処理 プライベート
+	 *
+	 * @param rSet:リザルトセット
+	 * @param school:School
+	 *            学校
+	 * @return 科目のリスト:List<Subject> 存在しない場合は0件のリスト
+	 * @throws Exception
+	 */
+	private List<Subject> postFilter(ResultSet rSet,School school) throws Exception {
+		//まずはここに処理追加
+		 // リストを初期化
+	    List<Subject> list = new ArrayList<>();
+
+	    try {
+	        // リザルトセットを全権走査
+	        while (rSet.next()) {
+	            // 科目インスタンスを初期化
+	        	Subject subject = new Subject();
+
+	            // 科目インスタンスに検索結果をセット
+	        	subject.setSubject_cd(rSet.getString("subject_cd"));
+	        	subject.setSubject_name(rSet.getString("subject_name"));
+
+	            subject.setSchool(school);
+
+	            // リストに追加
+	            list.add(subject);
+	        }
+	    } catch (SQLException | NullPointerException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
 
 	/**
-	 * filterメソッド 学校を指定して科目の一覧を取得する
+	 * filterメソッド 学校、を指定して科目の一覧を取得する
 	 *
 	 * @param school:School
 	 *            学校
 
-	 * @return 科目のリスト:List<Student> 存在しない場合は0件のリスト
+	 * @return 科目のリスト:List<Subject> 存在しない場合は0件のリスト
 	 * @throws Exception
 	 */
 	public List<Subject> filter(School school) throws Exception {
@@ -101,17 +134,18 @@ public class SubjectDao extends Dao{
         PreparedStatement statement = null;
         ResultSet rSet = null;
 
-
         String order = " order by subject_cd asc";
 
-        String conditionIsAttend = "";
+
+
 
 
         try {
-            statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
+            statement = connection.prepareStatement(baseSql + order);
             statement.setString(1, school.getSchool_cd());
 
             rSet = statement.executeQuery();
+            list = postFilter(rSet, school);
         }catch(Exception e){
 			throw e;
 
@@ -207,5 +241,12 @@ public class SubjectDao extends Dao{
 		    return false;
 		}
 }
+//	public boolean delete (Subject subject) throws Exception {
+//		//コネクションを確立
+//		Connection connection = getConnection();
+//		//プリペアードステートメント
+//		PreparedStatement statement = null;
+//
+//	}
 
 }
