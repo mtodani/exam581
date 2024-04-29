@@ -3,32 +3,31 @@ package bean;
 public class Test implements java.io.Serializable{
 
 	// 宣言
-	private String student_no;
-	private String class_Num;
-	private String student;
+	private Student student;
+	private String classNum;
+	private Subject  subject;
 	private School school;
 	private int no;
 	private int point;
 
 	// ゲッター、セッター
-
-	public String getStudent_no() {
-		return student_no;
-	}
-	public void setStudent_no(String student_no) {
-		this.student_no = student_no;
-	}
-	public String getClass_Num() {
-		return class_Num;
-	}
-	public void setClass_Num(String class_Num) {
-		this.class_Num = class_Num;
-	}
-	public String getStudent() {
+	public Student getStudent() {
 		return student;
 	}
-	public void setStudent(String student) {
+	public void setStudent(Student student) {
 		this.student = student;
+	}
+	public String getClassNum() {
+		return classNum;
+	}
+	public void setClassNum(String classNum) {
+		this.classNum = classNum;
+	}
+	public Subject getSubject() {
+		return subject;
+	}
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 	public School getSchool() {
 		return school;
@@ -48,5 +47,4 @@ public class Test implements java.io.Serializable{
 	public void setPoint(int point) {
 		this.point = point;
 	}
-
 }

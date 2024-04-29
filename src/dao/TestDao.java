@@ -11,41 +11,49 @@ import java.util.List;
 
 import bean.School;
 import bean.Student;
+import bean.Subject;
+import bean.Test;
 public class TestDao extends Dao{
 
-	private String baseSql;
+	private String baseSql = "select * from test where";
 
-	//ゲット
-	public Student get(String no) throws Exception {
-	    Student student = new Student();
+	//get(学生番号、科目、学校、何回目テストか)
+	//get(2374475、数学、knz、1)　この条件に当てはまるtestのデータを持っている
+	public Test get(Student student,Subject subject,School school,int no) throws Exception {
+
+		//学生インスタンスを初期化
+	    Test test = new Test();
+	    //データエースへのコネクションを確立
 	    Connection connection = getConnection();
+	    //プリペアードステートメント
 	    PreparedStatement statement = null;
 	    try {
-	        // SQL文を作成
-	        String sql = "SELECT * FROM student WHERE student_no = ?";
-	        statement = connection.prepareStatement(sql);
-	        statement.setString(1, no);
-
+	        //プリペアードSQL文をセット
+	    	statement = connection.prepareStatement("select * from test where student_no= ? and subject_cd and school_cd and no=?");
+	    	//プリペアードステートメントに学校コードをバインド
+	    	statement.setString(1, student.getStudent_no());
+	    	statement.setString(2, subject.getSubject_cd());
+	    	statement.setString(3, school.getSchool_cd());
+	    	statement.setInt(4, no);
+	        //プリペアードステートメント
 		    ResultSet rSet = statement.executeQuery();
-		    SchoolDao schoolDao = new SchoolDao();
 
-	        // リザルトセットから学生インスタンスを作成
 	        if (rSet.next()) {
-	            student.setStudent_no(rSet.getString("student_no"));
-	            student.setStudent_name(rSet.getString("student_name"));
-	            student.setEntYear(rSet.getInt("ent_year"));
-	            student.setClass_num(rSet.getString("class_num"));
-	            student.setAttend(rSet.getBoolean("is_attend"));
-	            // 学校インスタンスを取得して設定
-	            School school = new School();
-	            ;
-	            student.setSchool(schoolDao.get(rSet.getString("school_cd")));
+	        	// リザルトセットが存在する場合
+			    // テストインスタンスに検索結果をセット
+	            test.setStudent(student);
+	            test.setSchool(school);
+	            test.setClassNum(rSet.getString("class_num"));
+	            test.setNo(no);
+	            test.setPoint(rSet.getInt("point"));
+	            test.setSubject(subject);
 	        }
 	        else{
-	        	student= null;
+	        	//リザルトセットが存在する場合
+	        	//学生インスタンス
+	        	test= null;
 	        }
 	    } catch (SQLException e) {
-//	        e.printStackTrace();
 	        throw e;
 	    } finally {
 	        // リソースを閉じる
@@ -56,7 +64,6 @@ public class TestDao extends Dao{
 	                throw sqle;
 	            }
 	        }
-
 	        if (connection != null) {
 	            try {
 	                connection.close();
@@ -65,30 +72,28 @@ public class TestDao extends Dao{
 	            }
 	        }
 	    }
-	    return student;
+	    return test;
 	}
 
 
+	//ResultSet型をtest型に変換するメソッド
 	//ポストフィルター
-	private List<Student> postFilter(ResultSet rSet, School school) throws Exception {
-		//まずはここに処理追加
-		 // リストを初期化
-	    List<Student> list = new ArrayList<>();
+	private List<Test> postFilter(ResultSet rSet, School school){
+		//戻り値用のリスト
+	    List<Test> list = new ArrayList<>();
 	    try {
-	        // リザルトセットを全権走査
 	        while (rSet.next()) {
 	            // 学生インスタンスを初期化
-	            Student student = new Student();
+	        	Test test = new Test();
 	            // 学生インスタンスに検索結果をセット
-	            student.setStudent_no(rSet.getString("student_no"));
-	            student.setStudent_name(rSet.getString("student_name"));
-	            student.setEntYear(rSet.getInt("ent_year"));
-	            student.setClass_num(rSet.getString("class_num"));
-	            student.setAttend(rSet.getBoolean("is_attend"));
-	            student.setSchool(school);
-
+	        	test.setEntyear(rSet.getInt("ent_year"));
+	        	test.setSubject(rSet.getSubject("subject"));
+	        	test.setNo(rSet.getInt("no"));
+	        	test.setClassNum(rSet.getString("class_num"));
+	        	test.setPoint(rSet.getInt("point"));
+	        	test.setSchool(school);
 	            // リストに追加
-	            list.add(student);
+	            list.add(test);
 	        }
 	    } catch (SQLException | NullPointerException e) {
 	        e.printStackTrace();
@@ -99,9 +104,9 @@ public class TestDao extends Dao{
 
 
 	//フィルター
-	public List<Student> filter(School school, int entYear, String classNum, String subject, int num, boolean isAttend)throws Exception{
+	public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school)throws Exception{
 		//リスト初期化
-		List<Student> list = new ArrayList<>();
+		List<Test> list = new ArrayList<>();
 		//コネクションを確立
 		Connection connection = getConnection();
 		//プリペアードステートメント
@@ -109,31 +114,25 @@ public class TestDao extends Dao{
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQl文の条件
-		String condition = " and ent_year=? and class_num=? and subject=? and count=?";
+		String condition = " ent_year=? and class_num=? and subject=?";
 		//SQL文のソート
-		//学生番号の昇順
-		String order = " order by student_no asc";
-
-		//SQL文が在学のフラグ条件
-		String conditionIsAttend = "";
-		//在学フラグがtrueの場合
-		if(isAttend){
-			conditionIsAttend = " and is_attend=true";
-		}
+		String order = " order by asc";
 
 		try{
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement(baseSql + condition + conditionIsAttend +order);
-			//プリペアードステートメントに学校コードをバインド
-			statement.setString(1,school.getSchool_cd());
-			//プリペアードステートメントにに入学年度をバインド
-			statement.setInt(2,entYear);
+			statement = connection.prepareStatement(baseSql + condition + order);
+			//プリペアードステートメントに入学年度をバインド
+			statement.setInt(1,entYear);
 			//プリペアードステートメントにクラス番号をバインド
-			statement.setString(3,classNum);
+			statement.setString(2,classNum);
+			//プリペアードステートメントに科目番号をバインド
+			statement.setString(3,subject.getSubject_cd());
+
+
 			//プリペアードステートメントを実行
 			rSet = statement.executeQuery();
 			//リストへの格納処理を実行
-			list = postFilter(rSet, school);
+			list = postFilter(rSet,school);
 		} catch (Exception e){
 			throw e;
 		} finally{
