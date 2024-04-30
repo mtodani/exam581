@@ -16,10 +16,10 @@
 
     <form action="LoginExecute.action" method="post">
         <label for="id">ID</label>
-        <input type="text" id="id" name="id" autocomplete="off" style="ime-mode:disabled"  required><br>
+        <input type="text" id="id" name="id" autocomplete="off" style="ime-mode:disabled" value="DEF456UVW2" required><br>
 
         <label for="password">パスワード</label>
-        <input type="password" id="password" name="password" required><br>
+        <input type="password" id="password" name="password" value="password2" required><br>
 
         <input type="checkbox" id="showPassword" name="showPassword">
         <label for="showPassword">パスワードを表示（まだできません）</label><br>

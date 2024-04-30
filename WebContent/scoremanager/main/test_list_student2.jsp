@@ -49,9 +49,10 @@
 
 <%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 
+<%--
     <c:choose>
 		<c:when test="${test_list_subs > 0}">
-
+--%>
 			<div></div>
 
 			<table>
@@ -63,44 +64,36 @@
 					<th class ="text-center">1回目</th>
 					<th class ="text-center">2回目</th>
 				</tr>
-				<c:forEach var="test" items="${test_list_subs}">
+				<c:forEach var="stu_test" items="${test_list_subs}">
+				<h5>"${stu_test.getPoints().keySet()}"</h5>
 					<tr>
-						<td>${test.entYear}</td>
-						<td>${student.class_num}</td>
-						<td>${test.student_no}</td>
-						<td>${test.student_name}</td>
-						<td class="text-center">
-							<%-- keyが1か2で条件分岐 --%>
+						<td>${stu_test.getEntYear()}</td>
+						<td>${stu_test.getClassNum()}</td>
+						<td>${stu_test.getStudentNo()}</td>
+						<td>${stu_test.getStudentName()}</td>
+
+						<%-- keyが1か2 --%>
+
 							<c:choose>
-								<c:when test="${test.getPoint(1) != null}">
-									test.getPoint(1)
+								<c:when test="${stu_test.getPoints().keySet().equals(\"[1]}\")">
+									<td class="text-center">${stu_test.getPoint(1)}</td>
+									<td class="text-center">✕</td>
 								</c:when>
 								<c:otherwise>
-									×
+									<td class="text-center">✕</td>
+									<td class="text-center"><%-- ${stu_test.getPoint(2)}--%></td>
 								</c:otherwise>
 							</c:choose>
-						</td>
-						<td class="text-center">
-							<%-- keyが1か2で条件分岐 --%>
-							<c:choose>
-								<c:when test="${test.getPoint(2) != null}">
-									test.getPoint(2)
-								</c:when>
-								<c:otherwise>
-									×
-								</c:otherwise>
-							</c:choose>
-						</td>
+
 					</tr>
 				</c:forEach>
 			</table>
-		</c:when>
+<%-- 	</c:when>
 		<c:otherwise>
 			<div>0件</div>
 		</c:otherwise>
 	</c:choose>
-
-
+--%>
 
 
 </body>

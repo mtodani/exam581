@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.School;
+import bean.Subject;
 import bean.Teacher;
 import bean.TestListSubject2;
 import dao.ClassNumDao;
@@ -63,14 +64,21 @@ public class TestListSubjectExecute2Action extends Action{
 
 			//DBからデータ取得 3
 			School school = teacher.getSchool();
+			Subject sub = SubDao.get(subjectCd,school);
 			System.out.println(school.getSchool_name());
+			System.out.println(sub.getSubject_name());
 
-			TLSubList = TLSubDao2.filter
-			(school, entYear, classNum, SubDao.get(subjectCd,school));
+
+			TLSubList = TLSubDao2.filter(school, entYear, classNum, sub);
 			//DBから成績表示に必要なデータをリスト形式で取得
 
+
+			System.out.println(TLSubList.get(1).getPoints().keySet());
+			System.out.print("aaaa");
+
+
 			if (TLSubList == null || TLSubList.size() == 0) {// 検索結果がない場合
-				String message = "学生情報が存在しませんでした。";
+				String message = "成績情報が存在しませんでした。";
 				req.setAttribute("NoIns", message);
 			}else{
 				req.setAttribute("test_list_subs", TLSubList);
