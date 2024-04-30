@@ -10,9 +10,10 @@
 <body>
 
 	<h2>成績参照</h2>
-	<div>科目情報</div>
 
 	<form action="TestListSubjectExecute.action" method="post">
+
+		<div>科目情報</div>
 		<label>入学年度 </label>
 		<select name="f1">
 			<option value="0">--------</option>
@@ -34,14 +35,23 @@
 		<label>科目</label>
 		<select name="f3">
 			<option value="0">--------</option>
-			<c:forEach var="num" items="${class_num_set}">
+			<c:forEach var="sub" items="${sublist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-				<option value="${num}" <c:if test="${num==f3}">selected</c:if>>${num}</option>
+				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
 			</c:forEach>
 		</select>
+
+		<input type="submit" value="検索">
+
+		<p>学生情報</p>
+		<div>学生番号</div>
+		<input type="text" placeholder="学生番号を入力してください" >
+
+
+		<input type="submit" value="検索">
 	</form>
 
-
+	<p>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
 
 </body>
 </html>
