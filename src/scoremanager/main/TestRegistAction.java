@@ -103,11 +103,6 @@ public class TestRegistAction extends Action {
 		req.setAttribute("f1", entYear);
 		// リクエストにクラス番号をセット
 		req.setAttribute("f2", classNum);
-		// 在学フラグが送信されていた場合
-//		if (isAttendStr != null) {
-//			// リクエストに在学フラグをセット
-//			req.setAttribute("f3", isAttendStr);
-//		}
 		req.setAttribute("f3", subject);
 		req.setAttribute("f4", num);
 		// リクエストに学生リストをセット
@@ -115,8 +110,8 @@ public class TestRegistAction extends Action {
 		// リクエストにデータをセット
 		req.setAttribute("class_num_set", list);
 		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("subject ?");//今は形だけ
-		req.setAttribute("numStr ?");//形だけ
+		req.setAttribute("subject ?",);//今は形だけ
+		req.setAttribute("numStr ?",);//形だけ
 		//↑のこいつらをstudent_list.jspに渡す
 		//JSPへフォワード 7
 		req.getRequestDispatcher("student_list.jsp").forward(req, res);
