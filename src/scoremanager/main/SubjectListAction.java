@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import bean.Subject;
 import bean.Teacher;
+import dao.SubjectDao;
 import tool.Action;
 
 public class SubjectListAction extends Action {
@@ -31,16 +32,24 @@ public class SubjectListAction extends Action {
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 
 //		int year = todaysDate.getYear();// 現在の年を取得
-//		StudentDao sDao = new StudentDao();//学生Dao
-//		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
+		SubjectDao subDao = new SubjectDao();//学生Dao
 
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
 
 
+		//DBからデータ取得 3
+
+
+		System.out.println();
+
+
+		subjects = subDao.filter(teacher.getSchool());
+
 
 		// リクエストに学生リストをセット
 		req.setAttribute("subjects", subjects);
+
 
 		//JSPへフォワード 7
 		req.getRequestDispatcher("subject_list.jsp").forward(req, res);

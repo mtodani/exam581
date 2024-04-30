@@ -7,12 +7,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>科目管理システム</title>
+<title>得点管理システム</title>
 </head>
 <body>
 
 	<h2>科目管理</h2>
-	<a href="SubjectCreateExecute.action">新規登録</a>
+	<a href="SubjectCreate.action">新規登録</a>
 
 
 
@@ -37,7 +37,7 @@
 						<td class="text-center">
 
 						</td>
-						<td><a href="StudentUpdateExecute.action?no=${subject.subject_cd}">変更</a></td>
+						<td><a href="SubjectUpdate.action?no=${subject.subject_cd}">変更</a></td>
 						<td><a href="SubjectDelete.action?no=${subject.subject_cd}">削除</a></td>
 					</tr>
 				</c:forEach>
