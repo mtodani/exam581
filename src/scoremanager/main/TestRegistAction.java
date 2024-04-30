@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
+import bean.Subject;
 import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
@@ -30,12 +32,12 @@ public class TestRegistAction extends Action {
 
 		String entYearStr="";// 入力された入学年度
 		String classNum = "";//入力されたクラス番号
-		String isAttendStr="";//入力された在学フラグ 後から使うかも
+//		String isAttendStr="";//入力された在学フラグ 後から使うかも
 		String subject="";//入力された科目
 		String numStr = "";// 入力された回数
 		int num = 0;// 回数
 		int entYear = 0;// 入学年度
-		boolean isAttend = false;// 在学フラグ 後から使うかも
+//		boolean isAttend = false;// 在学フラグ 後から使うかも
 		List<Test> tests = null;// 学生リスト
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
@@ -44,18 +46,15 @@ public class TestRegistAction extends Action {
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
 		//リクエストパラメータ―の取得 2
-
-
-		//リクエストパラメータ―の取得 2
 		entYearStr = req.getParameter("f1");
 		classNum = req.getParameter("f2");
 		subject = req.getParameter("f3");
 		numStr = req.getParameter("f4");
 
-		if (isAttendStr != null) {
-			// 在学フラグを立てる
-			isAttend = true;
-		}
+//		if (isAttendStr != null) {
+//			// 在学フラグを立てる
+//			isAttend = true;
+//		}
 
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
@@ -76,7 +75,7 @@ public class TestRegistAction extends Action {
 			// 入学年度、クラス番号、科目、回数
 
 			//studentsリストに
-			tests = tDao.filter(teacher.getSchool(), entYear, classNum, subject, num, isAttend);
+			tests = tDao.filter(teacher.getSchool());
 
 		}
 //		else {
@@ -110,8 +109,8 @@ public class TestRegistAction extends Action {
 		// リクエストにデータをセット
 		req.setAttribute("class_num_set", list);
 		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("subject ?",);//今は形だけ
-		req.setAttribute("numStr ?",);//形だけ
+		req.setAttribute("subject_set ?",subject_set);//今は形だけ
+		req.setAttribute("numStr_set ?",);//形だけ
 		//↑のこいつらをstudent_list.jspに渡す
 		//JSPへフォワード 7
 		req.getRequestDispatcher("student_list.jsp").forward(req, res);
