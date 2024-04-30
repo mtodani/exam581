@@ -127,8 +127,6 @@ public class TestDao extends Dao{
 			statement.setString(2,classNum);
 			//プリペアードステートメントに科目番号をバインド
 			statement.setString(3,subject.getSubject_cd());
-
-
 			//プリペアードステートメントを実行
 			rSet = statement.executeQuery();
 			//リストへの格納処理を実行
