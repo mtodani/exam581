@@ -73,7 +73,7 @@ public class TestListSubjectExecute2Action extends Action{
 			//DBから成績表示に必要なデータをリスト形式で取得
 
 
-			System.out.println(TLSubList.get(1).getPoints().keySet());
+			System.out.println(TLSubList.get(0).getPoints().keySet());
 			System.out.print("aaaa");
 
 

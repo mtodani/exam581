@@ -75,13 +75,13 @@
 						<%-- keyが1か2 --%>
 
 							<c:choose>
-								<c:when test="${stu_test.getPoints().keySet().equals(\"[1]}\")">
-									<td class="text-center">${stu_test.getPoint(1)}</td>
+								<c:when test="${stu_test.getPoints().keySet().equals(1)">
+									<td class="text-center">${stu_test.getPoint(0)}</td>
 									<td class="text-center">✕</td>
 								</c:when>
 								<c:otherwise>
 									<td class="text-center">✕</td>
-									<td class="text-center"><%-- ${stu_test.getPoint(2)}--%></td>
+									<td class="text-center"><%-- ${stu_test.getPoint(1)}--%></td>
 								</c:otherwise>
 							</c:choose>
 
