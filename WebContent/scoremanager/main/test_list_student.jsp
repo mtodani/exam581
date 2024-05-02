@@ -44,39 +44,69 @@
 		<input type="submit" value="検索">
 	</form>
 
-	<table>
-		<tr>
-			<th>入学年度</th>
-			<th>クラス</th>
-			<th>学生番号</th>
-			<th>氏名</th>
-			<th class ="text-center">1回目</th>
-			<th class ="text-center">2回目</th>
-		</tr>
-		<c:forEach var="stu_test" items="${test_list_subs}">
-		<h5>"${stu_test.getPoints().keySet()}"</h5>
-			<tr>
-				<td>${stu_test.getEntYear()}</td>
-				<td>${stu_test.getClassNum()}</td>
-				<td>${stu_test.getStudentNo()}</td>
-				<td>${stu_test.getStudentName()}</td>
+	<form action = "TestListStudentExecute.action" method="post">
 
-				<%-- keyが1か2 --%>
+		<p>学生情報</p>
+		<div>学生番号</div>
+		<input type="text" placeholder="学生番号を入力してください" >
 
-					<c:choose>
-						<c:when test="${stu_test.getPoints().keySet().equals(\"[1]}\")">
-							<td class="text-center">${stu_test.getPoint(1)}</td>
-							<td class="text-center">✕</td>
-						</c:when>
-						<c:otherwise>
-							<td class="text-center">✕</td>
-							<td class="text-center"><%-- ${stu_test.getPoint(2)}--%></td>
-						</c:otherwise>
-					</c:choose>
+		<input type="submit" value="検索">
 
-			</tr>
-		</c:forEach>
-	</table>
+	</form>
+
+<%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
+
+
+    <c:choose>
+        <c:when test="${error.size != 0}">
+            <div>${errors.get("nullpo")}</div>
+        </c:when>
+		<c:when test="${test_list_subs != null }">
+
+			<table>
+				<tr>
+					<th>入学年度</th>
+					<th>クラス</th>
+					<th>学生番号</th>
+					<th>氏名</th>
+					<th class ="text-center">1回目</th>
+					<th class ="text-center">2回目</th>
+				</tr>
+				<c:forEach var="sub_test" items="${test_list_subs}">
+					<tr>
+						<td>${sub_test.getEntYear()}</td>
+						<td>${sub_test.getClassNum()}</td>
+						<td>${sub_test.getStudentNo()}</td>
+						<td>${sub_test.getStudentName()}</td>
+						<td>${sub_test.getPoint(1)}</td>
+						<td>${sub_test.getPoint(2)}</td>
+
+					</tr>
+				</c:forEach>
+			</table>
+	    </c:when>
+	    <c:when test="${test_list_student != null}" >
+	        <table>
+				<tr>
+					<th>科目名</th>
+					<th>科目コード</th>
+					<th class ="text-center">回数</th>
+					<th class ="text-center">点数</th>
+				</tr>
+				<c:forEach var="stu_test" items="${test_list_student}">
+					<tr>
+						<td>${stu_test.getSubjectName()}</td>
+						<td>${stu_test.getSubjectCD()}</td>
+						<td>${stu_test.getNum()}</td>
+						<td>${stu_test.getPoint()}</td>
+					</tr>
+				</c:forEach>
+			</table>
+	    </c:when>
+		<c:otherwise>
+			<div>成績情報が存在しません。</div>
+		</c:otherwise>
+	</c:choose>
 
 </body>
 </html>

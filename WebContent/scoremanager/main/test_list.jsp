@@ -43,12 +43,16 @@
 
 		<input type="submit" value="検索">
 
+	</form>
+
+	<form action = "TestListStudentExecute.action" method="post">
+
 		<p>学生情報</p>
 		<div>学生番号</div>
 		<input type="text" placeholder="学生番号を入力してください" >
 
-
 		<input type="submit" value="検索">
+
 	</form>
 
 	<p>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>

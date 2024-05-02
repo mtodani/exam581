@@ -47,7 +47,7 @@ public class TestListSubjectDao extends Dao{
 	}
 
 
-	public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) throws Exception {
+	public List<TestListSubject> filter(School school, int entYear, String classNum, Subject sub) throws Exception {
 
 		// リストを初期化
 		List<TestListSubject> list = new ArrayList<>();
@@ -65,11 +65,9 @@ public class TestListSubjectDao extends Dao{
         			"SELECT ent_year, test.class_num, test.student_no, student_name, test.test_no, point "
 		            + "FROM TEST inner join student on test.student_no = student.student_no"
 		            + "where ent_year = ? and test.class_num = ? and subject_cd = ? and test.school_cd = ?");
-        	// プリペアードステートメントに入学年度をバインド
         	statement.setInt(1, entYear);
-        	// プリペアードステートメントにクラス番号をバインド
             statement.setString(2, classNum);
-            statement.setString(3, subject.getSubject_cd());
+            statement.setString(3, sub.getSubject_cd());
             statement.setString(4, school.getSchool_cd());
 
             // プリペアードステートメントを実行

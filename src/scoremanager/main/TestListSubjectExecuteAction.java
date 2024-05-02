@@ -59,6 +59,15 @@ public class TestListSubjectExecuteAction extends Action{
 			School school = teacher.getSchool();
 			Subject sub = SubDao.get(subjectCd,school);
 			TLSubList = TLSubDao.filter(school, entYear, classNum, sub);
+
+			// 検索結果がない場合
+			if (TLSubList == null || TLSubList.size() == 0) {
+				String message = "成績情報が存在しませんでした。";
+				req.setAttribute("NoIns", message);
+			}else{
+				req.setAttribute("test_list_subs", TLSubList);
+			}
+
 		}
 
 		//DBへデータ保存 5
