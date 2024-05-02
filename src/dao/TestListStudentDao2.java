@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import bean.Student;
 import bean.TestListStudent2;
-import bean.TestListSubject2;
 
 public class TestListStudentDao2 extends Dao{
 
@@ -26,7 +23,6 @@ public class TestListStudentDao2 extends Dao{
 	        while (rSet.next()) {
 	            // 学生インスタンスを初期化
 	            TestListStudent2 test_list_student = new TestListStudent2();
-	            Map<Integer,Integer> points = new HashMap<>();
 
 	            // 学生インスタンスに検索結果をセット
 	            test_list_student.setSubjectName(rSet.getString("subject_name"));;
@@ -50,18 +46,18 @@ public class TestListStudentDao2 extends Dao{
 		//まずはここに処理追加
 
 		//リストに成績をためてpostfilterで取り出す
-		List<TestListSubject2> list = new ArrayList<>();
+		List<TestListStudent2> list = new ArrayList<>();
         Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet rSet = null;
 
         try {
             statement = connection.prepareStatement(
-            "SELECT subject.SUBJECT_NAME,test.SUBJECT_CD,test.TEST_NO ,test.POINT" +
-            "FROM test left outer join subject" +
-            "ON  subject.subject_cd = test.subject_cd and subject.school_cd = test.school_cd"  +
-            "where test.student_no = ?");
-            statement.setString(1, student.getStudent_no());
+            "SELECT subject.SUBJECT_NAME,test.SUBJECT_CD,test.TEST_NO ,test.POINT " +
+            "FROM test left outer join subject " +
+            "ON  subject.subject_cd = test.subject_cd and subject.school_cd = test.school_cd "  +
+            "where test.student_no = ? ");
+            statement.setString(1,student.getStudent_no());
 
             rSet = statement.executeQuery();
             list = postFilter(rSet);

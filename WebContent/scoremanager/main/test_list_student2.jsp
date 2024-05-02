@@ -47,11 +47,21 @@
 		<input type="submit" value="科目参照">
 	</form>
 
+	<form action = "TestListStudentExecute2.action" method="post">
+		<label>学生番号 </label>
+		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled" value="2374582" required>
+
+		<input type="submit" value="学生参照">
+	</form>
+
 <%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 
 
     <c:choose>
-		<c:when test="${test_list_subs.size() > 0}">
+        <c:when test="${error.size != 0}">
+            <div>${errors.get("nullpo")}</div>
+        </c:when>
+		<c:when test="${test_list_subs != null }">
 
 			<table>
 				<tr>
@@ -75,7 +85,7 @@
 				</c:forEach>
 			</table>
 	    </c:when>
-	    <c:when test=${test_list_student.size() > 0 }>
+	    <c:when test="${test_list_student != null}" >
 	        <table>
 				<tr>
 					<th>科目名</th>
@@ -83,7 +93,7 @@
 					<th class ="text-center">回数</th>
 					<th class ="text-center">点数</th>
 				</tr>
-				<c:forEach var="student_test" items="${test_list_student}">
+				<c:forEach var="stu_test" items="${test_list_student}">
 					<tr>
 						<td>${stu_test.getSubjectName()}</td>
 						<td>${stu_test.getSubjectCD()}</td>
@@ -92,7 +102,6 @@
 					</tr>
 				</c:forEach>
 			</table>
-
 	    </c:when>
 		<c:otherwise>
 			<div>成績情報が存在しません。</div>
