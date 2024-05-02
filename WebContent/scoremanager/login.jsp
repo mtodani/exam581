@@ -12,7 +12,7 @@
 
 </header>
 
-    <h2>ログインするよ</h2>
+    <h2>ログイン画面</h2>
 
     <form action="LoginExecute.action" method="post">
         <label for="id">ID</label>
