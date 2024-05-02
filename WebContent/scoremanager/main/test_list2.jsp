@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>科目成績参照2</title>
+<title>成績参照2</title>
 </head>
 <body>
 
-	<h2>科目成績参照２</h2>
+	<h2>成績参照２</h2>
 
     <%-- フォームで検索条件をexecuteファイルに渡す --%>
 	<form action = "TestListSubjectExecute2.action" method="post">
@@ -39,6 +39,20 @@
 				<c:forEach var="sub" items="${slist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
 				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
+			</c:forEach>
+		</select>
+
+		<input type="submit" value="科目参照">
+	</form>
+
+	<form action = "TestListStudentExecute2.action" method="post">
+		<label>学生番号 </label>
+		<select name="stu_num">
+			<option value="0">--------</option>
+			<%-- 入学年度の一覧から選択する --%>
+			<c:forEach var="year" items="${ent_year_set}">
+				<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+				<option value="${year}" >${year}</option>
 			</c:forEach>
 		</select>
 

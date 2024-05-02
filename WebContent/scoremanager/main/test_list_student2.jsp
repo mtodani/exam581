@@ -49,11 +49,9 @@
 
 <%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 
-<%--
+
     <c:choose>
-		<c:when test="${test_list_subs > 0}">
---%>
-			<div></div>
+		<c:when test="${test_list_subs.size() > 0}">
 
 			<table>
 				<tr>
@@ -64,36 +62,43 @@
 					<th class ="text-center">1回目</th>
 					<th class ="text-center">2回目</th>
 				</tr>
-				<c:forEach var="stu_test" items="${test_list_subs}">
-				<h5>"${stu_test.getPoints().keySet()}"</h5>
+				<c:forEach var="sub_test" items="${test_list_subs}">
 					<tr>
-						<td>${stu_test.getEntYear()}</td>
-						<td>${stu_test.getClassNum()}</td>
-						<td>${stu_test.getStudentNo()}</td>
-						<td>${stu_test.getStudentName()}</td>
-
-						<%-- keyが1か2 --%>
-
-							<c:choose>
-								<c:when test="${stu_test.getPoints().keySet().equals(1)">
-									<td class="text-center">${stu_test.getPoint(0)}</td>
-									<td class="text-center">✕</td>
-								</c:when>
-								<c:otherwise>
-									<td class="text-center">✕</td>
-									<td class="text-center"><%-- ${stu_test.getPoint(1)}--%></td>
-								</c:otherwise>
-							</c:choose>
+						<td>${sub_test.getEntYear()}</td>
+						<td>${sub_test.getClassNum()}</td>
+						<td>${sub_test.getStudentNo()}</td>
+						<td>${sub_test.getStudentName()}</td>
+						<td>${sub_test.getPoint(1)}</td>
+						<td>${sub_test.getPoint(2)}</td>
 
 					</tr>
 				</c:forEach>
 			</table>
-<%-- 	</c:when>
+	    </c:when>
+	    <c:when test=${test_list_student.size() > 0 }>
+	        <table>
+				<tr>
+					<th>科目名</th>
+					<th>科目コード</th>
+					<th class ="text-center">回数</th>
+					<th class ="text-center">点数</th>
+				</tr>
+				<c:forEach var="student_test" items="${test_list_student}">
+					<tr>
+						<td>${stu_test.getSubjectName()}</td>
+						<td>${stu_test.getSubjectCD()}</td>
+						<td>${stu_test.getNum()}</td>
+						<td>${stu_test.getPoint()}</td>
+					</tr>
+				</c:forEach>
+			</table>
+
+	    </c:when>
 		<c:otherwise>
-			<div>0件</div>
+			<div>成績情報が存在しません。</div>
 		</c:otherwise>
 	</c:choose>
---%>
+
 
 
 </body>
