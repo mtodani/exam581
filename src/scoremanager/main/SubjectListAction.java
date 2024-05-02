@@ -32,7 +32,7 @@ public class SubjectListAction extends Action {
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 
 //		int year = todaysDate.getYear();// 現在の年を取得
-		SubjectDao subDao = new SubjectDao();//学生Dao
+		SubjectDao subDao = new SubjectDao();//科目Dao
 
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
@@ -42,7 +42,6 @@ public class SubjectListAction extends Action {
 
 
 		System.out.println();
-
 
 		subjects = subDao.filter(teacher.getSchool());
 
