@@ -55,19 +55,12 @@ public class TestList2Action extends Action{
 			entYear = Integer.parseInt(entYearStr);
 		}
 
-		System.out.println(year);
-
 		// リストを初期化
 		List<Integer> entYearSet = new ArrayList<>();
 		// 10年前から1年後まで年をリストに追加
 		for (int i = year - 10; i < year + 10; i++) {
 			entYearSet.add(i);
 		}
-
-		System.out.println(entYearSet);
-		System.out.println(clist);
-		System.out.println(slist);
-
 
 		//DBへデータ保存 5
 		//なし

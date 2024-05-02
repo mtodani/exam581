@@ -40,7 +40,7 @@
 			<option value="0">--------</option>
 				<c:forEach var="sub" items="${slist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-				<option value="${sub}" <c:if test="${sub==f3}">selected</c:if>>${sub}</option>
+				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
 			</c:forEach>
 		</select>
 
@@ -58,11 +58,15 @@
 
 
     <c:choose>
-        <c:when test="${error.size != 0}">
-            <div>${errors.get("nullpo")}</div>
-        </c:when>
-		<c:when test="${test_list_subs != null }">
 
+
+        <c:when test="${errors.size() > 0 }">
+        <br>
+            ${errors.get("select")}
+            ${errors.get("nullpo")}
+
+        </c:when>
+		<c:when test="${test_list_subs.size() > 0 }">
 			<table>
 				<tr>
 					<th>入学年度</th>
@@ -85,7 +89,7 @@
 				</c:forEach>
 			</table>
 	    </c:when>
-	    <c:when test="${test_list_student != null}" >
+	    <c:when test="${test_list_student.size() > 0}" >
 	        <table>
 				<tr>
 					<th>科目名</th>
