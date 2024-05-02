@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>科目成績参照2</title>
+<title>成績参照2</title>
 </head>
 <body>
 
-	<h2>科目成績参照２</h2>
+	<h2>成績参照２</h2>
 
     <%-- フォームで検索条件をexecuteファイルに渡す --%>
 	<form action = "TestListSubjectExecute2.action" method="post">
@@ -43,6 +43,13 @@
 		</select>
 
 		<input type="submit" value="科目参照">
+	</form>
+
+	<form action = "TestListStudentExecute2.action" method="post">
+		<label>学生番号 </label>
+		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled" value="2374582" required>
+
+		<input type="submit" value="学生参照">
 	</form>
 
 

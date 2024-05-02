@@ -40,21 +40,33 @@
 			<option value="0">--------</option>
 				<c:forEach var="sub" items="${slist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-				<option value="${sub}" <c:if test="${sub==f3}">selected</c:if>>${sub}</option>
+				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
 			</c:forEach>
 		</select>
 
 		<input type="submit" value="科目参照">
 	</form>
 
+	<form action = "TestListStudentExecute2.action" method="post">
+		<label>学生番号 </label>
+		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled" value="2374582" required>
+
+		<input type="submit" value="学生参照">
+	</form>
+
 <%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 
-<%--
-    <c:choose>
-		<c:when test="${test_list_subs > 0}">
---%>
-			<div></div>
 
+    <c:choose>
+
+
+        <c:when test="${errors.size() > 0 }">
+        <br>
+            ${errors.get("select")}
+            ${errors.get("nullpo")}
+
+        </c:when>
+		<c:when test="${test_list_subs.size() > 0 }">
 			<table>
 				<tr>
 					<th>入学年度</th>
@@ -64,36 +76,42 @@
 					<th class ="text-center">1回目</th>
 					<th class ="text-center">2回目</th>
 				</tr>
-				<c:forEach var="stu_test" items="${test_list_subs}">
-				<h5>"${stu_test.getPoints().keySet()}"</h5>
+				<c:forEach var="sub_test" items="${test_list_subs}">
 					<tr>
-						<td>${stu_test.getEntYear()}</td>
-						<td>${stu_test.getClassNum()}</td>
-						<td>${stu_test.getStudentNo()}</td>
-						<td>${stu_test.getStudentName()}</td>
-
-						<%-- keyが1か2 --%>
-
-							<c:choose>
-								<c:when test="${stu_test.getPoints().keySet().equals(1)">
-									<td class="text-center">${stu_test.getPoint(0)}</td>
-									<td class="text-center">✕</td>
-								</c:when>
-								<c:otherwise>
-									<td class="text-center">✕</td>
-									<td class="text-center"><%-- ${stu_test.getPoint(1)}--%></td>
-								</c:otherwise>
-							</c:choose>
+						<td>${sub_test.getEntYear()}</td>
+						<td>${sub_test.getClassNum()}</td>
+						<td>${sub_test.getStudentNo()}</td>
+						<td>${sub_test.getStudentName()}</td>
+						<td>${sub_test.getPoint(1)}</td>
+						<td>${sub_test.getPoint(2)}</td>
 
 					</tr>
 				</c:forEach>
 			</table>
-<%-- 	</c:when>
+	    </c:when>
+	    <c:when test="${test_list_student.size() > 0}" >
+	        <table>
+				<tr>
+					<th>科目名</th>
+					<th>科目コード</th>
+					<th class ="text-center">回数</th>
+					<th class ="text-center">点数</th>
+				</tr>
+				<c:forEach var="stu_test" items="${test_list_student}">
+					<tr>
+						<td>${stu_test.getSubjectName()}</td>
+						<td>${stu_test.getSubjectCD()}</td>
+						<td>${stu_test.getNum()}</td>
+						<td>${stu_test.getPoint()}</td>
+					</tr>
+				</c:forEach>
+			</table>
+	    </c:when>
 		<c:otherwise>
-			<div>0件</div>
+			<div>成績情報が存在しません。</div>
 		</c:otherwise>
 	</c:choose>
---%>
+
 
 
 </body>

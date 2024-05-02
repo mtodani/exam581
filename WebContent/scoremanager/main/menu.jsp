@@ -11,7 +11,7 @@
 	<header>
 	 	<h1>得点管理システム</h1>
 		<p>${user.school.school_name}　${user.teacher_name}　様</p>
-		<a href="#">ログアウト</a>
+		<a href="../Logout.action">ログアウト</a>
 	</header>
 
 <h2>メニュー</h2>

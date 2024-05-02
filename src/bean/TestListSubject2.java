@@ -60,13 +60,16 @@ public class TestListSubject2 {
 
 
 	//点数をマップリストから取得？
-	public String getPoint(int key){
-
-		Map<Integer,Integer> points = getPoints();
-		int result = points.get(key);
-		String str = String.valueOf(result);
-
-		return str;
+	public String getPoint(int key) {
+		// 得点マップから値を取得
+		Integer k = points.get(key);
+		if (k == null) {
+			// 得点マップに値が存在しなかった場合"-"を返却
+			return "-";
+		} else {
+			// 得点マップに値が存在した場合、文字列として得点を返却
+			return k.toString();
+		}
 	}
 
 	//点数をマップリストから取得？
