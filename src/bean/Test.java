@@ -47,4 +47,5 @@ public class Test implements java.io.Serializable{
 	public void setPoint(int point) {
 		this.point = point;
 	}
+
 }
