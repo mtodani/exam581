@@ -39,11 +39,11 @@ public class SubjectCreateExecuteAction extends Action{
 
 		//リクエストパラメータ―の取得 2
 //		entYear = Integer.parseInt(req.getParameter("ent_year"));//入学年度
-		subject_cd = req.getParameter("sub_cd");//学生番号
-		subject_name = req.getParameter("sub_name");//氏名
+		subject_cd = req.getParameter("subject_cd");//学生番号
+		subject_name = req.getParameter("subject_name");//氏名
 
 		//DBからデータ取得 3
-		subject = subDao.get(subject_cd, null);// 学生番号から学生インスタンスを取得
+		subject = subDao.get(subject_cd, teacher.getSchool());// 科目管理から科目インスタンスを取得
 		List<String> list = cNumDao.filter(teacher.getSchool());// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 
