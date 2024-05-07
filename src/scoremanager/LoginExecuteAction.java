@@ -12,6 +12,9 @@ public class LoginExecuteAction extends Action{
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		//Sessionを有効にする
+		HttpSession session = req.getSession(true);
 		//ローカル変数の宣言 1
 		String url = "";
 
@@ -24,25 +27,30 @@ public class LoginExecuteAction extends Action{
 
 		//DBからデータ取得 3
 		TeacherDao teacherDao = new TeacherDao();
-		teacher = teacherDao.login(id, password);
 
-		//ビジネスロジック 4
+		try {
+			teacher = teacherDao.login(id, password);
 
-		//Sessionを有効にする
-		HttpSession session = req.getSession(true);
-		//セッションに"user"という変数名で値はTeacher型
-		session.setAttribute("user", teacher);
+			// 認証成功した場合リダイレクト
+			if (teacher != null) {
+				//セッションに"user"という変数名で値はTeacher型
+	            session.setAttribute("user", teacher);
+	            //menuページにリダイレクト
+	    		url = "main/Menu.action";
+	    		res.sendRedirect(url);
+	        } else {
+	        	//認証失敗の場合
+	            req.setAttribute("errorMessage", "ログインに失敗しました。IDまたはパスワードが正しくありません。");
+	            // エラーメッセージとともにログインページに戻る
+	            req.getRequestDispatcher("Login.action").forward(req, res);
+	        }
 
-		//DBへデータ保存 5
-		//なし
-		//レスポンス値をセット 6
-		//なし
-		//JSPへフォワード 7
-		//req.getRequestDispatcher("main/Menu.action").forward(req, res);
+		 } catch (Exception e) {
+	            e.printStackTrace(); // 例外情報の出力
+	            req.getRequestDispatcher("/error.jsp").forward(req, res); // エラーページへリダイレクト
+        }
 
-		//リダイレクト
-		url = "main/Menu.action";
-		res.sendRedirect(url);
+
 	}
 
 }
