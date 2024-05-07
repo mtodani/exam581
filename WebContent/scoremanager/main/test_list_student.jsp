@@ -100,7 +100,7 @@
 				<c:forEach var="stu_test" items="${test_list_student}">
 					<tr>
 						<td>${stu_test.getSubjectName()}</td>
-						<td>${stu_test.getSubjectCD()}</td>
+						<td>${stu_test.getSubjectCd()}</td>
 						<td>${stu_test.getNum()}</td>
 						<td>${stu_test.getPoint()}</td>
 					</tr>

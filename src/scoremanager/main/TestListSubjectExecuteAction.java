@@ -83,11 +83,11 @@ public class TestListSubjectExecuteAction extends Action{
 
 		}else{
 
-			//   DBからデータ取得 3
+			// DBからデータ取得 3
 			School school = teacher.getSchool();
 			Subject sub = sDao.get(subjectCd,school);
 
-			//   DBから成績表示に必要なデータをリスト形式で取得
+			// DBから成績表示に必要なデータをリスト形式で取得
 			TLSubList = TLSubDao.filter(school, entYear, classNum, sub);
 
 			req.setAttribute("test_list_subs", TLSubList);

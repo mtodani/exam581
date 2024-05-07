@@ -1,6 +1,5 @@
 package scoremanager.main;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +36,8 @@ public class TestListStudentExecuteAction extends Action{
 		Map<Integer,Integer> points = new HashMap<>();   // 成績
 		List<TestListStudent> TLStuList = new ArrayList<>();   // 空の成績リスト
 
-		LocalDate todaysDate = LocalDate.now();   // LcalDateインスタンスを取得
-		int year = todaysDate.getYear();   // 現在の年を取得
+//		LocalDate todaysDate = LocalDate.now();   // LcalDateインスタンスを取得
+//		int year = todaysDate.getYear();   // 現在の年を取得
 
 		List<Integer> entYearSet = new ArrayList<>();   // 入学年度のリストを初期化
 		ClassNumDao cNumDao = new ClassNumDao();   // クラス番号Daoを初期化
@@ -51,18 +50,17 @@ public class TestListStudentExecuteAction extends Action{
 		req.setAttribute("stu_num", student_num);
 
 		System.out.println(student_num);
+		System.out.println("1");
 
 
-		// 10年前から1年後まで年をリストに追加
-		for (int i = year - 10; i < year + 10; i++) {
-			entYearSet.add(i);
-		}
 
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> classlist = cNumDao.filter(teacher.getSchool());
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> sublist = sDao.filter(teacher.getSchool());
+
+		System.out.println("2");
 
 
 		//ビジネスロジック 4
@@ -72,6 +70,8 @@ public class TestListStudentExecuteAction extends Action{
 		}catch(NullPointerException e){
 			errors.put("nullpo", "学生番号が存在しませんでした。");
 		}
+
+		System.out.println("3");
 
 		//DBからデータ取得 3
 		//DBから成績表示に必要なデータをリスト形式で取得
@@ -85,9 +85,11 @@ public class TestListStudentExecuteAction extends Action{
 		req.setAttribute("classlist", classlist);
 		req.setAttribute("sublist", sublist);
 
-		System.out.print(errors.get("nullpo"));
+		System.out.println(errors.get("nullpo"));
 
 		req.setAttribute("errors", errors);
+
+		System.out.println("4");
 
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
