@@ -15,21 +15,21 @@
 		<label>科目コード</label>
 
 
-		<input type= "hidden" name="subject_no" value="${sub_cd}">
-		${sub_cd}
+		<input type= "hidden" name="subject" value="${subject}">
+		${subject.getSubject_cd()}
 
 
 		<label>科目名</label>
 		<input type="text" name="subject_name" placeholder="科目を入力してください"
-			maxlength="10" value="${sub_name}" required />
-		<div>${errors.get("sub_name")}</div>
+			maxlength="10" value="${subject_name}" required />
+		<div>${errors.get("subject_name")}</div>
 
 
 		<input type="submit" value="変更">
 
 	</form>
 
-	<a href="StudentList.action">戻る</a>
+	<a href="SubjectList.action">戻る</a>
 
 </body>
 </html>
