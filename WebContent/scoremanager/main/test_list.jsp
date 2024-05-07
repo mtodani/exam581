@@ -26,7 +26,7 @@
 		<label>クラス</label>
 		<select name="f2">
 			<option value="0">--------</option>
-			<c:forEach var="num" items="${class_num_set}">
+			<c:forEach var="num" items="${classlist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
 				<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
 			</c:forEach>
@@ -49,7 +49,7 @@
 
 		<p>学生情報</p>
 		<div>学生番号</div>
-		<input type="text" placeholder="学生番号を入力してください" >
+		<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" required>
 
 		<input type="submit" value="検索">
 

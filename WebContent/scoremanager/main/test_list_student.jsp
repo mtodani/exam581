@@ -26,7 +26,7 @@
 		<label>クラス</label>
 		<select name="f2">
 			<option value="0">--------</option>
-			<c:forEach var="num" items="${class_num_set}">
+			<c:forEach var="num" items="${classlist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
 				<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
 			</c:forEach>
@@ -48,7 +48,7 @@
 
 		<p>学生情報</p>
 		<div>学生番号</div>
-		<input type="text" placeholder="学生番号を入力してください" >
+		<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" required>
 
 		<input type="submit" value="検索">
 
@@ -58,11 +58,15 @@
 
 
     <c:choose>
-        <c:when test="${error.size != 0}">
-            <div>${errors.get("nullpo")}</div>
-        </c:when>
-		<c:when test="${test_list_subs != null }">
 
+
+        <c:when test="${errors.size() > 0 }">
+        <br>
+            ${errors.get("select")}
+            ${errors.get("nullpo")}
+
+        </c:when>
+		<c:when test="${test_list_subs.size() > 0 }">
 			<table>
 				<tr>
 					<th>入学年度</th>
@@ -85,7 +89,7 @@
 				</c:forEach>
 			</table>
 	    </c:when>
-	    <c:when test="${test_list_student != null}" >
+	    <c:when test="${test_list_student.size() > 0}" >
 	        <table>
 				<tr>
 					<th>科目名</th>
@@ -107,6 +111,7 @@
 			<div>成績情報が存在しません。</div>
 		</c:otherwise>
 	</c:choose>
+
 
 </body>
 </html>

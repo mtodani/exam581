@@ -74,7 +74,7 @@ public class TestListAction extends Action{
 
 		// リクエストにデータをセット
 		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("class_num_set", classlist);
+		req.setAttribute("classlist", classlist);
 		req.setAttribute("sublist", sublist);
 
 		//JSPへフォワード 7

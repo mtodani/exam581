@@ -30,9 +30,9 @@ public class TestListSubjectDao extends Dao{
 
 	            // 学生インスタンスに検索結果をセット
 	            test_list_subject.setEntYear(rSet.getInt("ent_year"));
-	            test_list_subject.setStudentNo(rSet.getString("studentNo"));
-	            test_list_subject.setStudentName(rSet.getString("studentName"));
-	            test_list_subject.setClassNum(rSet.getString("classNum"));
+	            test_list_subject.setStudentNo(rSet.getString("student_no"));
+	            test_list_subject.setStudentName(rSet.getString("student_name"));
+	            test_list_subject.setClassNum(rSet.getString("class_num"));
 	            points.put(rSet.getInt("test_no"),rSet.getInt("point"));
 	            test_list_subject.setPoints(points);
 
@@ -62,9 +62,9 @@ public class TestListSubjectDao extends Dao{
 
         	// プリペアードステートメントにSQL文をセット
         	statement = connection.prepareStatement(
-        			"SELECT ent_year, test.class_num, test.student_no, student_name, test.test_no, point "
-		            + "FROM TEST inner join student on test.student_no = student.student_no"
-		            + "where ent_year = ? and test.class_num = ? and subject_cd = ? and test.school_cd = ?");
+                    "SELECT ent_year,test.student_no ,student_name,test.class_num,test.test_no,point "
+                    + "FROM TEST inner join student on test.student_no = student.student_no "
+                    + "where ent_year = ? and test.class_num = ? and subject_cd = ? and test.school_cd = ?");
         	statement.setInt(1, entYear);
             statement.setString(2, classNum);
             statement.setString(3, sub.getSubject_cd());

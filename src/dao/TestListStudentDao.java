@@ -25,9 +25,9 @@ public class TestListStudentDao extends Dao{
 	            TestListStudent test_list_student = new TestListStudent();
 
 	            // 学生インスタンスに検索結果をセット
-	            test_list_student.setSubjectName(rSet.getString("subjectName"));
-	            test_list_student.setSubjectCd(rSet.getString("subjectCd"));
-	            test_list_student.setNum(rSet.getInt("num"));
+	            test_list_student.setSubjectName(rSet.getString("subject_name"));
+	            test_list_student.setSubjectCd(rSet.getString("subject_cd"));
+	            test_list_student.setNum(rSet.getInt("test_no"));
 	            test_list_student.setPoint(rSet.getInt("point"));
 
 	            // リストに追加
@@ -56,9 +56,11 @@ public class TestListStudentDao extends Dao{
 
         	// プリペアードステートメントにSQL文をセット
         	statement = connection.prepareStatement(
-        			"SELECT subject.subject_name, subject.subject_cd,test_no, point "
-        			+ "FROM TEST inner join SUBJECT ON subject.subject_cd = test.subject_cd"
-        			+ "where ");
+        			"SELECT subject.SUBJECT_NAME,test.SUBJECT_CD,test.TEST_NO ,test.POINT " +
+		            "FROM test left outer join subject " +
+		            "ON  subject.subject_cd = test.subject_cd and subject.school_cd = test.school_cd "  +
+		            "where test.student_no = ? ");
+        	statement.setString(1,student.getStudent_no());
 
         	// プリペアードステートメントを実行
             rSet = statement.executeQuery();
