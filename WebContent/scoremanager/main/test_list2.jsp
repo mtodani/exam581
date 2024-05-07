@@ -47,7 +47,7 @@
 
 	<form action = "TestListStudentExecute2.action" method="post">
 		<label>学生番号 </label>
-		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled" value="2374582" required>
+		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
 
 		<input type="submit" value="学生参照">
 	</form>
