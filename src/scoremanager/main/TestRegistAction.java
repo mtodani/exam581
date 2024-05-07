@@ -72,16 +72,10 @@ public class TestRegistAction extends Action {
 			//Testリストに
 			tests = tDao.filter(entYearStr,classNum,subject,numStr,teacher.getSchool());
 
+		} else {
+			errors.put("f1", "error");
+			req.setAttribute("errors", errors);
 		}
-//		else {
-//			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-//			req.setAttribute("errors", errors);
-//			// 全学生情報を取得
-//			tests = tDao.filter(teacher.getSchool(), isAttend);
-//			System.out.println("4");
-//
-//		}
-
 		//ビジネスロジック 4
 		// リストを初期化
 		List<Integer> entYearSet = new ArrayList<>();
