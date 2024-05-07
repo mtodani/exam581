@@ -17,17 +17,16 @@
 
 					<%--value name 見返す --%>
 
-		<input type="text"
-			name="subject_cd" placeholder="科目コードを入力してください" maxlength="10" value="${sub_cd}" required />
-		<div>${errors.get("sub_cd")}</div>
+		<input type= "hidden" name="subject_cd" value="${subject_cd}">
+		${subject_cd}
 
 		<label>科目名</label>
 
 					<%--value name 見返す --%>
 
 		<input type="text"
-			name="subject_name" placeholder="科目名を入力してください" maxlength="10" value="${sub_name}" required />
-		<div>${errors.get("sub_name")}</div>
+			name="subject_name" placeholder="科目名を入力してください" maxlength="10" value="${subject_name}" required />
+		<div>${errors.get("subject_name")}</div>
 
 
 		<input type="submit" value="登録して終了">

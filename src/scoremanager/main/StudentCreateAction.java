@@ -17,7 +17,7 @@ public class StudentCreateAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
-		HttpSession session = req.getSession(true);// セッションを取得
+		HttpSession session = req.getSession();// セッションを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
