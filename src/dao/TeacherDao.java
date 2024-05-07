@@ -1,5 +1,5 @@
 package dao;
-//test
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +51,7 @@ public class TeacherDao extends Dao {
         } catch (SQLException e) {
             e.printStackTrace(); // 例外処理はまだ
         } catch (Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace();
         }
 
         //ログインされたteacherのデータを返す

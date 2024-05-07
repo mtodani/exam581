@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +16,13 @@
 </header>
 
     <h2>ログイン画面</h2>
+
+    <!-- エラーメッセージ表示部分  -->
+	<c:if test="${not empty errorMessage}">
+	    <ul>
+	        <li>${errorMessage}</li>
+	    </ul>
+	</c:if>
 
     <form action="LoginExecute.action" method="post">
         <label for="id">ID</label>
