@@ -20,7 +20,7 @@
 			<%-- 入学年度の一覧から選択する --%>
 			<c:forEach var="year" items="${ent_year_set}">
 				<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-				<option value="${year}" >${year}</option>
+				<option value="${year}" <c:if test="${num==f1}">selected</c:if>>${year}</option>
 			</c:forEach>
 		</select>
 
