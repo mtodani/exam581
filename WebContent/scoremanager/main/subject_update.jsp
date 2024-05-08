@@ -15,7 +15,7 @@
 		<label>科目コード</label>
 
 
-		<input type= "hidden" name="subject" value="${subject}">
+		<input type= "hidden" name="subject_cd" value="${subject_cd}">
 		${subject.getSubject_cd()}
 
 

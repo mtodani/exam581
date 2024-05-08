@@ -54,12 +54,12 @@ public class SubjectCreateExecuteAction extends Action{
 
 
 		if (subject == null) {// 学生が未登録だった場合
-			// 学生インスタンスを初期化
+			// 科目ンスタンスを初期化
 			subject = new Subject();
 			// インスタンスに値をセット
 			subject.setSubject_cd(subject_cd);
 			subject.setSubject_name(subject_name);
-//				subject.setAttend(true);
+			subject.setSubject_now(true);
 			subject.setSchool(((Teacher)session.getAttribute("user")).getSchool());
 			// 科目を保存
 			subDao.save(subject);
@@ -79,8 +79,8 @@ public class SubjectCreateExecuteAction extends Action{
 		if(!errors.isEmpty()){
 			// リクエスト属性をセット
 			req.setAttribute("errors", errors);
-			req.setAttribute("sub_cd", subject_cd);
-			req.setAttribute("sub_name", subject_name);
+			req.setAttribute("subject_cd", subject_cd);
+			req.setAttribute("subject_name", subject_name);
 			req.getRequestDispatcher("subject_create.jsp").forward(req, res);
 			return;
 		}

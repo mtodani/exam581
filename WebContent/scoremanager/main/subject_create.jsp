@@ -17,8 +17,9 @@
 
 					<%--value name 見返す --%>
 
-		<input type= "hidden" name="subject_cd" value="${subject_cd}">
-		${subject_cd}
+		<input type="text"
+			name="subject_cd" placeholder="科目コードを入力してください" maxlength="10" value="${subject_cd}" required />
+		<div>${errors.get("subject_cd")}</div>
 
 		<label>科目名</label>
 
