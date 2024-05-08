@@ -106,8 +106,8 @@ public class SubjectDao extends Dao{
 	            // 科目インスタンスに検索結果をセット
 	        	subject.setSubject_cd(rSet.getString("subject_cd"));
 	        	subject.setSubject_name(rSet.getString("subject_name"));
-
 	            subject.setSchool(school);
+	            subject.setSubject_now(rSet.getBoolean("subject_now"));
 
 	            // リストに追加
 	            list.add(subject);
@@ -129,22 +129,19 @@ public class SubjectDao extends Dao{
 	 * @return 学生のリスト:List<Student> 存在しない場合は0件のリスト
 	 * @throws Exception
 	 */
-	public List<Subject> filter(School school, boolean issubject_now) throws Exception {
+	public List<Subject> filter(School school) throws Exception {
 		//まずはここに処理追加
 		List<Subject> list = new ArrayList<>();
         Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet rSet = null;
+        String condition_subject_now = "and subject_now=true";
         String order = " order by subject_cd asc";
 
         // SQL文の作成
-        String conditionissubject_now = "";
-        if (issubject_now) {
-            conditionissubject_now = "and issubject_now=true";
-        }
 
         try {
-            statement = connection.prepareStatement(baseSql + conditionissubject_now + order);
+            statement = connection.prepareStatement(baseSql + condition_subject_now + order);
             statement.setString(1, school.getSchool_cd());
             rSet = statement.executeQuery();
 
@@ -189,56 +186,56 @@ public class SubjectDao extends Dao{
 	 * @return 科目のリスト:List<Subject> 存在しない場合は0件のリスト
 	 * @throws Exception
 	 */
-	public List<Subject> filter(School school) throws Exception {
-		//まずはここに処理追加
-		List<Subject> list = new ArrayList<>();
-        Connection connection = getConnection();
-        PreparedStatement statement = null;
-        ResultSet rSet = null;
-
-        String order = " order by subject_cd asc";
-
-
-
-
-
-        try {
-            statement = connection.prepareStatement(baseSql + order);
-            statement.setString(1, school.getSchool_cd());
-
-            rSet = statement.executeQuery();
-            list = postFilter(rSet, school);
-        }catch(Exception e){
-			throw e;
-
-		}finally {
-            // Close resources in finally block to ensure they're always closed
-
-            if (statement != null) {
-            	try {
-
-            		statement.close();
-
-				} catch (SQLException sqle) {
-					// TODO: handle exception
-					throw sqle;
-				}
-
-            }
-            if (connection != null) {
-            	try {
-            		 connection.close();
-
-				} catch (SQLException sqle) {
-					// TODO: handle exception
-					throw sqle;
-				}
-
-            }
-        }
-
-        return list;
-	}
+//	public List<Subject> filter(School school) throws Exception {
+//		//まずはここに処理追加
+//		List<Subject> list = new ArrayList<>();
+//        Connection connection = getConnection();
+//        PreparedStatement statement = null;
+//        ResultSet rSet = null;
+//
+//        String order = " order by subject_cd asc";
+//
+//
+//
+//
+//
+//        try {
+//            statement = connection.prepareStatement(baseSql + order);
+//            statement.setString(1, school.getSchool_cd());
+//
+//            rSet = statement.executeQuery();
+//            list = postFilter(rSet, school);
+//        }catch(Exception e){
+//			throw e;
+//
+//		}finally {
+//            // Close resources in finally block to ensure they're always closed
+//
+//            if (statement != null) {
+//            	try {
+//
+//            		statement.close();
+//
+//				} catch (SQLException sqle) {
+//					// TODO: handle exception
+//					throw sqle;
+//				}
+//
+//            }
+//            if (connection != null) {
+//            	try {
+//            		 connection.close();
+//
+//				} catch (SQLException sqle) {
+//					// TODO: handle exception
+//					throw sqle;
+//				}
+//
+//            }
+//        }
+//
+//        return list;
+//	}
 
 
 	public boolean save (Subject subject) throws Exception {
@@ -256,7 +253,7 @@ public class SubjectDao extends Dao{
 				// 科目が存在しなかった場合
 				// プリペアードステートメンにINSERT文をセットと
 				statement = connection. prepareStatement (
-				"insert into subject (subject_cd,subject_name,school_cd,issubject_now) values(?, ?, ? ,?)");
+				"insert into subject (subject_cd,subject_name,school_cd,subject_now) values(?, ?, ? ,?)");
 				// プリペアードステートメントに値をバインド
 				statement.setString(1,subject.getSubject_cd()) ;
 				statement.setString (2,subject.getSubject_name()) ;
@@ -325,10 +322,10 @@ public class SubjectDao extends Dao{
 //				statement.setString (2,subject.getSubject_name()) ;
 //				statement.setString(3,subject.getSchool().getSchool_cd ());
 			}else {
-				//学生が存在した場合 更新！
+				//科目が存在した場合 更新！
 				//プリペアードステートメントにUPDATE文をセット
 				statement = connection
-				.prepareStatement ("update subject set issubject_now=? where subject_cd=? ");
+				.prepareStatement ("update subject set subject_now=? where subject_cd=? ");
 				// プリペアードステートメントに値をバインド
 				statement.setBoolean(1,subject.isSubject_now());
 				statement. setString (2, subject.getSubject_cd ()) ;
