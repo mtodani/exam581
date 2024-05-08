@@ -49,7 +49,8 @@ public class TestListSubjectExecuteAction extends Action{
 		classNum = req.getParameter("f2");   // クラス番号
 		subjectCd = req.getParameter("f3");   // 科目
 
-		System.out.print(entYearStr);
+		System.out.println(entYearStr);
+		System.out.println("1");
 
 		req.setAttribute("f1", entYearStr);
 		req.setAttribute("f2", classNum);
@@ -62,6 +63,8 @@ public class TestListSubjectExecuteAction extends Action{
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> sublist = sDao.filter(teacher.getSchool());
 
+		System.out.println("2");
+
 
 		//ビジネスロジック 4
 		if (entYearStr != null) {
@@ -73,13 +76,14 @@ public class TestListSubjectExecuteAction extends Action{
 			entYearSet.add(i);
 		}
 
+		System.out.println("3");
 
 		//DBへデータ保存 5
 		//なし
 
 		//レスポンス値をセット 6
 		if (entYear == 0 || classNum.equals("0") || subjectCd.equals("0")) {// 入学年度が選択されていない場合
-			errors.put("select", "入学年度、クラス、科目のすべてを選択してください");
+			errors.put("select", "入学年度とクラスと科目を選択してください");
 
 		}else{
 
@@ -94,11 +98,15 @@ public class TestListSubjectExecuteAction extends Action{
 
 		}
 
+		System.out.println("4");
+
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("classlist", classlist);
 		req.setAttribute("sublist", sublist);
 
 		req.setAttribute("errors", errors);
+
+		System.out.println("5");
 
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
