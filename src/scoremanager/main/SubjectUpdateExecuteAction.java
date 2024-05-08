@@ -26,13 +26,14 @@ public class SubjectUpdateExecuteAction extends Action{
 		//リクエストパラメータ―の取得 2
 		String subject_cd = req.getParameter("subject_cd");
 		String subject_name = req.getParameter("subject_name");
+		System.out.print(subject_cd);
+		System.out.print(subject_name);
 
 
 		//DBからデータ取得 3
 		Subject subject = subDao.get(subject_cd,teacher.getSchool());// 科目コードと学校コードから科目インスタンスを取得
 		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-		System.out.print(subject_cd);
-		System.out.print(subject_name);
+
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で4～5が分岐

@@ -5,8 +5,15 @@ public class Subject implements java.io.Serializable{
 	private String subject_cd;
 	private String subject_name;
 	private School school;
+	private boolean subject_now;
 
 
+	public boolean isSubject_now() {
+		return subject_now;
+	}
+	public void setSubject_now(boolean subject_now) {
+		this.subject_now = subject_now;
+	}
 	//ゲッター・セッター
 	public String getSubject_cd() {
 		return subject_cd;
