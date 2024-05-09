@@ -13,21 +13,30 @@ import bean.Teacher;
 import dao.SubjectDao;
 import tool.Action;
 
-public class SubjectUpdateExecuteAction extends Action{
+public class SubjectDeleteExecuteAction extends Action{
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
 		SubjectDao subDao = new SubjectDao();// 科目Dao
 		HttpSession session = req.getSession();//セッション
+		boolean subject_now = false;//科目フラグ
 		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		//リクエストパラメータ―の取得 2
 		String subject_cd = req.getParameter("subject_cd");
 		String subject_name = req.getParameter("subject_name");
-		System.out.print(subject_cd);
-		System.out.print(subject_name);
+		String nowStr = req.getParameter("subject_now");
+
+		// 科目フラグが存在した場合
+				if (nowStr != null) {
+					// 科目フラグを消す
+					subject_now = false;
+				}
+		System.out.println(subject_cd);
+		System.out.println(subject_name);
+		System.out.println(subject_now);
 
 
 		//DBからデータ取得 3
@@ -40,10 +49,10 @@ public class SubjectUpdateExecuteAction extends Action{
 		if (subject != null) {
 			// 科目が存在していた場合
 			// インスタンスに値をセット
-			subject.setSubject_name(subject_name);
+			subject.setSubject_now(subject_now);
 
 			// 科目を保存
-			subDao.save(subject);
+			subDao.delete(subject);
 		} else {
 			errors.put("subject_cd", "科目が存在していません");
 		}
@@ -58,12 +67,10 @@ public class SubjectUpdateExecuteAction extends Action{
 			req.setAttribute("errors", errors);
 			req.setAttribute("subject_cd", subject_cd);
 			req.setAttribute("subject_name", subject_name);
-			req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+			req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
 			return;
 		}
 
-		req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
+		req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
 	}
 }
-
-

@@ -9,23 +9,21 @@
 <title>得点管理システム</title>
 </head>
 <body>
-	<h2>学生情報変更</h2>
-	<form action = "SubjectUpdateExecute.action" method="post">
-
-		<label>科目コード</label>
+	<h2>学生情報削除</h2>
+	<form action = "SubjectDeleteExecute.action" method="post">
 
 
+
+		<input type= "hidden" name="subject_name" value="${subject_name}">
 		<input type= "hidden" name="subject_cd" value="${subject_cd}">
-		${subject.getSubject_cd()}
+		「${subject.getSubject_name()}(${subject.getSubject_cd()})を削除しますか？」
 
 
-		<label>科目名</label>
-		<input type="text" name="subject_name" placeholder="科目を入力してください"
-			maxlength="10" value="${subject_name}" required />
-		<div>${errors.get("subject_name")}</div>
 
 
-		<input type="submit" value="変更">
+
+
+		<br><input type="submit" value="削除">
 
 	</form>
 

@@ -62,19 +62,20 @@
 
         <c:when test="${errors.size() > 0 }">
         <br>
-            ${errors.get("select")}
+            <font color="orange">${errors.get("select")}</font>
             ${errors.get("nullpo")}
 
         </c:when>
 		<c:when test="${test_list_subs.size() > 0 }">
 			<table>
+				<div>科目 : ${f3 }</div>
 				<tr>
 					<th>入学年度</th>
 					<th>クラス</th>
 					<th>学生番号</th>
 					<th>氏名</th>
-					<th class ="text-center">1回目</th>
-					<th class ="text-center">2回目</th>
+					<th class ="text-center">1回</th>
+					<th class ="text-center">2回</th>
 				</tr>
 				<c:forEach var="sub_test" items="${test_list_subs}">
 					<tr>
@@ -91,6 +92,7 @@
 	    </c:when>
 	    <c:when test="${test_list_student.size() > 0}" >
 	        <table>
+	        	<div>氏名 : ${stu_name } (${stu_num })</div>
 				<tr>
 					<th>科目名</th>
 					<th>科目コード</th>
@@ -100,7 +102,7 @@
 				<c:forEach var="stu_test" items="${test_list_student}">
 					<tr>
 						<td>${stu_test.getSubjectName()}</td>
-						<td>${stu_test.getSubjectCD()}</td>
+						<td>${stu_test.getSubjectCd()}</td>
 						<td>${stu_test.getNum()}</td>
 						<td>${stu_test.getPoint()}</td>
 					</tr>
@@ -108,7 +110,8 @@
 			</table>
 	    </c:when>
 		<c:otherwise>
-			<div>成績情報が存在しません。</div>
+			<div>氏名 : ${stu_name } (${stu_num })</div>
+			<div>成績情報が存在しませんでした。</div>
 		</c:otherwise>
 	</c:choose>
 

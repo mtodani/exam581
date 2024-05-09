@@ -51,18 +51,22 @@ public class TestListStudentExecuteAction extends Action{
 		req.setAttribute("stu_num", student_num);
 
 		System.out.println(student_num);
+		System.out.println("1");
 
 
 		// 10年前から1年後まで年をリストに追加
-		for (int i = year - 10; i < year + 10; i++) {
+		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
+
 
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> classlist = cNumDao.filter(teacher.getSchool());
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> sublist = sDao.filter(teacher.getSchool());
+
+		System.out.println("2");
 
 
 		//ビジネスロジック 4
@@ -73,9 +77,15 @@ public class TestListStudentExecuteAction extends Action{
 			errors.put("nullpo", "学生番号が存在しませんでした。");
 		}
 
+		System.out.println("3");
+
 		//DBからデータ取得 3
 		//DBから成績表示に必要なデータをリスト形式で取得
 		req.setAttribute("test_list_student",TLStuList);
+
+		// jspで学生名を表示させるためのもの
+		String stu_name = student.getStudent_name();
+		req.setAttribute("stu_name", stu_name);
 
 		//DBへデータ保存 5
 		//なし
@@ -85,9 +95,11 @@ public class TestListStudentExecuteAction extends Action{
 		req.setAttribute("classlist", classlist);
 		req.setAttribute("sublist", sublist);
 
-		System.out.print(errors.get("nullpo"));
+		System.out.println(errors.get("nullpo"));
 
 		req.setAttribute("errors", errors);
+
+		System.out.println("4");
 
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
