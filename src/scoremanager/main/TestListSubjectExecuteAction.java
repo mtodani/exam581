@@ -82,7 +82,8 @@ public class TestListSubjectExecuteAction extends Action{
 		//なし
 
 		//レスポンス値をセット 6
-		if (entYear == 0 || classNum.equals("0") || subjectCd.equals("0")) {// 入学年度が選択されていない場合
+		// 入学年度が選択されていない場合
+		if (entYear == 0 || classNum.equals("0") || subjectCd.equals("0")) {
 			errors.put("select", "入学年度とクラスと科目を選択してください");
 
 		}else{
