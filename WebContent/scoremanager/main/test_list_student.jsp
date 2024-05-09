@@ -79,10 +79,10 @@
 				</tr>
 				<c:forEach var="sub_test" items="${test_list_subs}">
 					<tr>
-						<td>${sub_test.getEntYear()}</td>
-						<td>${sub_test.getClassNum()}</td>
-						<td>${sub_test.getStudentNo()}</td>
-						<td>${sub_test.getStudentName()}</td>
+						<td>${sub_test.entYear}</td>
+						<td>${sub_test.classNum}</td>
+						<td>${sub_test.studentNo}</td>
+						<td>${sub_test.studentName}</td>
 						<td>${sub_test.getPoint(1)}</td>
 						<td>${sub_test.getPoint(2)}</td>
 
@@ -101,10 +101,10 @@
 				</tr>
 				<c:forEach var="stu_test" items="${test_list_student}">
 					<tr>
-						<td>${stu_test.getSubjectName()}</td>
-						<td>${stu_test.getSubjectCd()}</td>
-						<td>${stu_test.getNum()}</td>
-						<td>${stu_test.getPoint()}</td>
+						<td>${stu_test.subjectName}</td>
+						<td>${stu_test.subjectCd}</td>
+						<td>${stu_test.num}</td>
+						<td>${stu_test.point}</td>
 					</tr>
 				</c:forEach>
 			</table>
