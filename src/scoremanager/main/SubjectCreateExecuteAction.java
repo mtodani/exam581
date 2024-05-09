@@ -59,8 +59,8 @@ public class SubjectCreateExecuteAction extends Action{
 			// インスタンスに値をセット
 			subject.setSubject_cd(subject_cd);
 			subject.setSubject_name(subject_name);
-			subject.setSubject_now(true);
 			subject.setSchool(((Teacher)session.getAttribute("user")).getSchool());
+			subject.setSubject_now(true);
 			// 科目を保存
 			subDao.save(subject);
 		} else {//入力された学番がDBに保存されていた場合

@@ -47,7 +47,8 @@ public class LoginExecuteAction extends Action{
 
 		 } catch (Exception e) {
 	            e.printStackTrace(); // 例外情報の出力
-	            req.getRequestDispatcher("/error.jsp").forward(req, res); // エラーページへリダイレクト
+	            // エラーページへリダイレクト
+	            res.sendRedirect("error.jsp");
         }
 
 
