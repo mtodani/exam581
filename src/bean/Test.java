@@ -9,6 +9,8 @@ public class Test implements java.io.Serializable{
 	private School school;
 	private int no;
 	private int point;
+	private int no2;
+	private int point2;
 
 	// ゲッター、セッター
 	public Student getStudent() {
@@ -41,11 +43,23 @@ public class Test implements java.io.Serializable{
 	public void setNo(int no) {
 		this.no = no;
 	}
+	public int getNo2() {
+		return no2;
+	}
+	public void setNo2(int no2) {
+		this.no2 = no2;
+	}
 	public int getPoint() {
 		return point;
 	}
 	public void setPoint(int point) {
 		this.point = point;
+	}
+	public int getPoint2() {
+		return point2;
+	}
+	public void setPoint2(int point2) {
+		this.point2 = point2;
 	}
 
 }
