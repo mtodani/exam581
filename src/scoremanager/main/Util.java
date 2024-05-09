@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import bean.Student;
+import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
+import dao.SubjectDao;
 
 public class Util{
 
@@ -63,6 +65,12 @@ public class Util{
 	}
 
 	public void setSubjects(HttpServletRequest req)throws Exception{
+		
+		SubjectDao subDao = new SubjectDao();//科目Dao
+//		int entYear;//入学年度
+		String subject_cd = "";//科目コード
+		String subject_name = "";//科目名
+		Subject subject = null;//科目
 
 		HttpSession session = req.getSession();//セッション
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得

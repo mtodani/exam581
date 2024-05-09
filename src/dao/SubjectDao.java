@@ -312,16 +312,7 @@ public class SubjectDao extends Dao{
 		try {
 			// データベースから科目を取得
 			Subject old = get (subject.getSubject_cd(),subject.getSchool());
-			if(old == null) {
-				// 科目が存在しなかった場合
-				// プリペアードステートメンにINSERT文をセットと
-//				statement = connection. prepareStatement (
-//				"insert into subject (subject_cd,subject_name,school_cd) values(?, ?, ? )");
-//				// プリペアードステートメントに値をバインド
-//				statement.setString(1,subject.getSubject_cd()) ;
-//				statement.setString (2,subject.getSubject_name()) ;
-//				statement.setString(3,subject.getSchool().getSchool_cd ());
-			}else {
+			if(old != null) {
 				//科目が存在した場合 更新！
 				//プリペアードステートメントにUPDATE文をセット
 				statement = connection
@@ -329,7 +320,6 @@ public class SubjectDao extends Dao{
 				// プリペアードステートメントに値をバインド
 				statement.setBoolean(1,subject.isSubject_now());
 				statement. setString (2, subject.getSubject_cd ()) ;
-
 			}
 
 			//プリペアードステートメントを実行

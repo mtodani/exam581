@@ -20,6 +20,7 @@ public class SubjectDeleteAction extends Action{
 		//ローカル変数の宣言 1
 		SubjectDao subDao = new SubjectDao();//科目Dao
 		HttpSession session = req.getSession();//セッション
+		
 		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
