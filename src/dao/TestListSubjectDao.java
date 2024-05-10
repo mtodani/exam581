@@ -62,8 +62,11 @@ public class TestListSubjectDao extends Dao{
 
 	            }
 	        }
-            // リストに追加
-            list.add(test_list_subject);
+
+	        if(!(student.equals(""))) {
+	            // リストに追加
+	            list.add(test_list_subject);
+	        }
 
 	    } catch (SQLException | NullPointerException e) {
 	        e.printStackTrace();
