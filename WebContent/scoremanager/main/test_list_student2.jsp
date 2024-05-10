@@ -78,22 +78,31 @@
 				</tr>
 				<c:forEach var="sub_test" items="${test_list_subs}">
 
-			    <c:if test="${sub_test.getPoint(2) == '-' }">
-					<tr>
+				<tr>
+<!-- 
+			    <c:if test="${sub_test.getPoint(2).equals('-') }">
+
 						<td>${sub_test.getEntYear()}</td>
 						<td>${sub_test.getClassNum()}</td>
 						<td>${sub_test.getStudentNo()}</td>
 						<td>${sub_test.getStudentName()}</td>
 						<td>${sub_test.getPoint(1)}</td>
 				</c:if>
-				<c:choose>
-				     <c:when test="${sub_test.getPoint(1)=='-' }">
-				        <td>${sub_test.getPoint(2)}</td>
-				       </tr>
-				     </c:when>
-				     <c:when test="">
-				     </c:when>
-				</c:choose>
+				<c:if test="${sub_test.getPoint(1).equals('-')}">
+			            <td>${sub_test.getPoint(2)}</td>
+				</c:if>
+
+ -->
+						<td>${sub_test.getEntYear()}</td>
+						<td>${sub_test.getClassNum()}</td>
+						<td>${sub_test.getStudentNo()}</td>
+						<td>${sub_test.getStudentName()}</td>
+						<td>${sub_test.getPoint(1)}</td>
+			            <td>${sub_test.getPoint(2)}</td>
+
+				</tr>
+				<c:if test="">
+				</c:if>
 				</c:forEach>
 			</table>
 	    </c:when>

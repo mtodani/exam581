@@ -1,44 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:import url="/common/base.jsp">
+	<c:param name="title">
+		得点管理システム
+	</c:param>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<c:param name="scripts"></c:param>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>得点管理システム</title>
-</head>
-<body>
+	<c:param name="content">
 
-<header>
- 	<h1>得点管理システム</h1>
+	    <h2>ログイン画面</h2>
 
-</header>
+	    <!-- エラーメッセージ表示部分  -->
+		<c:if test="${not empty errorMessage}">
+		    <ul>
+		        <li>${errorMessage}</li>
+		    </ul>
+		</c:if>
 
-    <h2>ログイン画面</h2>
+	    <form action="LoginExecute.action" method="post">
+	        <label for="id">ID</label>
+	        <input type="text" id="id" name="id" autocomplete="off" style="ime-mode:disabled" value="teacher2" required><br>
 
-    <!-- エラーメッセージ表示部分  -->
-	<c:if test="${not empty errorMessage}">
-	    <ul>
-	        <li>${errorMessage}</li>
-	    </ul>
-	</c:if>
+	        <label for="password">パスワード</label>
+	        <input type="password" id="password" name="password" value="password2" required><br>
 
-    <form action="LoginExecute.action" method="post">
-        <label for="id">ID</label>
-        <input type="text" id="id" name="id" autocomplete="off" style="ime-mode:disabled" value="teacher2" required><br>
+	        <input type="checkbox" id="showPassword" name="showPassword">
+	        <label for="showPassword">パスワードを表示（まだできません）</label><br>
 
-        <label for="password">パスワード</label>
-        <input type="password" id="password" name="password" value="password2" required><br>
+	        <input type="submit" value="ログイン">
+	    </form>
 
-        <input type="checkbox" id="showPassword" name="showPassword">
-        <label for="showPassword">パスワードを表示（まだできません）</label><br>
+	</c:param>
 
-        <input type="submit" value="ログイン">
-    </form>
 
-    <footer>
-        &copy; 2024 TIC 大原学園
-    </footer>
-</body>
-</html>
+</c:import>

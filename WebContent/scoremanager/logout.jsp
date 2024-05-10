@@ -1,26 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>得点管理システム</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:import url="/common/base.jsp">
 
-<header>
- 	<h1>得点管理システム</h1>
+	<c:param name="title">
+		得点管理システム
+	</c:param>
 
-</header>
+	<c:param name="scripts"></c:param>
 
-    <h2>ログアウト画面</h2>
+	<c:param name="content">
 
-    <p>ログアウトしました。</p>
+	    <h2>ログアウト画面</h2>
 
+	    <p>ログアウトしました。</p>
 
-    <a href="Login.action">ログイン画面へ</a>
+	    <a href="Login.action">ログイン画面へ</a>
 
-    <footer>
-        &copy; 2024 TIC 大原学園
-    </footer>
-</body>
-</html>
+ 	</c:param>
+
+</c:import>
