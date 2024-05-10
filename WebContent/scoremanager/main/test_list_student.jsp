@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<h2>成績参照</h2>
+	<h2>成績一覧(${dai })</h2>
 	<div>科目情報</div>
 
 	<form action="TestListSubjectExecute.action" method="post">
@@ -36,7 +36,7 @@
 		<select name="f3">
 			<option value="0">--------</option>
 			<c:forEach var="sub" items="${sublist}">
-				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
+				<%-- 現在のsubと選択されていたf3が一致していた場合selectedを追記 --%>
 				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
 			</c:forEach>
 		</select>

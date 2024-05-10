@@ -36,6 +36,7 @@ public class TestListSubjectExecuteAction extends Action{
 		String entYearStr="";// 入力された入学年度
 		Map<Integer,Integer> points = new HashMap<>();   // 成績
 		List<TestListSubject> TLSubList = new ArrayList<>();   //空の成績リスト
+		String dai = "科目";   // jsp先で科目と学生の表示を切り替える用
 
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
@@ -104,6 +105,8 @@ public class TestListSubjectExecuteAction extends Action{
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("classlist", classlist);
 		req.setAttribute("sublist", sublist);
+
+		req.setAttribute("dai", dai);
 
 		req.setAttribute("errors", errors);
 

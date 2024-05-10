@@ -36,6 +36,7 @@ public class TestListStudentExecuteAction extends Action{
 		String student_num;   // 学生番号の宣言
 		Map<Integer,Integer> points = new HashMap<>();   // 成績
 		List<TestListStudent> TLStuList = new ArrayList<>();   // 空の成績リスト
+		String dai = "学生";   // jsp先で科目と学生の表示を切り替える用
 
 		LocalDate todaysDate = LocalDate.now();   // LcalDateインスタンスを取得
 		int year = todaysDate.getYear();   // 現在の年を取得
@@ -84,8 +85,13 @@ public class TestListStudentExecuteAction extends Action{
 		req.setAttribute("test_list_student",TLStuList);
 
 		// jspで学生名を表示させるためのもの
-		String stu_name = student.getStudent_name();
-		req.setAttribute("stu_name", stu_name);
+		if(student != null){
+			String stu_name = student.getStudent_name();
+			req.setAttribute("stu_name", stu_name);
+		} else {
+			System.out.println("学生なし");   // ←なくてもいい。
+		}
+
 
 		//DBへデータ保存 5
 		//なし
@@ -94,6 +100,8 @@ public class TestListStudentExecuteAction extends Action{
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("classlist", classlist);
 		req.setAttribute("sublist", sublist);
+
+		req.setAttribute("dai", dai);
 
 		System.out.println(errors.get("nullpo"));
 
