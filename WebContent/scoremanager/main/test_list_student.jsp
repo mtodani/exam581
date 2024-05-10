@@ -109,10 +109,21 @@
 				</c:forEach>
 			</table>
 	    </c:when>
-		<c:otherwise>
-			<div>氏名 : ${stu_name } (${stu_num })</div>
-			<div>成績情報が存在しませんでした。</div>
-		</c:otherwise>
+
+	    <c:otherwise>
+
+	    	<c:choose>
+	    		<c:when test="${student != null }">
+			    	<div>氏名 : ${stu_name } (${stu_num })</div>
+					<div>成績情報が存在しませんでした。</div>
+			    </c:when>
+				<c:otherwise>
+					<div>成績情報が存在しませんでした。</div>
+				</c:otherwise>
+	    	</c:choose>
+
+	    </c:otherwise>
+
 	</c:choose>
 
 
