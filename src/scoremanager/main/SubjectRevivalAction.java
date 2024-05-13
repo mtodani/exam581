@@ -12,7 +12,7 @@ import bean.Teacher;
 import dao.SubjectDao;
 import tool.Action;
 
-public class SubjectDeleteAction extends Action{
+public class SubjectRevivalAction extends Action{
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -28,7 +28,6 @@ public class SubjectDeleteAction extends Action{
 
 		//DBからデータ取得 3
 		Subject subject = subDao.get(subject_cd,teacher.getSchool());//科目番号から科目インスタンスを取得
-		System.out.print(subject_cd);
 //		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 

@@ -1,7 +1,6 @@
 package scoremanager.main;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +29,10 @@ public class SubjectDeleteExecuteAction extends Action{
 		String nowStr = req.getParameter("subject_now");
 
 		// 科目フラグが存在した場合
-				if (nowStr != null) {
-					// 科目フラグを消す
-					subject_now = false;
-				}
+		if (nowStr != null) {
+			// 科目フラグを消す
+			subject_now = false;
+		}
 		System.out.println(subject_cd);
 		System.out.println(subject_name);
 		System.out.println(subject_now);
@@ -41,7 +40,7 @@ public class SubjectDeleteExecuteAction extends Action{
 
 		//DBからデータ取得 3
 		Subject subject = subDao.get(subject_cd,teacher.getSchool());// 科目コードと学校コードから科目インスタンスを取得
-		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
+//		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
