@@ -55,9 +55,6 @@ public class TestListSubjectExecute2Action extends Action{
 		System.out.print(classNum);
 		System.out.print(subjectCd);
 
-		req.setAttribute("f1", entYearStr);
-		req.setAttribute("f2", classNum);
-		req.setAttribute("f3", subjectCd);
 
 
 		//DBからデータ取得 3
@@ -67,7 +64,14 @@ public class TestListSubjectExecute2Action extends Action{
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> slist = SubDao.filter(teacher.getSchool());
 
+		School school = teacher.getSchool();
+		Subject sub = SubDao.get(subjectCd,school);
 
+		// 科目名を表示させるもの
+		if (sub != null) {
+			String subjectName = sub.getSubject_name();
+			req.setAttribute("subjectName", subjectName);
+		}
 
 		//ビジネスロジック 4
 		if (entYearStr != null) {
@@ -90,9 +94,7 @@ public class TestListSubjectExecute2Action extends Action{
 
 		}else{
 
-			//DBからデータ取得 3
-			School school = teacher.getSchool();
-			Subject sub = SubDao.get(subjectCd,school);
+
 
 			TLSubList = TLSubDao2.filter(school, entYear, classNum, sub);
 			//DBから成績表示に必要なデータをリスト形式で取得
@@ -100,6 +102,11 @@ public class TestListSubjectExecute2Action extends Action{
 			req.setAttribute("test_list_subs", TLSubList);
 
 		}
+
+		req.setAttribute("f1", entYearStr);
+		req.setAttribute("f2", classNum);
+		req.setAttribute("f3", subjectCd);
+
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("clist", clist);

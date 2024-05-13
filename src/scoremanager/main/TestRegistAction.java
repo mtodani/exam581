@@ -32,7 +32,7 @@ public class TestRegistAction extends Action {
 
 		String entYearStr="";// 入力された入学年度
 		String classNum = "";//入力されたクラス番号
-		String subject="";//入力された科目
+		String subjectcd="";//入力された科目
 		String numStr ="";// 入力された回数
 		int num = 0;// 回数
 		int entYear = 0;// 入学年度
@@ -47,8 +47,10 @@ public class TestRegistAction extends Action {
 		//リクエストパラメータ―の取得 2
 		entYearStr = req.getParameter("f1");
 		classNum = req.getParameter("f2");
-		subject = req.getParameter("f3");
+		subjectcd = req.getParameter("f3");
 		numStr = req.getParameter("f4");
+
+
 
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
@@ -67,15 +69,29 @@ public class TestRegistAction extends Action {
 			num = Integer.parseInt(numStr);
 		}
 
-		if (entYear != 0 && !classNum.equals("0")&&subject.equals("0")&& num != 0){
+//		if (subjectcd != null) {
+//			// 数値に変換
+//			entYear = Subject.parseInt(subjectcd);
+//		}
+
+		Subject subject = new Subject();
+		subject.setSubject_cd(subjectcd);
+		subject.setSubject_name("Webデザイン");
+		subject.setSubject_now(true);
+		subject.setSchool(teacher.getSchool());
+
+		//if (entYear != 0 && !classNum.equals("0")&&subjectcd.equals("0")&& num != 0){
+			// 指定なしの場合
 			// 入学年度、クラス番号、科目、回数
 			//Testリストに
-			tests = tDao.filter(entYearStr,classNum,subject,numStr,teacher.getSchool());
+		tests = tDao.filter(entYear,classNum,subject,num,teacher.getSchool());
 
-		} else {
-			errors.put("f1", "error");
-			req.setAttribute("errors", errors);
-		}
+		System.out.println("abc");
+
+//		} else {
+//			errors.put("f1", "error");
+//			req.setAttribute("errors", errors);
+//		}
 		//ビジネスロジック 4
 		// リストを初期化
 		List<Integer> entYearSet = new ArrayList<>();
@@ -97,7 +113,7 @@ public class TestRegistAction extends Action {
 		req.setAttribute("f1", entYear);
 		// リクエストにクラス番号をセット
 		req.setAttribute("f2", classNum);
-		req.setAttribute("f3", subject);
+		req.setAttribute("f3", subjectcd);
 		req.setAttribute("f4", num);
 		// リクエストに学生リストをセット
 		req.setAttribute("tests", tests);
@@ -109,6 +125,7 @@ public class TestRegistAction extends Action {
 		//↑のこいつらをstudent_list.jspに渡す
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+
 	}
 
 }

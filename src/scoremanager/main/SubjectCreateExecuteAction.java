@@ -26,7 +26,9 @@ public class SubjectCreateExecuteAction extends Action{
 //		int entYear;//入学年度
 		String subject_cd = "";//科目コード
 		String subject_name = "";//科目名
-		Subject subject = null;//学生
+		Subject subject = null;//科目
+
+
 
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
@@ -34,8 +36,6 @@ public class SubjectCreateExecuteAction extends Action{
 
 		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
-//		int year = todaysDate.getYear();// 現在の年を取得
-//		List<Integer> entYearSet = new ArrayList<>();//入学年度のリストを初期化
 
 		//リクエストパラメータ―の取得 2
 //		entYear = Integer.parseInt(req.getParameter("ent_year"));//入学年度
@@ -52,8 +52,7 @@ public class SubjectCreateExecuteAction extends Action{
 		//条件で手順4~5の内容が分岐
 
 
-
-		if (subject == null) {// 学生が未登録だった場合
+		if (subject == null) {// 科目が未登録だった場合
 			// 科目ンスタンスを初期化
 			subject = new Subject();
 			// インスタンスに値をセット
@@ -63,6 +62,7 @@ public class SubjectCreateExecuteAction extends Action{
 			subject.setSubject_now(true);
 			// 科目を保存
 			subDao.save(subject);
+
 		} else {//入力された学番がDBに保存されていた場合
 			errors.put("subject_cd", "科目コードが重複しています");
 		}

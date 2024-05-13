@@ -177,66 +177,6 @@ public class SubjectDao extends Dao{
         return list;
 	}
 
-	/**
-	 * filterメソッド 学校、を指定して科目の一覧を取得する
-	 *
-	 * @param school:School
-	 *            学校
-
-	 * @return 科目のリスト:List<Subject> 存在しない場合は0件のリスト
-	 * @throws Exception
-	 */
-//	public List<Subject> filter(School school) throws Exception {
-//		//まずはここに処理追加
-//		List<Subject> list = new ArrayList<>();
-//        Connection connection = getConnection();
-//        PreparedStatement statement = null;
-//        ResultSet rSet = null;
-//
-//        String order = " order by subject_cd asc";
-//
-//
-//
-//
-//
-//        try {
-//            statement = connection.prepareStatement(baseSql + order);
-//            statement.setString(1, school.getSchool_cd());
-//
-//            rSet = statement.executeQuery();
-//            list = postFilter(rSet, school);
-//        }catch(Exception e){
-//			throw e;
-//
-//		}finally {
-//            // Close resources in finally block to ensure they're always closed
-//
-//            if (statement != null) {
-//            	try {
-//
-//            		statement.close();
-//
-//				} catch (SQLException sqle) {
-//					// TODO: handle exception
-//					throw sqle;
-//				}
-//
-//            }
-//            if (connection != null) {
-//            	try {
-//            		 connection.close();
-//
-//				} catch (SQLException sqle) {
-//					// TODO: handle exception
-//					throw sqle;
-//				}
-//
-//            }
-//        }
-//
-//        return list;
-//	}
-
 
 	public boolean save (Subject subject) throws Exception {
 		//コネクションを確立
@@ -310,27 +250,14 @@ public class SubjectDao extends Dao{
 		int count = 0;
 
 		try {
-			// データベースから科目を取得
-			Subject old = get (subject.getSubject_cd(),subject.getSchool());
-			if(old == null) {
-				// 科目が存在しなかった場合
-				// プリペアードステートメンにINSERT文をセットと
-//				statement = connection. prepareStatement (
-//				"insert into subject (subject_cd,subject_name,school_cd) values(?, ?, ? )");
-//				// プリペアードステートメントに値をバインド
-//				statement.setString(1,subject.getSubject_cd()) ;
-//				statement.setString (2,subject.getSubject_name()) ;
-//				statement.setString(3,subject.getSchool().getSchool_cd ());
-			}else {
-				//科目が存在した場合 更新！
-				//プリペアードステートメントにUPDATE文をセット
-				statement = connection
-				.prepareStatement ("update subject set subject_now=? where subject_cd=? ");
-				// プリペアードステートメントに値をバインド
-				statement.setBoolean(1,subject.isSubject_now());
-				statement. setString (2, subject.getSubject_cd ()) ;
 
-			}
+			//プリペアードステートメントにUPDATE文をセット
+			statement = connection
+			.prepareStatement ("update subject set subject_now=? where subject_cd=? ");
+			// プリペアードステートメントに値をバインド
+			statement.setBoolean(1,subject.isSubject_now());
+			statement. setString (2, subject.getSubject_cd ()) ;
+
 
 			//プリペアードステートメントを実行
 			count = statement.executeUpdate ();

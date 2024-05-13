@@ -14,13 +14,14 @@
 
 		<label>科目コード</label>
 
+		<br><input type= "hidden" name="subject_cd" value="${subject_cd}">
+		　${subject.getSubject_cd()}
 
-		<input type= "hidden" name="subject_cd" value="${subject_cd}">
-		${subject.getSubject_cd()}
+		<br>
 
+		<br><label>科目名</label>
 
-		<label>科目名</label>
-		<input type="text" name="subject_name" placeholder="科目を入力してください"
+		<br><input type="text" name="subject_name" placeholder="科目を入力してください"
 			maxlength="10" value="${subject_name}" required />
 		<div>${errors.get("subject_name")}</div>
 

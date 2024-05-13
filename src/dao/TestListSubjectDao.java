@@ -61,13 +61,13 @@ public class TestListSubjectDao extends Dao{
 	            	student = rSet.getString("student_no");
 
 	            }
+
 	        }
 
 	        if(!(student.equals(""))) {
 	            // リストに追加
 	            list.add(test_list_subject);
 	        }
-
 	    } catch (SQLException | NullPointerException e) {
 	        e.printStackTrace();
 	    }

@@ -40,7 +40,7 @@
 			<option value="0">--------</option>
 				<c:forEach var="sub" items="${slist}">
 				<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
+				<option value="${sub.getSubject_cd()}" <c:if test="${sub.subject_cd==f3}">selected</c:if>>${sub.getSubject_name()}</option>
 			</c:forEach>
 		</select>
 
@@ -49,7 +49,7 @@
 
 	<form action = "TestListStudentExecute2.action" method="post">
 		<label>学生番号 </label>
-		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled" value="2374582" required>
+		<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
 
 		<input type="submit" value="学生参照">
 	</form>
@@ -68,6 +68,7 @@
         </c:when>
 		<c:when test="${test_list_subs.size() > 0 }">
 			<table>
+			    <div>科目 : ${subjectName }</div>
 				<tr>
 					<th>入学年度</th>
 					<th>クラス</th>
@@ -77,32 +78,14 @@
 					<th class ="text-center">2回目</th>
 				</tr>
 				<c:forEach var="sub_test" items="${test_list_subs}">
-
 				<tr>
-<!-- 
-			    <c:if test="${sub_test.getPoint(2).equals('-') }">
-
-						<td>${sub_test.getEntYear()}</td>
-						<td>${sub_test.getClassNum()}</td>
-						<td>${sub_test.getStudentNo()}</td>
-						<td>${sub_test.getStudentName()}</td>
-						<td>${sub_test.getPoint(1)}</td>
-				</c:if>
-				<c:if test="${sub_test.getPoint(1).equals('-')}">
-			            <td>${sub_test.getPoint(2)}</td>
-				</c:if>
-
- -->
 						<td>${sub_test.getEntYear()}</td>
 						<td>${sub_test.getClassNum()}</td>
 						<td>${sub_test.getStudentNo()}</td>
 						<td>${sub_test.getStudentName()}</td>
 						<td>${sub_test.getPoint(1)}</td>
 			            <td>${sub_test.getPoint(2)}</td>
-
 				</tr>
-				<c:if test="">
-				</c:if>
 				</c:forEach>
 			</table>
 	    </c:when>
