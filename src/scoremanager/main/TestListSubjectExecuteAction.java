@@ -33,7 +33,8 @@ public class TestListSubjectExecuteAction extends Action{
 		int entYear = 0;   // 入学年度
 		String classNum = "";   // クラス番号
 		String subjectCd = "";   // 科目
-		String entYearStr="";// 入力された入学年度
+		String entYearStr="";   // 入力された入学年度
+
 		Map<Integer,Integer> points = new HashMap<>();   // 成績
 		List<TestListSubject> TLSubList = new ArrayList<>();   //空の成績リスト
 		String dai = "科目";   // jsp先で科目と学生の表示を切り替える用
@@ -79,6 +80,8 @@ public class TestListSubjectExecuteAction extends Action{
 
 		System.out.println("3");
 
+
+
 		//DBへデータ保存 5
 		//なし
 
@@ -92,6 +95,12 @@ public class TestListSubjectExecuteAction extends Action{
 			// DBからデータ取得 3
 			School school = teacher.getSchool();
 			Subject sub = sDao.get(subjectCd,school);
+
+			// 科目名を表示させるもの
+			if (sub != null) {
+				String subjectName = sub.getSubject_name();
+				req.setAttribute("subjectName", subjectName);
+			}
 
 			// DBから成績表示に必要なデータをリスト形式で取得
 			TLSubList = TLSubDao.filter(school, entYear, classNum, sub);
@@ -114,5 +123,6 @@ public class TestListSubjectExecuteAction extends Action{
 
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
+
 	}
 }

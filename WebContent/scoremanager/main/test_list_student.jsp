@@ -37,7 +37,7 @@
 			<option value="0">--------</option>
 			<c:forEach var="sub" items="${sublist}">
 				<%-- 現在のsubと選択されていたf3が一致していた場合selectedを追記 --%>
-				<option value="${sub.getSubject_cd()}" <c:if test="${sub==f3}">selected</c:if>>${sub.getSubject_name()}</option>
+				<option value="${sub.getSubject_cd()}" <c:if test="${sub.subject_cd==f3}">selected</c:if>>${sub.getSubject_name()}</option>
 			</c:forEach>
 		</select>
 
@@ -48,7 +48,7 @@
 
 		<p>学生情報</p>
 		<div>学生番号</div>
-		<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" required>
+		<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" value="${stu_num }" required>
 
 		<input type="submit" value="検索">
 
@@ -68,7 +68,7 @@
         </c:when>
 		<c:when test="${test_list_subs.size() > 0 }">
 			<table>
-				<div>科目 : ${f3 }</div>
+				<div>科目 : ${subjectName }</div>
 				<tr>
 					<th>入学年度</th>
 					<th>クラス</th>
@@ -109,10 +109,21 @@
 				</c:forEach>
 			</table>
 	    </c:when>
-		<c:otherwise>
-			<div>氏名 : ${stu_name } (${stu_num })</div>
-			<div>成績情報が存在しませんでした。</div>
-		</c:otherwise>
+
+	    <c:otherwise>
+
+	    	<c:choose>
+	    		<c:when test="${student != null }">
+			    	<div>氏名 : ${stu_name } (${stu_num })</div>
+					<div>成績情報が存在しませんでした。</div>
+			    </c:when>
+				<c:otherwise>
+					<div>成績情報が存在しませんでした。</div>
+				</c:otherwise>
+	    	</c:choose>
+
+	    </c:otherwise>
+
 	</c:choose>
 
 

@@ -26,7 +26,7 @@ ${param.scripts}
 			</div>
 			<c:if test="${user.isAuthenticated()}">
 				<div class="nav align-self-end">
-					<span class="nav-item px-2">${user.getName()}様</span>
+					<span class="nav-item px-2">${user.school.school_name}　${user.teacher_name}　様</span>
 					<a class="nav-item px-2" href="/exam/scoremanager/main/Logout.action">ログアウト</a>
 				</div>
 			</c:if>
@@ -44,6 +44,7 @@ ${param.scripts}
 							<li class="nav-item">成績管理</li>
 							<li class="nav-item mx-3 mb-3"><a href="/exam/scoremanager/main/TestRegist.action">成績登録</a></li>
 							<li class="nav-item mx-3 mb-3"><a href="/exam/scoremanager/main/TestList.action">成績参照</a></li>
+							<li class="nav-item mx-3 mb-3"><a href="/exam/scoremanager/main/TestList2.action">成績参照2</a></li>
 							<li class="nav-item mb-3"><a href="/exam/scoremanager/main/SubjectList.action">科目管理</a></li>
 						</ul>
 
@@ -65,7 +66,7 @@ ${param.scripts}
 			</c:choose>
 		</div>
 		<footer	class="py-2 my-4 bg-dark bg-opacity-10 border-top border-3 align-bottom">
-			<p class="text-center text-muted mb-0">&copy; 2023 TIC </p>
+			<p class="text-center text-muted mb-0">&copy; 2024 TIC </p>
 			<p class="text-center text-muted mb-0">大原学園</p>
 		</footer>
 
