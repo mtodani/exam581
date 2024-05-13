@@ -20,25 +20,56 @@ public class TestListSubjectDao2 extends Dao{
 		//まずはここに処理追加
 		 // リストを初期化
 	    List<TestListSubject2> list = new ArrayList<>();
+	    String student ="";
+	    // インスタンスを初期化
+	    TestListSubject2 test_list_subject = new TestListSubject2();
+        Map<Integer, Integer> points = new HashMap<>();
 
 	    try {
 	        // リザルトセットを全権走査
 	        while (rSet.next()) {
-	            // 学生インスタンスを初期化
-	            TestListSubject2 test_list_subject = new TestListSubject2();
-	            Map<Integer,Integer> points = new HashMap<>();
 
-	            // 学生インスタンスに検索結果をセット
-	            test_list_subject.setEntYear(rSet.getInt("ent_year"));;
-	            test_list_subject.setStudentNo(rSet.getString("student_no"));
-	            test_list_subject.setStudentName(rSet.getString("student_name"));
-	            test_list_subject.setClassNum(rSet.getString("class_num"));
-	            points.put(rSet.getInt("test_no"),rSet.getInt("point"));
-	            test_list_subject.setPoints(points);
+	        	// 前回と同じ学生が連続した場合
+	            if(student.equals(rSet.getString("student_no"))){
 
+	            	// 学生インスタンスに検索結果をセット
+	            	points.put(rSet.getInt("test_no"),rSet.getInt("point"));
+	            	test_list_subject.setPoints(points);
+
+	            // 前回と違う学生が来た場合
+	            } else {
+
+	            	// ループが初回じゃない場合
+	            	if(!(student.equals(""))) {
+	            		// リストに追加
+	    	            list.add(test_list_subject);
+	            	}
+
+		            // 学生インスタンスを初期化
+		            test_list_subject = new TestListSubject2();
+		            points = new HashMap<>();
+
+		            // 学生インスタンスに検索結果をセット
+		            test_list_subject.setEntYear(rSet.getInt("ent_year"));;
+		            test_list_subject.setStudentNo(rSet.getString("student_no"));
+		            test_list_subject.setStudentName(rSet.getString("student_name"));
+		            test_list_subject.setClassNum(rSet.getString("class_num"));
+		            points.put(rSet.getInt("test_no"),rSet.getInt("point"));
+		            test_list_subject.setPoints(points);
+
+		         // 学生情報を更新
+	            	student = rSet.getString("student_no");
+	            }
+
+
+	        }
+
+	        if(!(student.equals(""))) {
 	            // リストに追加
 	            list.add(test_list_subject);
 	        }
+
+
 	    } catch (SQLException | NullPointerException e) {
 	        e.printStackTrace();
 	    }
