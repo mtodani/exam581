@@ -83,7 +83,11 @@
 						<td>${test.student.getStudent_no()}</td>
 						<td>${test.student.getStudent_name()}</td>
 						<td>
-						<input type="text" name="point_${test.student.student_no}" value="${test.getPoint()}"/>
+						<c:choose>
+						<c:when test="${test.point=='-1'}"><input type="text" name="point_${test.student.student_no}" value=""/></c:when>
+						<c:otherwise><input type="text" name="point_${test.student.student_no}" value="${test.getPoint()}"/></c:otherwise>
+						</c:choose>
+						<div>${errors.get("test_error")}</div>
 						</td>
 						<%-- <td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>--%>
 					</tr>

@@ -62,15 +62,23 @@ public class TestRegistExecuteAction extends Action {
 		Subject subject = subjectDao.get(subjectcd,teacher.getSchool());
 
 		tests = tDao.filter(entYear,classNum,subject,num,teacher.getSchool());
+		System.out.println("num");
+		System.out.println(num);
 
 		//繰り返しで1つずつ格納
 		for(Test test2:tests ){
 			String point = req.getParameter("point_" + test2.getStudent().getStudent_no());
-			test2.setPoint(Integer.parseInt(point));
-			test2.setSubject(subject);
-			list_point.add(Integer.parseInt(point));
-			list.add(test2);
-
+			if(point != ""){
+				test2.setPoint(Integer.parseInt(point));
+				test2.setSubject(subject);
+				test2.setNo(num);
+				if(Integer.parseInt(point)< 0 && Integer.parseInt(point)> 100){
+					errors.put("test_eroos", "0～100の範囲で入力してください");
+					req.setAttribute("test_error",errors);
+					req.getRequestDispatcher("test_regist.jsp").forward(req,res);
+				}
+				list.add(test2);
+			}
 		}
 
 		String student_num = req.getParameter("student_no");

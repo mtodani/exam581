@@ -52,6 +52,8 @@ public class TestRegistAction extends Action {
 
 
 
+
+
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> list = cNumDao.filter(teacher.getSchool());
@@ -75,18 +77,18 @@ public class TestRegistAction extends Action {
 //		}
 
 		Subject subject = new Subject();
+//		subject = subjectDao.get(subjectcd, teacher.getSchool());
+//		Subject subject = subjectDao.get(subjectcd,teacher.getSchool());
+
 		subject.setSubject_cd(subjectcd);
 		subject.setSubject_name("Webデザイン");
 		subject.setSubject_now(true);
 		subject.setSchool(teacher.getSchool());
 
-		//if (entYear != 0 && !classNum.equals("0")&&subjectcd.equals("0")&& num != 0){
-			// 指定なしの場合
-			// 入学年度、クラス番号、科目、回数
-			//Testリストに
 		tests = tDao.filter(entYear,classNum,subject,num,teacher.getSchool());
+		System.out.println("num");
+		System.out.println(num);
 
-		System.out.println("abc");
 
 //		} else {
 //			errors.put("f1", "error");
