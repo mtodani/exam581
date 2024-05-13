@@ -107,6 +107,8 @@ public class TestListSubjectExecuteAction extends Action{
 
 			req.setAttribute("test_list_subs", TLSubList);
 
+			System.out.println(TLSubList.size());
+
 		}
 
 		System.out.println("4");

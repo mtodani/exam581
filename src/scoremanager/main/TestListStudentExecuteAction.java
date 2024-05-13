@@ -74,6 +74,7 @@ public class TestListStudentExecuteAction extends Action{
 		try{
 			student = StuDao.get(student_num);
 			TLStuList = TLStuDao.filter(student);
+			System.out.println(TLStuList.size());
 		}catch(NullPointerException e){
 			errors.put("nullpo", "学生番号が存在しませんでした。");
 		}
