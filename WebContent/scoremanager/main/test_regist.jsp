@@ -4,6 +4,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,8 +38,6 @@
 			</c:forEach>
 		</select>
 
-<%--科目、回数の中身は仮 --%>
-
 		<label>科目</label>
 		<select name="f3">
 			<option value="0">--------</option>
@@ -59,45 +58,47 @@
 			</c:forEach>
 		</select>
 
-
-
 		<button>検索</button>
 
 		<div>${errors.get("f1")}</div>
 	</form>
-<%--
-	<c:choose>
-		<c:when test="${test.size()>0}">
-			<div>検索結果：${test.size()}件</div>
 
+	<c:choose>
+		<c:when test="${tests.size()>0}">
+			<div>検索結果：${tests.size()}件</div>
+
+			<form action="TestRegistExecute.action" method="post">
 			<table class="table table-hover">
 				<tr>
 					<th>入学年度</th>
 					<th>クラス</th>
 					<th>学生番号</th>
 					<th>氏名</th>
-
-					<th class="text-center">在学中</th>
-					<th></th>
-					<th></th>
+					<th>点数</th>
 				</tr>
-				<c:forEach var="student" items="${students}">
+				<c:forEach var="test" items="${tests}">
 					<tr>
-						<td>${student.ent_Year}</td>
-						<td>${student.class_Num}</td>
-						<td>${student.student_no}</td>
-						<td>${student.name}</td>
-
-						<td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>
+						<td>${test.student.getEntYear()}</td>
+						<td>${test.student.getClass_num()}</td>
+						<td>${test.student.getStudent_no()}</td>
+						<td>${test.student.getStudent_name()}</td>
+						<td>
+						<input type="text" name="point_${test.student.student_no}" value="${test.getPoint()}"/>
+						</td>
+						<%-- <td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>--%>
 					</tr>
 				</c:forEach>
-			</table>
+				</table>
+				<input type="hidden" name="f1" value="${f1}"/>
+				<input type="hidden" name="f2" value="${f2}"/>
+				<input type="hidden" name="f3" value="${f3}"/>
+				<input type="hidden" name="f4" value="${f4}"/>
+				<input type="submit" value="登録して終了">
+
+			<%--<button type="submit">登録して終了</button>--%>
+        </form>
 		</c:when>
-		<c:otherwise>
-			<div>学生情報が存在しませんでした</div>
-		</c:otherwise>
 	</c:choose>
-	--%>
 
 </body>
 </html>
