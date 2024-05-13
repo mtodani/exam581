@@ -113,7 +113,7 @@
 	    <c:otherwise>
 
 	    	<c:choose>
-	    		<c:when test="${student != null }">
+	    		<c:when test="${stu_num != null }">
 			    	<div>氏名 : ${stu_name } (${stu_num })</div>
 					<div>成績情報が存在しませんでした。</div>
 			    </c:when>
