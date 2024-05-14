@@ -54,7 +54,7 @@
 
 			<form action = "TestListStudentExecute.action" method="post">
 
-				<p class="p-3 ms-5">学生情報</p>
+				<div class="p-3 ms-5">学生情報</div>
 				<div class="col-4 ms-5 mb-2">学生番号</div>
 				<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" value="${stu_num }" class="col-4 ms-5 mb-3" required>
 
