@@ -6,7 +6,20 @@
 		得点管理システム
 	</c:param>
 
-	<c:param name="scripts"></c:param>
+	<c:param name="scripts">
+
+		<script type="text/javascript">
+            function togglePassword() {
+                var passwordField = document.getElementById("password");
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                } else {
+                    passwordField.type = "password";
+                }
+            }
+        </script>
+
+	</c:param>
 
 	<c:param name="content">
 
@@ -26,8 +39,8 @@
 	        <label for="password">パスワード</label>
 	        <input type="password" id="password" name="password" value="password2" required><br>
 
-	        <input type="checkbox" id="showPassword" name="showPassword">
-	        <label for="showPassword">パスワードを表示（まだできません）</label><br>
+	        <input type="checkbox" id="showPassword" name="showPassword" onclick="togglePassword()">
+	        <label for="showPassword">パスワードを表示</label><br>
 
 	        <input type="submit" value="ログイン">
 	    </form>
