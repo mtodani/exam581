@@ -10,8 +10,9 @@
 
 	<c:param name="content">
 
-		<h2>成績参照</h2>
+		<h2 class = "p-3 mb-2 bg-light text-dark">成績参照</h2>
 
+		<%-- 入学年度、クラス、科目を選択させる --%>
 		<form action="TestListSubjectExecute.action" method="post">
 
 			<div>科目情報</div>
@@ -42,17 +43,18 @@
 				</c:forEach>
 			</select>
 
-			<input type="submit" value="検索">
+			<input type="submit" value="検索" class="btn btn-secondary">
 
 		</form>
 
+		<%-- 学生番号を入力 --%>
 		<form action = "TestListStudentExecute.action" method="post">
 
 			<p>学生情報</p>
 			<div>学生番号</div>
 			<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" required>
 
-			<input type="submit" value="検索">
+			<input type="submit" value="検索" class="btn btn-secondary">
 
 		</form>
 
