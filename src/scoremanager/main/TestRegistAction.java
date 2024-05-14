@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Student;
 import bean.Subject;
 import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestDao;
 import tool.Action;
@@ -36,10 +38,13 @@ public class TestRegistAction extends Action {
 		String numStr ="";// 入力された回数
 		int num = 0;// 回数
 		int entYear = 0;// 入学年度
-		List<Test> tests = null;// 学生リスト
+		boolean is_Attend=true;
+		List<Test> tests= new ArrayList<Test>();// 学生リスト
+		List<Student> students= new ArrayList<Student>();;
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
 		TestDao tDao = new TestDao();//学生Dao
+		StudentDao sDao = new StudentDao();//学生Dao
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		SubjectDao subjectDao = new SubjectDao();// 科目Daoを初期化
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
@@ -49,10 +54,6 @@ public class TestRegistAction extends Action {
 		classNum = req.getParameter("f2");
 		subjectcd = req.getParameter("f3");
 		numStr = req.getParameter("f4");
-
-
-
-
 
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
@@ -71,23 +72,42 @@ public class TestRegistAction extends Action {
 			num = Integer.parseInt(numStr);
 		}
 
-//		if (subjectcd != null) {
-//			// 数値に変換
-//			entYear = Subject.parseInt(subjectcd);
-//		}
-
 		Subject subject = new Subject();
 //		subject = subjectDao.get(subjectcd, teacher.getSchool());
 //		Subject subject = subjectDao.get(subjectcd,teacher.getSchool());
 
 		subject.setSubject_cd(subjectcd);
-		subject.setSubject_name("Webデザイン");
-		subject.setSubject_now(true);
-		subject.setSchool(teacher.getSchool());
+//		subject.setSubject_name("Webデザイン");
+//		subject.setSubject_now(true);
+//		subject.setSchool(teacher.getSchool());
 
-		tests = tDao.filter(entYear,classNum,subject,num,teacher.getSchool());
-		System.out.println("num");
-		System.out.println(num);
+		//tests = tDao.filter(entYear,classNum,subject,num,teacher.getSchool());
+
+		//
+		students = sDao.filter(teacher.getSchool(), entYear, classNum, is_Attend);
+
+		//forで一人ひとり格納
+		for(Student stu:students ){
+			//String	stu_no = stu.getStudent_no();
+			Test score = new Test();
+			Test test_score = new Test(); //for内で初期化しないとバグる
+			test_score.setStudent(stu);
+			test_score.setClassNum(classNum);
+			test_score.setSubject(subject);
+			test_score.setSchool(teacher.getSchool());
+			test_score.setNo(num);
+			test_score.setPoint(0);
+			tests.add(test_score);
+
+			score = tDao.get(stu, subject, teacher.getSchool(), num);
+			if(score != null){
+				test_score.setPoint(score.getPoint());
+			}
+
+		}
+
+		//Test test_score = tDao.get(stu, subject, teacher.getSchool(), num);
+		//System.out.println("★");
 
 
 //		} else {
@@ -104,7 +124,7 @@ public class TestRegistAction extends Action {
 
 		//回数のリスト
 		List<Integer> NumSet = new ArrayList<>();
-		// 10年前から1年後まで年をリストに追加
+		// 回数に1回、２回を追加
 		NumSet.add(1);
 		NumSet.add(2);
 

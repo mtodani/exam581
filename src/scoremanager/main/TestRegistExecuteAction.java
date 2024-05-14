@@ -88,7 +88,6 @@ public class TestRegistExecuteAction extends Action {
 
 		//Student student = sDao.get(no);// 学生番号から学生インスタンスを取得
 //		List<String> list = cNumDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-
 		tDao.save(list);
 
 
@@ -108,6 +107,6 @@ public class TestRegistExecuteAction extends Action {
 			return;
 		}
 
-		req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
+		req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
 	}
 }

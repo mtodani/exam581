@@ -88,23 +88,21 @@ public class TestDao extends Dao{
 			FROM Student LEFT OUTER JOIN (Test INNER JOIN Subject ON Test.subject_cd=Subject.Subject_cd)
 			ON Student.Student_no = Test.student_no
 
- 			これもOK
- 			SELECT Subject.Subject_cd, Subject.Subject_name,Student.Student_no,
-			Student.ent_year, Student.class_num,Student.is_Attend,
-			Test.Test_no, coalesce(Test.point,-1)
+		    *asなしバージョン
 
+			SELECT Subject.Subject_cd, Subject.Subject_name,Student.Student_no,
+			Student.ent_year, Student.class_num,Student.is_Attend st_is_attend,
+			Test.Test_no, coalesce(Test.point,-1)
 			FROM Student LEFT OUTER JOIN (Test INNER JOIN Subject ON Test.subject_cd=Subject.Subject_cd)
 			ON Student.Student_no = Test.student_no
 
-			//これなら全部出た
-			SELECT Subject.Subject_cd, Subject.Subject_name,Student.Student_no,Student.ent_year, Student.class_num,Student.is_Attend,Test.Test_no
-			FROM Subject,Student,Test
+			現在の値が入っているテーブルがほ
+			メモ nullも値が入っているのも全部を表示するSQLと得点が入っているSQLだけを表示するSQLを
+			絶対に両方に入っている学番でアウタージョインで全体表示優先で表示
+			学番、名前、年度、
+			SELECT ent_year,class_num,student_no,student_name FROM STUDENT where ent_year = ? and class_num = ? and school_cd = ?
 
-			//これもクリア
-		 	SELECT Subject.Subject_cd, Subject.Subject_name,Test.Test_no
-			FROM Test
-			INNER JOIN Subject
-			ON Test.subject_cd=Subject.Subject_cd
+			SELECT ent_year,class_num,student_no,student_name FROM STUDENT where ent_year = 2023 and class_num = '211' and school_cd = 'knz' and is_attend = true
 
 			*/
 	//ResultSet型をtest型に変換するメソッド
@@ -201,6 +199,70 @@ public class TestDao extends Dao{
 		return list;
 	}
 
+
+	//フィルター
+	public List<Test> filter2(int entYear, String classNum, Subject subject, int num, School school)throws Exception{
+		//リスト初期化
+		List<Test> list = new ArrayList<>();
+		//コネクションを確立
+		Connection connection = getConnection();
+		//プリペアードステートメント
+		PreparedStatement statement= null;
+		//リザルトセット
+		ResultSet rSet = null;
+		//SQl文の条件
+		String condition = " Where  student.school_cd = ? and  (test.subject_cd = ? or test.subject_cd is null) and student.ent_year = ? and (test.test_no = ? or test.test_no is null) "
+							+"and student.class_num = ? and ( subject.school_cd is null or subject.school_cd = ?)";
+//	 一応	Where student.ent_year=2023  and student.class_num = '211' and subject.subject_cd is null or subject.subject_cd = 'IT1' and test.test_no is null or test.test_no = 1 and subject.school_cd='knz'
+		//SQL文のソート
+//		String order = " order by asc";
+
+		try{
+			//プリペアードステートメントにSQL文をセット
+			statement = connection.prepareStatement(baseSql + condition);
+
+			statement.setString(1,school.getSchool_cd());
+			//プリペアードステートメントに科目番号をバインド
+			System.out.println("ccc");
+			statement.setString(2,subject.getSubject_cd());
+			//プリペアードステートメントにクラス番号をバインド
+			statement.setInt(3,entYear);
+			System.out.println("bbb");
+			//プリペアードステートメントに回数をバインド
+			statement.setInt(4,num);
+			//プリペアードステートメントにクラス番号をバインド
+			statement.setString(5,classNum);
+			//プリペアードステートメントに学校をバインド
+			statement.setString(6,school.getSchool_cd());
+
+			rSet = statement.executeQuery();
+			//リストへの格納処理を実行
+			list = postFilter(rSet,school);
+		} catch (Exception e){
+			throw e;
+		} finally{
+			//プリペアードステートメントを閉じる
+			if(statement !=null){
+				try {
+					statement.close();
+				} catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+			//コネクションを閉じる
+			if(connection !=null){
+				try {
+					connection.close();
+				} catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+		}
+
+		return list;
+	}
+
+
 	public boolean save (List<Test> lists) throws Exception {
 
 		//プリペアードステートメント
@@ -248,7 +310,7 @@ public class TestDao extends Dao{
 		try{
 
 			Test old = get(test.getStudent(),test.getSubject(),test.getSchool(),test.getNo());
-			if(old == null){
+			if(old == null && test.getPoint()!= 0){
 				//プリペアードステートメントにINSERT文をセット
 				statement = connection.prepareStatement(
 				"insert into test(STUDENT_NO ,SUBJECT_CD ,SCHOOL_CD ,TEST_NO ,POINT ,CLASS_NUM )"
@@ -261,7 +323,6 @@ public class TestDao extends Dao{
 				statement.setInt(5, test.getPoint());
 				statement.setString(6, test.getClassNum());
 				System.out.print("インサート");
-
 			}else {
 			//	update subject set subject_now = true
 				statement = connection.prepareStatement(
