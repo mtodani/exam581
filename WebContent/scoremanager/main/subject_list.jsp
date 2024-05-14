@@ -13,6 +13,7 @@
 
 	<h2>科目管理</h2>
 	<a href="SubjectCreate.action">新規登録</a>
+	<a href="SubjectRevival.action">科目復活</a>
 
 	<c:choose>
 		<c:when test="${subjects.size()>0}">

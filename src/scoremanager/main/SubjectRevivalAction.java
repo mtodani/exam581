@@ -1,6 +1,8 @@
 package scoremanager.main;
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,39 +18,28 @@ public class SubjectRevivalAction extends Action{
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
 		//ローカル変数の宣言 1
-		SubjectDao subDao = new SubjectDao();//科目Dao
 		HttpSession session = req.getSession();//セッション
-
-		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
-		Map<String, String> errors = new HashMap<>();//エラーメッセージ
-
-		//リクエストパラメータ―の取得 2
-		String subject_cd = req.getParameter("subject_cd");//学番
+		Teacher teacher = (Teacher)session.getAttribute("user");//ログインユーザー
+		List<Subject> subjects = null;// 科目リスト
+		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
+		SubjectDao subDao = new SubjectDao();//科目Dao
+		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
 		//DBからデータ取得 3
-		Subject subject = subDao.get(subject_cd,teacher.getSchool());//科目番号から科目インスタンスを取得
-//		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
+		System.out.println();
+		subjects = subDao.deletefilter(teacher.getSchool());
 
 
-		//ビジネスロジック 4
-		//DBへデータ保存 5
-		//レスポンス値をセット 6
-		//条件で手順4~6の内容が分岐
-		req.setAttribute("subject", subject);
+		// リクエストに学生リストをセット
+		req.setAttribute("subjects", subjects);
 
-		if (subject != null) {// 科目が存在していた場合
-			req.setAttribute("subject_cd", subject.getSubject_cd());
-			req.setAttribute("subject_name", subject.getSubject_name());
 
-//			req.setAttribute("is_attend", student.isAttend());
-		} else {// 学生が存在していなかった場合
-			errors.put("subject_cd", "学生が存在していません");
-			req.setAttribute("errors", errors);
-		}
 		//JSPへフォワード 7
-		req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
+		req.getRequestDispatcher("subject_revival.jsp").forward(req, res);
 	}
+
 }
 
 

@@ -124,9 +124,7 @@ public class SubjectDao extends Dao{
 	 *
 	 * @param school:School
 	 *            学校
-	 * @param isAttend:boolean
-	 *            在学フラグ
-	 * @return 学生のリスト:List<Student> 存在しない場合は0件のリスト
+	 * @return 学生のリスト:List<Sbubject> 存在しない場合は0件のリスト
 	 * @throws Exception
 	 */
 	public List<Subject> filter(School school) throws Exception {
@@ -136,6 +134,64 @@ public class SubjectDao extends Dao{
         PreparedStatement statement = null;
         ResultSet rSet = null;
         String condition_subject_now = "and subject_now=true";
+        String order = " order by subject_cd asc";
+
+        // SQL文の作成
+
+        try {
+            statement = connection.prepareStatement(baseSql + condition_subject_now + order);
+            statement.setString(1, school.getSchool_cd());
+            rSet = statement.executeQuery();
+
+            list = postFilter(rSet, school);
+        } catch (Exception e) {
+            throw e;
+        }finally {
+            // Close resources in finally block to ensure they're always closed
+
+            if (statement != null) {
+            	try {
+
+            		statement.close();
+
+				} catch (SQLException sqle) {
+					// TODO: handle exception
+					throw sqle;
+				}
+
+            }
+            if (connection != null) {
+            	try {
+            		 connection.close();
+
+				} catch (SQLException sqle) {
+					// TODO: handle exception
+					throw sqle;
+				}
+
+            }
+        }
+
+        return list;
+	}
+
+	/**
+	 * filterメソッド 学校、在学フラグを指定して学生の一覧を取得する
+	 *
+	 * @param school:School
+	 *            学校
+	 * @param isAttend:boolean
+	 *            在学フラグ
+	 * @return 学生のリスト:List<Student> 存在しない場合は0件のリスト
+	 * @throws Exception
+	 */
+	public List<Subject> deletefilter(School school) throws Exception {
+		//まずはここに処理追加
+		List<Subject> list = new ArrayList<>();
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        ResultSet rSet = null;
+        String condition_subject_now = "and subject_now=false";
         String order = " order by subject_cd asc";
 
         // SQL文の作成

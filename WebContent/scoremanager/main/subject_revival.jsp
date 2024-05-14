@@ -11,39 +11,15 @@
 </head>
 <body>
 
-	<h2>科目管理</h2>
-	<a href="SubjectCreate.action">新規登録</a>
+	<h2>消去科目管理</h2>
+	<a href="SubjectList.action">科目一覧</a>
 
-	<c:choose>
-		<c:when test="${subjects.size()>0}">
-
-			<div>検索結果：${subjects.size()}件</div>
-
-			<table class="table table-hover">
-				<tr>
-					<th>科目コード</th>
-					<th>科目名</th>
-
-					<th></th>
-					<th></th>
-				</tr>
-				<c:forEach var="subject" items="${subjects}">
-					<tr>
-						<td>${subject.subject_cd}</td>
-						<td>${subject.subject_name}</td>
-
-						<td class="text-center">
-
-						</td>
-						<td><a href="SubjectUpdate.action?subject_cd=${subject.subject_cd}">戻す</a></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</c:when>
-		<c:otherwise>
-			<div>科目情報が存在しませんでした</div>
-		</c:otherwise>
-	</c:choose>
+	<form action="SubjectRevivalExecute.action" method="post">
+    <c:forEach var="subject" items="${subjects}" >
+        <input type="checkbox" name="s_Items" value="${subject.subject_cd}"> ${subject.subject_cd} ${subject.getSubject_name()}<br>
+    </c:forEach>
+    <input type="submit" value="復元">
+	</form>
 
 </body>
 </html>

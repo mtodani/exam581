@@ -22,16 +22,8 @@ public class SubjectListAction extends Action {
 		//ローカル変数の宣言 1
 		HttpSession session = req.getSession();//セッション
 		Teacher teacher = (Teacher)session.getAttribute("user");//ログインユーザー
-
-
-
-
-
-//		boolean isAttend = false;// 在学フラグ
 		List<Subject> subjects = null;// 科目リスト
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
-
-//		int year = todaysDate.getYear();// 現在の年を取得
 		SubjectDao subDao = new SubjectDao();//科目Dao
 
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
