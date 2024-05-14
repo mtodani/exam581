@@ -11,13 +11,28 @@
 </head>
 <body>
 
-	<h2>消去科目管理</h2>
+	<h2>科目復元管理</h2>
 	<a href="SubjectList.action">科目一覧</a>
 
 	<form action="SubjectRevivalExecute.action" method="post">
+	<table class="table table-hover">
+				<tr>
+					<th>選択</th>
+					<th>科目コード</th>
+					<th>科目名</th>
+
+					<th></th>
+					<th></th>
+				</tr>
+
     <c:forEach var="subject" items="${subjects}" >
-        <input type="checkbox" name="s_Items" value="${subject.subject_cd}"> ${subject.subject_cd} ${subject.getSubject_name()}<br>
+    	<tr>
+	        <td><input type="checkbox" name="s_Items" value="${subject.subject_cd}"></td>
+	        <td> ${subject.subject_cd}</td>
+	        <td>${subject.getSubject_name()}</td>
+        </tr>
     </c:forEach>
+    </table>
     <input type="submit" value="復元">
 	</form>
 
