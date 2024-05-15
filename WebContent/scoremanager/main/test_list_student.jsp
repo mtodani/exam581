@@ -14,8 +14,10 @@
 		<%-- daiによって、科目か学生かの表示を変える --%>
 		<h2 class="p-3 mb-2 bg-light text-dark">成績一覧(${dai })</h2>
 
+		<%-- divで囲むことによって、検索欄の枠を作る --%>
 		<div class="border border-3 rounded">
 
+			<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 			<div class="p-3 ms-5">科目情報</div>
 
 			<form action="TestListSubjectExecute.action" method="post" class="ms-5">
@@ -50,10 +52,12 @@
 				<input type="submit" value="検索" class="btn btn-secondary ms-5">
 			</form>
 
+			<%-- bootstrapで線を入れる --%>
 			<hr width=”30%” align=”center”>
 
 			<form action = "TestListStudentExecute.action" method="post">
 
+				<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 				<div class="p-3 ms-5">学生情報</div>
 				<div class="col-4 ms-5 mb-2">学生番号</div>
 				<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" value="${stu_num }" class="col-4 ms-5 mb-3" required>
@@ -78,8 +82,12 @@
 
 	        <%-- 科目検索の際の成績表示 --%>
 			<c:when test="${test_list_subs.size() > 0 }">
+
 				<table class="table">
+
+					<%-- 科目名の表示 --%>
 					<div>科目 : ${subjectName }</div>
+
 					<tr>
 						<th>入学年度</th>
 						<th>クラス</th>
@@ -104,7 +112,10 @@
 
 		    <%-- 学生検索の際の成績表示 --%>
 		    <c:when test="${test_list_student.size() > 0}" >
+
 		        <table class="table">
+
+		        	<%-- 学生名と学生番号の表示 --%>
 		        	<div>氏名 : ${stu_name } (${stu_num })</div>
 					<tr>
 						<th>科目名</th>

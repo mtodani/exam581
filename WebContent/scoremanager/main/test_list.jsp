@@ -12,8 +12,10 @@
 
 		<h2 class = "p-3 mb-2 bg-light text-dark">成績参照</h2>
 
+		<%-- divで囲むことによって、検索欄の枠を作る --%>
 		<div class="border border-3 rounded">
 
+			<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 			<div class="p-3 ms-5">科目情報</div>
 
 			<%-- 入学年度、クラス、科目を選択させる --%>
@@ -50,11 +52,13 @@
 
 			</form>
 
+			<%-- bootstrapで線を入れる --%>
 			<hr width=”30%” align=”center”>
 
 			<%-- 学生番号を入力 --%>
 			<form action = "TestListStudentExecute.action" method="post">
 
+				<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 				<div class="p-3 ms-5">学生情報</div>
 				<div class="col-4 ms-5 mb-2">学生番号</div>
 				<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" class="col-4 ms-5 mb-3" required>
