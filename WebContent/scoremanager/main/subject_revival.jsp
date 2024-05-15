@@ -34,6 +34,9 @@
 	        </tr>
 	    </c:forEach>
 	    </table>
+	    <c:if test="${not empty errors.s_Items}">
+			<div style="color: red;">${errors.s_Items}</div>
+		</c:if>
 	    <input type="submit" value="復元">
 		</form>
 
