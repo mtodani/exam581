@@ -40,7 +40,7 @@ public class TestRegistAction extends Action {
 		int entYear = 0;// 入学年度
 		boolean is_Attend=true;
 		List<Test> tests= new ArrayList<Test>();// 学生リスト
-		List<Student> students= new ArrayList<Student>();;
+		List<Student> students= new ArrayList<Student>();
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
 		TestDao tDao = new TestDao();//学生Dao
@@ -97,13 +97,13 @@ public class TestRegistAction extends Action {
 			test_score.setSchool(teacher.getSchool());
 			test_score.setNo(num);
 			test_score.setPoint(0);
-			tests.add(test_score);
+
 
 			score = tDao.get(stu, subject, teacher.getSchool(), num);
 			if(score != null){
 				test_score.setPoint(score.getPoint());
 			}
-
+			tests.add(test_score);
 		}
 
 		//Test test_score = tDao.get(stu, subject, teacher.getSchool(), num);

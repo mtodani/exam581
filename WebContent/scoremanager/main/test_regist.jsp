@@ -63,6 +63,11 @@
 		<div>${errors.get("f1")}</div>
 	</form>
 
+	<c:if test ="${errors.size() > 0}">
+	    ${errors.get(test_errors)}
+	    ${errors.get(test_errors2)}
+	</c:if>
+
 	<c:choose>
 		<c:when test="${tests.size()>0}">
 			<div>検索結果：${tests.size()}件</div>
