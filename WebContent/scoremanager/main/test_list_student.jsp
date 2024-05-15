@@ -83,12 +83,17 @@
 	        <%-- 科目検索の際の成績表示 --%>
 			<c:when test="${test_list_subs.size() > 0 }">
 
-				<table class="table">
+				<%-- テーブルを作る、カーソルを持って行ったところに色が付く --%>
+				<table class="table table-hover">
 
-					<%-- 科目名の表示 --%>
-					<div>科目 : ${subjectName }</div>
+					<%-- 見やすさのための改行 --%>
+		        	<br>
 
-					<tr>
+					<%-- 科目名の表示、<u>で下線を引いてわかりやすく（オリジナル）--%>
+					<div class="h5 ms-3"><u>科目 : ${subjectName }</u></div>
+
+					<%-- テーブルの一行目のみ、背景に色 --%>
+					<tr class="bg-light">
 						<th>入学年度</th>
 						<th>クラス</th>
 						<th>学生番号</th>
@@ -98,6 +103,7 @@
 					</tr>
 					<c:forEach var="sub_test" items="${test_list_subs}">
 						<tr>
+							<%-- 値が入ってくる --%>
 							<td>${sub_test.entYear}</td>
 							<td>${sub_test.classNum}</td>
 							<td>${sub_test.studentNo}</td>
@@ -107,17 +113,24 @@
 
 						</tr>
 					</c:forEach>
+
 				</table>
 		    </c:when>
 
 		    <%-- 学生検索の際の成績表示 --%>
 		    <c:when test="${test_list_student.size() > 0}" >
 
-		        <table class="table">
+				<%-- テーブルを作る、カーソルを持って行ったところに色が付く --%>
+		        <table class="table table-hover">
 
-		        	<%-- 学生名と学生番号の表示 --%>
-		        	<div>氏名 : ${stu_name } (${stu_num })</div>
-					<tr>
+					<%-- 見やすさのための改行 --%>
+		        	<br>
+
+		        	<%-- 学生名と学生番号の表示、<u>で下線を引いてわかりやすく（オリジナル） --%>
+		        	<div class="h5 ms-3"><u>氏名 : ${stu_name } (${stu_num })</u></div>
+
+		        	<%-- テーブルの一行目のみ、背景に色 --%>
+					<tr class="bg-light">
 						<th>科目名</th>
 						<th>科目コード</th>
 						<th class ="text-center">回数</th>
@@ -125,6 +138,7 @@
 					</tr>
 					<c:forEach var="stu_test" items="${test_list_student}">
 						<tr>
+							<%-- 値が入ってくる --%>
 							<td>${stu_test.subjectName}</td>
 							<td>${stu_test.subjectCd}</td>
 							<td class="text-center">${stu_test.num}</td>
@@ -140,7 +154,11 @@
 
 		    		<%-- 学生情報はあるが、成績が入っていない場合 --%>
 		    		<c:when test="${stu_num != null }">
-				    	<div>氏名 : ${stu_name } (${stu_num })</div>
+
+		    			<%-- 見やすさのための改行 --%>
+		    			<br>
+
+				    	<div class="h5 ms-3"><u>氏名 : ${stu_name } (${stu_num })</u></div>
 						<div>成績情報が存在しませんでした。</div>
 				    </c:when>
 
