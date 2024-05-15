@@ -21,18 +21,21 @@ public class SubjectRevivalExecuteAction extends Action{
 		HttpSession session = req.getSession();//セッション
 		boolean subject_now = true;//科目フラグ
 		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
-		Map<String, String> errors = new HashMap<>();//エラーメッセージ
+		Map<String, String> errors = new HashMap<>(); // エラーメッセージ
+
 
 		//リクエストパラメータ―の取得 2
-		String[] s_dletete = req.getParameterValues("s_Items");
+		String[] s_Items = req.getParameterValues("s_Items");
 
 //		//ビジネスロジック 4
 //		//DBへデータ保存 5
 //		//条件で4～5が分岐
+		if (s_Items == null || s_Items.length == 0) {
+            errors.put("s_Items", "少なくとも一つの科目を選択してください。");
 
-		 if (s_dletete != null) {
+		}else{
 		        // 選択された科目のコードを処理する
-		        for (String s_Str : s_dletete) {
+		        for (String s_Str : s_Items) {
 		            // 各選択肢に対する処理を実行
 		        	Subject subject = subDao.get(s_Str,teacher.getSchool());// 科目コードと学校コードから科目インスタンスを取得
 		        	subject.setSubject_now(subject_now);// インスタンスに値をセット
@@ -41,27 +44,20 @@ public class SubjectRevivalExecuteAction extends Action{
 		        	subDao.delete(subject);
 		        	System.out.println(s_Str);
 		        }
-		    } else {
-		        // 何も選択されていない場合の処理
-		    	errors.put("subject_cd", "科目が存在していません");
-		    }
-
-
-		System.out.println(subject_now);
-
+		 }
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//レスポンス値をセット 6
 		//JSPへフォワード 7
-
-		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
-			// リクエスト属性をセット
-			req.setAttribute("errors", errors);
-			req.getRequestDispatcher("subject_revival.jsp").forward(req, res);
-			return;
+		if(!errors.isEmpty()){
+	        req.setAttribute("errors", errors);
+	        req.setAttribute("subjects", subDao.deletefilter(teacher.getSchool())); // ログインユーザーの学校コードをもとに科目一覧を取得
+	        req.getRequestDispatcher("subject_revival.jsp").forward(req, res);// JSPへフォワード
 		}
-
+		// JSPへフォワード
 		req.getRequestDispatcher("subject_revival_done.jsp").forward(req, res);
-	}
+
+    }
 }
+
 
