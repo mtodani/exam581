@@ -13,10 +13,13 @@
 
 	<%-- 科目検索と学生検索に二通りの検索ボックスを作る（StudentExecuteAction or SubjectExecuteAction） --%>
 
+	<%-- 科目検索 --%>
 		<h2>科目成績参照２</h2>
 
 	    <%-- フォームで検索条件をexecuteファイルに渡す --%>
 		<form action = "TestListSubjectExecute2.action" method="post">
+
+		    <%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>入学年度 </label>
 			<select name="f1">
 				<option value="0">--------</option>
@@ -28,6 +31,7 @@
 				</c:forEach>
 			</select>
 
+			<%-- クラスのリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>クラス</label>
 			<select name="f2">
 				<option value="0">--------</option>
@@ -37,6 +41,7 @@
 				</c:forEach>
 			</select>
 
+			<%-- 科目のリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>科目</label>
 			<select name="f3">
 				<option value="0">--------</option>
@@ -49,8 +54,12 @@
 			<input type="submit" value="科目参照">
 		</form>
 
+		<%-- 学番検索 --%>
+
 		<form action = "TestListStudentExecute2.action" method="post">
 			<label>学生番号 </label>
+
+			<%-- 文字列（学番）を入力 --%>
 			<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
 
 			<input type="submit" value="学生参照">
@@ -61,15 +70,19 @@
 
 	    <c:choose>
 
-
+	    <%-- エラーがあった場合、マップにあるエラーメッセージを表示 --%>
 	        <c:when test="${errors.size() > 0 }">
 	        <br>
 	            ${errors.get("select")}
 	            ${errors.get("nullpo")}
 
 	        </c:when>
+	        <%-- 科目検索での成績情報があった場合 --%>
 			<c:when test="${test_list_subs.size() > 0 }">
+			平均点数："${avg}"
+
 				<table>
+				<%-- 検索された科目 --%>
 				    <div>科目 : ${subjectName }</div>
 					<tr>
 						<th>入学年度</th>
@@ -86,12 +99,18 @@
 							<td>${sub_test.getStudentNo()}</td>
 							<td>${sub_test.getStudentName()}</td>
 							<td>${sub_test.getPoint(1)}</td>
+							<%-- TestListSubjectDaoで一、二回目の点数を一列で表示できる --%>
 				            <td>${sub_test.getPoint(2)}</td>
 					</tr>
 					</c:forEach>
 				</table>
 		    </c:when>
+
+		    <%-- 学番検索での成績情報があった場合 --%>
 		    <c:when test="${test_list_student.size() > 0}" >
+		        合計点数"${stu_name}"<br>
+		        合計点数"${sum}"<br>
+			    平均点数"${avg}"<br>
 		        <table>
 					<tr>
 						<th>科目名</th>

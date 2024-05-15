@@ -73,7 +73,8 @@ public class TestList2Action extends Action{
 		req.setAttribute("f3", subject);
 
 		// リクエストにデータをセット
-
+		
+		//フィールド
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("clist", clist);
 		req.setAttribute("slist", slist);

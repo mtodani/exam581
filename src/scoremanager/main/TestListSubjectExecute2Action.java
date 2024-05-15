@@ -33,6 +33,9 @@ public class TestListSubjectExecute2Action extends Action{
 		String entYearStr="";// 入力された入学年度
 		String classNum = "";//クラス番号
 		String subjectCd = "";//科目
+		int sum = 0;//合計点数
+		int num = 0;//割る回数
+		int avg = 0;
 
 		Map<Integer,Integer> points = new HashMap<>();// 成績（何回目、点数）
 
@@ -94,12 +97,29 @@ public class TestListSubjectExecute2Action extends Action{
 
 		}else{
 
-
-
 			TLSubList = TLSubDao2.filter(school, entYear, classNum, sub);
 			//DBから成績表示に必要なデータをリスト形式で取得
-
 			req.setAttribute("test_list_subs", TLSubList);
+
+			for(TestListSubject2 test:TLSubList){
+
+				sum = sum + Integer.parseInt(test.getPoint(1));
+				System.out.println(sum);
+
+				if(test.getPoint(2).equals("-")){
+					num = num + 1;
+				}else{
+					sum = sum + Integer.parseInt(test.getPoint(2));
+					System.out.println(sum);
+					num = num + 2;
+				}
+			}
+
+			if(num != 0){
+				avg = sum/num;
+				req.setAttribute("avg", avg);
+			}
+
 
 		}
 

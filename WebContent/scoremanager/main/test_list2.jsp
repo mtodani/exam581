@@ -15,6 +15,8 @@
 
 	    <%-- フォームで検索条件をexecuteファイルに渡す --%>
 		<form action = "TestListSubjectExecute2.action" method="post">
+
+		    <%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>入学年度 </label>
 			<select name="f1">
 				<option value="0">--------</option>
@@ -26,6 +28,7 @@
 				</c:forEach>
 			</select>
 
+			<%-- クラスのリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>クラス</label>
 			<select name="f2">
 				<option value="0">--------</option>
@@ -35,6 +38,7 @@
 				</c:forEach>
 			</select>
 
+			<%-- 科目のリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>科目</label>
 			<select name="f3">
 				<option value="0">--------</option>
@@ -47,10 +51,13 @@
 			<input type="submit" value="科目参照">
 		</form>
 
+		<%-- 学番検索 --%>
 		<form action = "TestListStudentExecute2.action" method="post">
 			<label>学生番号 </label>
+			<%-- 入力必須、自動変換off --%>
 			<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
 
+			<%-- 送信ボタン --%>
 			<input type="submit" value="学生参照">
 		</form>
 

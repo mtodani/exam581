@@ -68,14 +68,39 @@ public class TestListStudentExecute2Action extends Action{
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> slist = SubDao.filter(teacher.getSchool());
 
+		int sum = 0;
 
 
 		try{
 			student = StuDao.get(student_num);
 			TLStuList = TLStuDao2.filter(student);
+
+			for(TestListStudent2 test:TLStuList){
+
+				int num = test.getPoint();
+				sum = sum + num;
+			}
+
+			int div = TLStuList.size();
+
+			if(div != 0){
+				int avg = sum/div;
+				req.setAttribute("avg", avg);
+			}
+
+
+
+
+
 		}catch(NullPointerException e){
 			errors.put("nullpo", "学生番号が存在しませんでした。");
 
+		}
+
+		// jspで学生名を表示させるためのもの
+		if(student != null){
+			String stu_name = student.getStudent_name();
+			req.setAttribute("stu_name", stu_name);
 		}
 
 
