@@ -64,8 +64,8 @@
 	</form>
 
 	<c:if test ="${errors.size() > 0}">
-	    ${errors.get(test_errors)}
-	    ${errors.get(test_errors2)}
+	    ${errors.get("test_errors")}
+	    ${errors.get("test_errors2")}
 	</c:if>
 
 	<c:choose>
@@ -80,6 +80,7 @@
 					<th>学生番号</th>
 					<th>氏名</th>
 					<th>点数</th>
+					<th>削除</th>
 				</tr>
 				<c:forEach var="test" items="${tests}">
 					<tr>
@@ -87,6 +88,7 @@
 						<td>${test.student.getClass_num()}</td>
 						<td>${test.student.getStudent_no()}</td>
 						<td>${test.student.getStudent_name()}</td>
+
 						<td>
 						<c:choose>
 						<c:when test="${test.point=='-1'}"><input type="text" name="point_${test.student.student_no}" value=""/></c:when>
@@ -94,6 +96,7 @@
 						</c:choose>
 						<div>${errors.get("test_error")}</div>
 						</td>
+						<td><a href="StudentUpdate.action?no=${student.student_no}">削除</a></td>
 						<%-- <td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>--%>
 					</tr>
 				</c:forEach>
