@@ -19,7 +19,6 @@ public class SubjectDeleteAction extends Action{
 		//ローカル変数の宣言 1
 		SubjectDao subDao = new SubjectDao();//科目Dao
 		HttpSession session = req.getSession();//セッション
-
 		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
@@ -29,7 +28,6 @@ public class SubjectDeleteAction extends Action{
 		//DBからデータ取得 3
 		Subject subject = subDao.get(subject_cd,teacher.getSchool());//科目番号から科目インスタンスを取得
 		System.out.print(subject_cd);
-//		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 
 		//ビジネスロジック 4
@@ -42,8 +40,7 @@ public class SubjectDeleteAction extends Action{
 			req.setAttribute("subject_cd", subject.getSubject_cd());
 			req.setAttribute("subject_name", subject.getSubject_name());
 
-//			req.setAttribute("is_attend", student.isAttend());
-		} else {// 学生が存在していなかった場合
+		} else {// 科目が存在していなかった場合
 			errors.put("subject_cd", "学生が存在していません");
 			req.setAttribute("errors", errors);
 		}
