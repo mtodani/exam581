@@ -15,6 +15,7 @@
 		<h2>科目復元管理</h2>
 		<a href="SubjectList.action">科目一覧</a>
 
+		<%--論理削除された科目の一覧表示--%>
 		<form action="SubjectRevivalExecute.action" method="post">
 		<table class="table table-hover">
 					<tr>
@@ -27,6 +28,7 @@
 					</tr>
 
 	    <c:forEach var="subject" items="${subjects}" >
+	    <%--科目をチェックリストで表示--%>
 	    	<tr>
 		        <td><input type="checkbox" name="s_Items" value="${subject.subject_cd}"></td>
 		        <td> ${subject.subject_cd}</td>
@@ -34,9 +36,12 @@
 	        </tr>
 	    </c:forEach>
 	    </table>
+
+	    <%--チェックリストが１つも選択されずに復元をした場合の表示--%>
 	    <c:if test="${not empty errors.s_Items}">
 			<div style="color: red;">${errors.s_Items}</div>
 		</c:if>
+
 	    <input type="submit" value="復元">
 		</form>
 

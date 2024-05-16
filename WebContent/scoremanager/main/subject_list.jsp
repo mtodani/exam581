@@ -13,9 +13,11 @@
 	<c:param name="content">
 
 		<h2>科目管理</h2>
+		<%--科目機能url--%>
 		<a href="SubjectCreate.action">新規登録</a>
 		<a href="SubjectRevival.action">科目復元</a>
 
+		<%--科目一覧の表示--%>
 		<c:choose>
 			<c:when test="${subjects.size()>0}">
 
@@ -36,6 +38,7 @@
 
 							<td class="text-center">
 
+							<%--科目の変更・削除に科目コードを渡す--%>
 							</td>
 							<td><a href="SubjectUpdate.action?subject_cd=${subject.subject_cd}">変更</a></td>
 							<td><a href="SubjectDelete.action?subject_cd=${subject.subject_cd}">削除</a></td>
@@ -43,6 +46,8 @@
 					</c:forEach>
 				</table>
 			</c:when>
+
+			<%--科目が存在しない場合--%>
 			<c:otherwise>
 				<div>科目情報が存在しませんでした</div>
 			</c:otherwise>

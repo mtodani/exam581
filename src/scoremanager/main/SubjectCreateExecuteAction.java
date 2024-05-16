@@ -1,8 +1,6 @@
 package scoremanager.main;
 
-import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import bean.Subject;
 import bean.Teacher;
-import dao.ClassNumDao;
 import dao.SubjectDao;
 import tool.Action;
 
@@ -23,19 +20,12 @@ public class SubjectCreateExecuteAction extends Action{
 		HttpSession session = req.getSession();//セッション
 
 		SubjectDao subDao = new SubjectDao();//科目Dao
-//		int entYear;//入学年度
 		String subject_cd = "";//科目コード
 		String subject_name = "";//科目名
 		Subject subject = null;//科目
-
-
-
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
-
-		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
-
 		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
-		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
+//		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 
 		//リクエストパラメータ―の取得 2
 //		entYear = Integer.parseInt(req.getParameter("ent_year"));//入学年度
@@ -44,14 +34,10 @@ public class SubjectCreateExecuteAction extends Action{
 
 		//DBからデータ取得 3
 		subject = subDao.get(subject_cd, teacher.getSchool());// 科目管理から科目インスタンスを取得
-		List<String> list = cNumDao.filter(teacher.getSchool());// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で手順4~5の内容が分岐
-
-
 		if (subject == null) {// 科目が未登録だった場合
 			// 科目ンスタンスを初期化
 			subject = new Subject();
@@ -73,14 +59,10 @@ public class SubjectCreateExecuteAction extends Action{
 
 		//レスポンス値をセット 6
 		//JSPへフォワード 7
-//		req.setAttribute("class_num_set", list);//クラス番号のlistをセット
-//		req.setAttribute("ent_year_set", entYearSet);//入学年度のlistをセット
-
 		if(!errors.isEmpty()){
 			// リクエスト属性をセット
 			req.setAttribute("errors", errors);
 			req.setAttribute("subject_cd", subject_cd);
-			req.setAttribute("subject_name", subject_name);
 			req.getRequestDispatcher("subject_create.jsp").forward(req, res);
 			return;
 		}
