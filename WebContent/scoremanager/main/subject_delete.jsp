@@ -14,10 +14,12 @@
 	<form action = "SubjectDeleteExecute.action" method="post">
 
 	<c:choose>
+		<%--選択した科目が既に削除されていた場合のエラー表示--%>
 	    <c:when test="${not empty errors.subject_now}">
             <div style="color: red;">${errors.subject_now}</div>
         </c:when>
 
+		<%--選択した科目を表示--%>
 		<c:otherwise>
 			<input type= "hidden" name="subject_name" value="${subject_name}">
 			<input type= "hidden" name="subject_cd" value="${subject_cd}">
