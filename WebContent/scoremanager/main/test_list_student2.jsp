@@ -108,8 +108,7 @@
 
 		    <%-- 学番検索での成績情報があった場合 --%>
 		    <c:when test="${test_list_student.size() > 0}" >
-		        合計点数"${stu_name}"<br>
-		        合計点数"${sum}"<br>
+		        学生："${stu_name}"<br>
 			    平均点数"${avg}"<br>
 		        <table>
 					<tr>
