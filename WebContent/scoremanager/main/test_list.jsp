@@ -61,7 +61,7 @@
 				<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 				<div class="p-3 ms-5">学生情報</div>
 				<div class="col-4 ms-5 mb-2">学生番号</div>
-				<input type="text" name="stu_num" placeholder="学生番号を入力してください" autocomplete="off" style="ime-mode:disabled" class="col-4 ms-5 mb-3" required>
+				<input type="text" name="stu_num" placeholder="学生番号を入力してください" maxlength="10" autocomplete="off" style="ime-mode:disabled" class="col-4 ms-5 mb-3" required>
 
 				<input type="submit" value="検索" class="btn btn-secondary ms-5">
 
