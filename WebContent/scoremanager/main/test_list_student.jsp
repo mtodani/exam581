@@ -75,7 +75,7 @@
 			<%-- エラーの表示 --%>
 	        <c:when test="${errors.size() > 0 }">
 	        <br>
-	            <font color="orange">${errors.get("select")}</font>
+	            <div><font color="orange">${errors.get("select")}</font></div>
 	            ${errors.get("nullpo")}
 
 	        </c:when>
@@ -164,7 +164,7 @@
 
 					<%-- 科目検索の際に成績が入っていなかった場合 --%>
 					<c:otherwise>
-						<div>成績情報が存在しませんでした。</div>
+						<div>学生情報が存在しませんでした。</div>
 					</c:otherwise>
 		    	</c:choose>
 
