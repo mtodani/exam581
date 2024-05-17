@@ -49,6 +49,7 @@ public class TestListStudentExecuteAction extends Action{
 		//リクエストパラメータ―の取得 2
 		student_num = req.getParameter("stu_num");   // 学生情報
 
+		// リクエストに値をセット
 		req.setAttribute("stu_num", student_num);
 
 		System.out.println(student_num);
@@ -83,11 +84,13 @@ public class TestListStudentExecuteAction extends Action{
 
 		//DBからデータ取得 3
 		//DBから成績表示に必要なデータをリスト形式で取得
+		// リクエストに値をセット
 		req.setAttribute("test_list_student",TLStuList);
 
 		// jspで学生名を表示させるためのもの
 		if(student != null){
 			String stu_name = student.getStudent_name();
+			// リクエストに値をセット
 			req.setAttribute("stu_name", stu_name);
 		} else {
 			System.out.println("学生なし");   // ←なくてもいい。
