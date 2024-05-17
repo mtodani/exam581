@@ -11,10 +11,16 @@
 
 	<c:param name="content">
 
-		<h2>成績参照２</h2>
+		<h2 class = "p-3 mb-2 bg-light text-dark">成績参照</h2>
+
+		<%-- divで囲むことによって、検索欄の枠を作る --%>
+		<div class="border border-3 rounded">
+
+		<%-- マージンなどを使用して余白を入れる（位置調整） --%>
+			<div class="p-3 ms-5">科目情報</div>
 
 	    <%-- フォームで検索条件をexecuteファイルに渡す --%>
-		<form action = "TestListSubjectExecute2.action" method="post">
+		<form action = "TestListSubjectExecute2.action" method="post" class="ms-5">
 
 		    <%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
 			<label>入学年度 </label>
@@ -48,19 +54,26 @@
 				</c:forEach>
 			</select>
 
-			<input type="submit" value="科目参照">
+			<input type="submit" value="検索" class="btn btn-secondary ms-5">
 		</form>
+
+		<%-- bootstrapで線を入れる --%>
+			<hr width=”30%” align=”center”>
 
 		<%-- 学番検索 --%>
 		<form action = "TestListStudentExecute2.action" method="post">
-			<label>学生番号 </label>
+			<div class="p-3 ms-5">学生情報</div>
+			<div class="col-4 ms-5 mb-2">学生番号</div>
 			<%-- 入力必須、自動変換off --%>
-			<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
+			<input type="text" name="stu_num" placeholder="学生番号を入力してください" maxlength="10" autocomplete="off" style="ime-mode:disabled" class="col-4 ms-5 mb-3" required>
 
 			<%-- 送信ボタン --%>
-			<input type="submit" value="学生参照">
+			<input type="submit" value="検索" class="btn btn-secondary ms-5">
 		</form>
 
+		</div>
+
+		<p><font color="aqua">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</font></p>
 
 	</c:param>
 

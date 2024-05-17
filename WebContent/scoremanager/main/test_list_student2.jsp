@@ -51,18 +51,19 @@
 				</c:forEach>
 			</select>
 
-			<input type="submit" value="科目参照">
+			<input type="submit" value="検索">
 		</form>
 
 		<%-- 学番検索 --%>
 
 		<form action = "TestListStudentExecute2.action" method="post">
-			<label>学生番号 </label>
+			<div class="p-3 ms-5">学生情報</div>
+			<div class="col-4 ms-5 mb-2">学生番号</div>
 
 			<%-- 文字列（学番）を入力 --%>
 			<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
 
-			<input type="submit" value="学生参照">
+			<input type="submit" value="検索">
 		</form>
 
 	<%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
@@ -73,8 +74,8 @@
 	    <%-- エラーがあった場合、マップにあるエラーメッセージを表示 --%>
 	        <c:when test="${errors.size() > 0 }">
 	        <br>
-	            ${errors.get("select")}
-	            ${errors.get("nullpo")}
+	            <div>${errors.get("select")}</div>
+	            <div>${errors.get("nullpo")}</div>
 
 	        </c:when>
 	        <%-- 科目検索での成績情報があった場合 --%>
