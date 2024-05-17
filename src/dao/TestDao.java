@@ -368,58 +368,57 @@ public class TestDao extends Dao{
 			return false;
 		}
 	}
-	public boolean delete(List<Test> lists) throws Exception {
-		int count= 0;
+//	public boolean delete(Test test) throws Exception {
+//		int count= 0;
+//
+//		//for(Test test:lists){
+//			//コネクションを確立
+//			Connection connection = getConnection();
+//
+//			try{
+//				boolean bool = delete(test,connection);
+//				if(bool!=true){
+//					count++;
+//				}
+//			}
+//			catch (Exception e){
+//				throw e;
+//			} finally{
+//				if(connection != null){
+//					try{
+//						connection.close();
+//					}catch(SQLException sqle){
+//						throw sqle;
+//					}
+//				}
+//			}
+//		//}
+//		if(count > 0){
+//			return true;
+//		}
+//		else{
+//			return false;
+//		}
+//	}
 
-		for(Test test:lists){
-			//コネクションを確立
-			Connection connection = getConnection();
-
-			try{
-				boolean bool = delete(test,connection);
-				if(bool!=true){
-					count++;
-				}
-			}
-			catch (Exception e){
-				throw e;
-			} finally{
-				if(connection != null){
-					try{
-						connection.close();
-					}catch(SQLException sqle){
-						throw sqle;
-					}
-				}
-			}
-		}
-		if(count > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
-	private boolean delete(Test test,Connection connection) throws Exception {
+	public boolean delete(Test test) throws Exception {
+		Connection connection = getConnection();
 		PreparedStatement statement= null;
+		System.out.println("Deleteに来た");
 		//実行件数
 		int count = 0;
 
 		try{
-			Test old = get(test.getStudent(),test.getSubject(),test.getSchool(),test.getNo());
-			if(old == null && test.getPoint()!= 0){
 				//プリペアードステートメントにINSERT文をセット
 				statement = connection.prepareStatement(
-						"select * from test where student_no= ? and subject_cd=? and school_cd=? and test_no=?");
+						"delete from test where student_no= ? and subject_cd=? and school_cd=? and test_no=?");
+						//delete from test where student_no= 2377888 and subject_cd='IT1' and school_cd='knz' and test_no=1
 				statement.setString(1, test.getStudent().getStudent_no());
 		    	statement.setString(2, test.getSubject().getSubject_cd());
 		    	statement.setString(3, test.getSchool().getSchool_cd());
 		    	statement.setInt(4, test.getNo());
-
-			}
+		    	System.out.println("Deleteの処理");
 			//プリペアードステートメントを実行
-			count = statement.executeUpdate();
 		} catch (Exception e){
 			throw e;
 		} finally{
