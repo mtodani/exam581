@@ -10,7 +10,7 @@
 	<c:param name="scripts"></c:param>
 
 	<c:param name="content">
-		<h2>学生情報変更</h2>
+		<h2>科目情報変更</h2>
 		<form action = "StudentUpdateExecute.action" method="post">
 			<label>入学年度</label>
 
@@ -23,8 +23,6 @@
 
 			<input type= "hidden" name="no" value="${no}">
 			${no}
-
-
 
 
 			<label>氏名</label>

@@ -1,7 +1,6 @@
 package scoremanager.main;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,20 +31,23 @@ public class SubjectUpdateExecuteAction extends Action{
 
 		//DBからデータ取得 3
 		Subject subject = subDao.get(subject_cd,teacher.getSchool());// 科目コードと学校コードから科目インスタンスを取得
-		List<Subject> list = subDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
+
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で4～5が分岐
-		if (subject != null) {
+
+		if (!subject.isSubject_now()) {
+			//科目が論理削除されていた場合
+			errors.put("subject_now", "科目が存在していません");
+
+		} else {
 			// 科目が存在していた場合
 			// インスタンスに値をセット
 			subject.setSubject_name(subject_name);
-
 			// 科目を保存
 			subDao.save(subject);
-		} else {
-			errors.put("subject_cd", "科目が存在していません");
+
 		}
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
@@ -56,7 +58,6 @@ public class SubjectUpdateExecuteAction extends Action{
 		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
 			// リクエスト属性をセット
 			req.setAttribute("errors", errors);
-			req.setAttribute("subject_cd", subject_cd);
 			req.setAttribute("subject_name", subject_name);
 			req.getRequestDispatcher("subject_update.jsp").forward(req, res);
 			return;

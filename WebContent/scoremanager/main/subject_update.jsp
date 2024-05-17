@@ -26,8 +26,13 @@
 				maxlength="10" value="${subject_name}" required />
 			<div>${errors.get("subject_name")}</div>
 
+			<c:if test="${not empty errors.subject_now}">
+				<div style="color: red;">${errors.subject_now}</div>
+			</c:if>
 
 			<input type="submit" value="変更">
+
+
 
 		</form>
 
