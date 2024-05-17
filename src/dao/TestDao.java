@@ -368,38 +368,7 @@ public class TestDao extends Dao{
 			return false;
 		}
 	}
-//	public boolean delete(Test test) throws Exception {
-//		int count= 0;
-//
-//		//for(Test test:lists){
-//			//コネクションを確立
-//			Connection connection = getConnection();
-//
-//			try{
-//				boolean bool = delete(test,connection);
-//				if(bool!=true){
-//					count++;
-//				}
-//			}
-//			catch (Exception e){
-//				throw e;
-//			} finally{
-//				if(connection != null){
-//					try{
-//						connection.close();
-//					}catch(SQLException sqle){
-//						throw sqle;
-//					}
-//				}
-//			}
-//		//}
-//		if(count > 0){
-//			return true;
-//		}
-//		else{
-//			return false;
-//		}
-//	}
+
 
 	public boolean delete(Test test) throws Exception {
 		Connection connection = getConnection();
