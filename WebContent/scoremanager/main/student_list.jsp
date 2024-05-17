@@ -77,7 +77,7 @@
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td><a href="StudentUpdate.action?no=${student.student_no}">削除</a></td>
+							<td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>
 						</tr>
 					</c:forEach>
 				</table>

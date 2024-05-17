@@ -23,7 +23,7 @@
 			<label>科目名</label>
 			<%--value subject_name 見返す --%>
 			<input type="text"
-				name="subject_name" placeholder="科目名を入力してください" maxlength="10" value="${subject_name}" required />
+				name="subject_name" placeholder="科目名を入力してください" maxlength="20" value="${subject_name}" required />
 			<div>${errors.get("subject_name")}</div>
 
 			<input type="submit" value="登録して終了">
