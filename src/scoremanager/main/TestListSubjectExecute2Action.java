@@ -35,7 +35,7 @@ public class TestListSubjectExecute2Action extends Action{
 		String subjectCd = "";//科目
 		int sum = 0;//合計点数
 		int num = 0;//割る回数
-		int avg = 0;
+		int avg = 0;//平均
 
 		Map<Integer,Integer> points = new HashMap<>();// 成績（何回目、点数）
 
@@ -54,12 +54,6 @@ public class TestListSubjectExecute2Action extends Action{
 		classNum = req.getParameter("f2");//クラス番号
 		subjectCd = req.getParameter("f3");
 
-		System.out.print(entYearStr);
-		System.out.print(classNum);
-		System.out.print(subjectCd);
-
-
-
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> clist = cNumDao.filter(teacher.getSchool());
@@ -67,6 +61,7 @@ public class TestListSubjectExecute2Action extends Action{
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> slist = SubDao.filter(teacher.getSchool());
 
+		//科目をDBから取得
 		School school = teacher.getSchool();
 		Subject sub = SubDao.get(subjectCd,school);
 
@@ -101,11 +96,13 @@ public class TestListSubjectExecute2Action extends Action{
 			//DBから成績表示に必要なデータをリスト形式で取得
 			req.setAttribute("test_list_subs", TLSubList);
 
+			//平均を求めるコード
 			for(TestListSubject2 test:TLSubList){
 
 				sum = sum + Integer.parseInt(test.getPoint(1));
 				System.out.println(sum);
 
+				//一回目と二回目の点数を換算するかしない
 				if(test.getPoint(2).equals("-")){
 					num = num + 1;
 				}else{
@@ -115,6 +112,7 @@ public class TestListSubjectExecute2Action extends Action{
 				}
 			}
 
+			//0で割らない
 			if(num != 0){
 				avg = sum/num;
 				req.setAttribute("avg", avg);
@@ -123,16 +121,17 @@ public class TestListSubjectExecute2Action extends Action{
 
 		}
 
+		//前回の入力データをもらう
 		req.setAttribute("f1", entYearStr);
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", subjectCd);
 
-
+		//検索に必要なリストを渡す
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("clist", clist);
 		req.setAttribute("slist", slist);
 
-		System.out.print(errors.get("select"));
+		//エラーをセット
 		req.setAttribute("errors", errors);
 		//JSPへフォワード 7
 		req.getRequestDispatcher("test_list_student2.jsp").forward(req, res);
