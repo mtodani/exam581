@@ -79,6 +79,7 @@ public class TestDeleteExecuteAction extends Action{
 		System.out.println(DeleteTest);
 
 
+
 		//繰り返しで1つずつ格納
 
 		tDao.delete(DeleteTest);
