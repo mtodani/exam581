@@ -54,6 +54,7 @@ public class TestListSubjectExecuteAction extends Action{
 		System.out.println(entYearStr);
 		System.out.println("1");
 
+		// リクエストに値をセット
 		req.setAttribute("f1", entYearStr);
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", subjectCd);
@@ -99,12 +100,14 @@ public class TestListSubjectExecuteAction extends Action{
 			// 科目名を表示させるもの
 			if (sub != null) {
 				String subjectName = sub.getSubject_name();
+				// リクエストに値をセット
 				req.setAttribute("subjectName", subjectName);
 			}
 
 			// DBから成績表示に必要なデータをリスト形式で取得
 			TLSubList = TLSubDao.filter(school, entYear, classNum, sub);
 
+			// リクエストに値をセット
 			req.setAttribute("test_list_subs", TLSubList);
 
 			System.out.println(TLSubList.size());

@@ -31,6 +31,7 @@ public class TestListStudentExecute2Action extends Action{
 		SubjectDao SubDao = new SubjectDao();
 
 		String student_num;//学生番号
+		int sum = 0; //合計
 		Map<Integer,Integer> points = new HashMap<>();// 成績（何回目、点数）
 
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
@@ -68,31 +69,31 @@ public class TestListStudentExecute2Action extends Action{
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
 		List<Subject> slist = SubDao.filter(teacher.getSchool());
 
-		int sum = 0;
 
-
+		//学番から学生情報を取り出し、成績のリストを呼び出す
 		try{
 			student = StuDao.get(student_num);
 			TLStuList = TLStuDao2.filter(student);
 
+			//合計点数
 			for(TestListStudent2 test:TLStuList){
 
 				int num = test.getPoint();
 				sum = sum + num;
 			}
 
+			//平均を求める
 			int div = TLStuList.size();
 
+			//割る数が０ならやらない
 			if(div != 0){
 				int avg = sum/div;
 				req.setAttribute("avg", avg);
 			}
 
 
-
-
-
 		}catch(NullPointerException e){
+			//学生がない場合
 			errors.put("nullpo", "学生番号が存在しませんでした。");
 
 		}
@@ -113,12 +114,13 @@ public class TestListStudentExecute2Action extends Action{
 		//なし
 		//レスポンス値をセット 6
 
+		//検索に必要なリストをセット
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("clist", clist);
 		req.setAttribute("slist", slist);
 
 
-		System.out.print(errors.get("nullpo"));
+		//エラーをセット
 		req.setAttribute("errors", errors);
 
 		//JSPへフォワード 7

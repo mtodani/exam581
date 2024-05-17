@@ -6,6 +6,8 @@
 		得点管理システム
 	</c:param>
 
+<%-- bootstrap(css)の適用は、森谷が担当 --%>
+
 	<c:param name="scripts"></c:param>
 
 	<c:param name="content">

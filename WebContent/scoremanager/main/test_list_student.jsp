@@ -50,6 +50,7 @@
 				</select>
 
 				<input type="submit" value="検索" class="btn btn-secondary ms-5">
+
 			</form>
 
 			<%-- bootstrapで線を入れる --%>
@@ -75,7 +76,11 @@
 			<%-- エラーの表示 --%>
 	        <c:when test="${errors.size() > 0 }">
 	        <br>
+
+	        	<%-- 入学年度、クラス、科目の選択が一つでも抜けていた際のエラー --%>
 	            <div><font color="orange">${errors.get("select")}</font></div>
+
+	            <%-- 学生番号が存在しなかった際のエラー --%>
 	            ${errors.get("nullpo")}
 
 	        </c:when>

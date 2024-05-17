@@ -10,6 +10,7 @@
 
 	<c:param name="content">
 
+		<%-- 背景に薄いグレーをいれる --%>
 		<h2 class = "p-3 mb-2 bg-light text-dark">成績参照</h2>
 
 		<%-- divで囲むことによって、検索欄の枠を作る --%>
