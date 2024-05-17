@@ -13,58 +13,70 @@
 
 	<%-- 科目検索と学生検索に二通りの検索ボックスを作る（StudentExecuteAction or SubjectExecuteAction） --%>
 
-	<%-- 科目検索 --%>
-		<h2>科目成績参照２</h2>
+	<%-- 背景に薄いグレーをいれる --%>
+		<%-- daiによって、科目か学生かの表示を変える --%>
+		<h2 class="p-3 mb-2 bg-light text-dark">成績一覧</h2>
 
-	    <%-- フォームで検索条件をexecuteファイルに渡す --%>
-		<form action = "TestListSubjectExecute2.action" method="post">
+		<%-- divで囲むことによって、検索欄の枠を作る --%>
+		<div class="border border-3 rounded">
 
-		    <%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
-			<label>入学年度 </label>
-			<select name="f1">
-				<option value="0">--------</option>
+		<%-- マージンなどを使用して余白を入れる（位置調整） --%>
+			<div class="p-3 ms-5">科目情報</div>
 
-				<%-- 入学年度の一覧から選択する --%>
-				<c:forEach var="year" items="${ent_year_set}">
-					<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-					<option value="${year}"<c:if test="${year==f1}">selected</c:if> >${year}</option>
-				</c:forEach>
-			</select>
 
-			<%-- クラスのリストを受け取り一覧をセレクトボックスで表示 --%>
-			<label>クラス</label>
-			<select name="f2">
-				<option value="0">--------</option>
-				<c:forEach var="num" items="${clist}">
-					<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-					<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
-				</c:forEach>
-			</select>
+			    <%-- フォームで検索条件をexecuteファイルに渡す --%>
+				<form action = "TestListSubjectExecute2.action" method="post" class="ms-5">
 
-			<%-- 科目のリストを受け取り一覧をセレクトボックスで表示 --%>
-			<label>科目</label>
-			<select name="f3">
-				<option value="0">--------</option>
-					<c:forEach var="sub" items="${slist}">
-					<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-					<option value="${sub.getSubject_cd()}" <c:if test="${sub.subject_cd==f3}">selected</c:if>>${sub.getSubject_name()}</option>
-				</c:forEach>
-			</select>
+				    <%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
+					<label>入学年度 </label>
+					<select name="f1">
+						<option value="0">--------</option>
 
-			<input type="submit" value="検索">
-		</form>
+						<%-- 入学年度の一覧から選択する --%>
+						<c:forEach var="year" items="${ent_year_set}">
+							<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+							<option value="${year}"<c:if test="${year==f1}">selected</c:if> >${year}</option>
+						</c:forEach>
+					</select>
 
-		<%-- 学番検索 --%>
+					<%-- クラスのリストを受け取り一覧をセレクトボックスで表示 --%>
+					<label>クラス</label>
+					<select name="f2">
+						<option value="0">--------</option>
+						<c:forEach var="num" items="${clist}">
+							<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
+							<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
+						</c:forEach>
+					</select>
 
-		<form action = "TestListStudentExecute2.action" method="post">
-			<div class="p-3 ms-5">学生情報</div>
-			<div class="col-4 ms-5 mb-2">学生番号</div>
+					<%-- 科目のリストを受け取り一覧をセレクトボックスで表示 --%>
+					<label>科目</label>
+					<select name="f3">
+						<option value="0">--------</option>
+							<c:forEach var="sub" items="${slist}">
+							<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
+							<option value="${sub.getSubject_cd()}" <c:if test="${sub.subject_cd==f3}">selected</c:if>>${sub.getSubject_name()}</option>
+						</c:forEach>
+					</select>
 
-			<%-- 文字列（学番）を入力 --%>
-			<input type="text"  name="stu_num" autocomplete="off" style="ime-mode:disabled"  required>
+					<input type="submit" value="検索" class="btn btn-secondary ms-5">
+				</form>
 
-			<input type="submit" value="検索">
-		</form>
+				<%-- bootstrapで線を入れる --%>
+			    <hr width=”30%” align=”center”>
+
+				<%-- 学番検索 --%>
+
+				<form action = "TestListStudentExecute2.action" method="post">
+					<div class="p-3 ms-5">学生情報</div>
+					<div class="col-4 ms-5 mb-2">学生番号</div>
+
+					<%-- 文字列（学番）を入力 --%>
+					<input type="text" name="stu_num" placeholder="学生番号を入力してください" maxlength="10" autocomplete="off" style="ime-mode:disabled" value="${stu_num }" class="col-4 ms-5 mb-3" required>
+
+					<input type="submit" value="検索" class="btn btn-secondary ms-5">
+				</form>
+			</div>
 
 	<%-- どちらかのExecuteAction.javaから受け取ったリクエストパラを受け取り表示する --%>
 
@@ -74,18 +86,26 @@
 	    <%-- エラーがあった場合、マップにあるエラーメッセージを表示 --%>
 	        <c:when test="${errors.size() > 0 }">
 	        <br>
-	            <div>${errors.get("select")}</div>
+	            <div><font color="orange">${errors.get("select")}</font></div>
 	            <div>${errors.get("nullpo")}</div>
 
 	        </c:when>
 	        <%-- 科目検索での成績情報があった場合 --%>
 			<c:when test="${test_list_subs.size() > 0 }">
-			平均点数："${avg}"
+			<div>平均点数："${avg}"</div>
 
-				<table>
+				<%-- テーブルを作る、カーソルを持って行ったところに色が付く --%>
+				<table class="table table-hover">
+
+				<%-- 見やすさのための改行 --%>
+		        	<br>
+
 				<%-- 検索された科目 --%>
-				    <div>科目 : ${subjectName }</div>
-					<tr>
+				    <%-- 科目名の表示、<u>で下線を引いてわかりやすく（オリジナル）--%>
+					<div class="h5 ms-3"><u>科目 : ${subjectName }</u></div>
+
+					<%-- テーブルの一行目のみ、背景に色 --%>
+					<tr class="bg-light">
 						<th>入学年度</th>
 						<th>クラス</th>
 						<th>学生番号</th>
@@ -109,10 +129,19 @@
 
 		    <%-- 学番検索での成績情報があった場合 --%>
 		    <c:when test="${test_list_student.size() > 0}" >
-		        学生："${stu_name}"<br>
-			    平均点数"${avg}"<br>
-		        <table>
-					<tr>
+			    <div>平均点数"${avg}"</div><br>
+
+		        <%-- テーブルを作る、カーソルを持って行ったところに色が付く --%>
+		        <table class="table table-hover">
+
+		            <%-- 見やすさのための改行 --%>
+		        	<br>
+
+		        	<%-- 学生名と学生番号の表示、<u>で下線を引いてわかりやすく（オリジナル） --%>
+		        	<div class="h5 ms-3"><u>氏名 : ${stu_name } (${stu_num })</u></div>
+
+					<%-- テーブルの一行目のみ、背景に色 --%>
+					<tr class="bg-light">
 						<th>科目名</th>
 						<th>科目コード</th>
 						<th class ="text-center">回数</th>
@@ -129,7 +158,12 @@
 				</table>
 		    </c:when>
 			<c:otherwise>
+		        <%-- 見やすさのための改行 --%>
+		   		<br>
+
+				<div class="h5 ms-3"><u>氏名 : ${stu_name } (${stu_num })</u></div>
 				<div>成績情報が存在しません。</div>
+
 			</c:otherwise>
 		</c:choose>
 
