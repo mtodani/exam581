@@ -109,17 +109,18 @@
 				<input type="submit" value="登録して終了">
 			<%--<button type="submit">登録して終了</button>--%>
         </form>
+
         <form action="TestDeleteExecute.action" method="post">
 			<table class="table table-hover"style="border-collapse:separate; border-spacing:3px; border:1px">
 				<tr>
 					<th>削除</th>
 				</tr>
-				<c:forEach var="test" items="${tests}">
+				<c:forEach var="del_test" items="${tests2}">
 					<tr>
 						<%--<td>削除</td>--%>
-						<input type="hidden" name="f1" value="${test.student.student_no}"/>
-						<input type="hidden" name="f2" value="${test.subject.subject_cd}"/>
-						<input type="hidden" name="f3" value="${test.no}"/>
+						<input type="hidden" name="d1" value="${del_test.student.student_no}"/>
+						<input type="hidden" name="d2" value="${del_test.subject.subject_cd}"/>
+						<input type="hidden" name="d3" value="${del_test.no}"/>
 						<td><input type="submit" value="削除" style="height:20px;width:50px"></td>
 					</tr>
 				</c:forEach>

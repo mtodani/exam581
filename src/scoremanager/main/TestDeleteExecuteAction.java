@@ -49,9 +49,9 @@ public class TestDeleteExecuteAction extends Action{
 
 
 		//リクエストパラメータ―の取得 2
-		String no = req.getParameter("f1");//学番
-		String subStr = req.getParameter("f2");
-		String numStr = req.getParameter("f3");
+		String no = req.getParameter("d1");//学番
+		String subStr = req.getParameter("d2");
+		String numStr = req.getParameter("d3");
 		//学番
 		System.out.println(no);
 		//科目
@@ -73,8 +73,9 @@ public class TestDeleteExecuteAction extends Action{
 		}
 
 		Test DeleteTest = new Test();
-		DeleteTest= tDao.get(student, subject, teacher.getSchool(), num);
-		DeleteTestlist.add(DeleteTest);
+
+		DeleteTest= tDao.delete_get(student, subject, teacher.getSchool(), num);
+		//DeleteTestlist.add(DeleteTest);
 		System.out.println("DeleteTest");
 		System.out.println(DeleteTest);
 

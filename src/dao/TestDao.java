@@ -39,6 +39,7 @@ public class TestDao extends Dao{
 	        //プリペアードステートメント
 		    ResultSet rSet = statement.executeQuery();
 
+
 	        if (rSet.next()) {
 	        	// リザルトセットが存在する場合
 			    // テストインスタンスに検索結果をセット
@@ -47,10 +48,72 @@ public class TestDao extends Dao{
 	            test.setSchool(school);
 	            test.setNo(test_no);
 	            test.setPoint(rSet.getInt("point"));
-	          //test.setClassNum(rSet.getString("class_num"));
+	          //test.setClassNum(rSet.getString("class_num"));d
+	            System.out.println("get処理完了");
 	        }
 	        else{
 	        	test= null;
+	        	System.out.println("get出来てない");
+	        }
+	    } catch (SQLException e) {
+	        throw e;
+	    } finally {
+	        // リソースを閉じる
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+	    return test;
+	}
+
+	public Test delete_get(Student student,Subject subject,School school,int test_no) throws Exception {
+
+		//学生インスタンスを初期化
+	    Test test = new Test();
+	    //データエースへのコネクションを確立
+	    Connection connection = getConnection();
+	    //プリペアードステートメント
+	    PreparedStatement statement = null;
+
+	    ResultSet rSet = null;
+	    try {
+	        //プリペアードSQL文をセット
+	    	statement = connection.prepareStatement(
+	    			"select * from test where student_no= ? and subject_cd= ? and school_cd= ? and test_no= ? ");
+	    	//プリペアードステートメントに学校コードをバインド
+	    	statement.setString(1, student.getStudent_no());
+	    	statement.setString(2, subject.getSubject_cd());
+	    	statement.setString(3, school.getSchool_cd());
+	    	statement.setInt(4, test_no);
+	        //プリペアードステートメント
+	    	rSet = statement.executeQuery();
+		    System.out.println(rSet);
+
+	        if (rSet.next()) {
+	        	// リザルトセットが存在する場合
+			    // テストインスタンスに検索結果をセット
+	            test.setStudent(student);
+	            test.setSubject(subject);
+	            test.setSchool(school);
+	            test.setNo(test_no);
+	            test.setPoint(rSet.getInt("point"));
+	          //test.setClassNum(rSet.getString("class_num"));d
+	            System.out.println("get処理完了");
+	        }
+	        else{
+	        	test= null;
+	        	System.out.println("get出来てない");
 	        }
 	    } catch (SQLException e) {
 	        throw e;
@@ -374,6 +437,9 @@ public class TestDao extends Dao{
 		Connection connection = getConnection();
 		PreparedStatement statement= null;
 		System.out.println("Deleteに来た");
+
+		//リザルトセット
+		ResultSet rSet = null;
 		//実行件数
 		int count = 0;
 
@@ -387,6 +453,8 @@ public class TestDao extends Dao{
 		    	statement.setString(3, test.getSchool().getSchool_cd());
 		    	statement.setInt(4, test.getNo());
 		    	System.out.println("Deleteの処理");
+
+		    	rSet = statement.executeQuery();
 			//プリペアードステートメントを実行
 		} catch (Exception e){
 			throw e;
