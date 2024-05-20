@@ -38,7 +38,6 @@ public class SubjectDeleteExecuteAction extends Action{
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で4～5が分岐
-
 		if (!subject.isSubject_now()) {
             // 既に subject_now が false の場合
             errors.put("subject_now", "この科目は既に無効化されています。");
@@ -55,7 +54,6 @@ public class SubjectDeleteExecuteAction extends Action{
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//レスポンス値をセット 6
 		//JSPへフォワード 7
-
 		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
 			// リクエスト属性をセット
 			req.setAttribute("errors", errors);

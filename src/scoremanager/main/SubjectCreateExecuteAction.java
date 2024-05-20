@@ -30,9 +30,8 @@ public class SubjectCreateExecuteAction extends Action {
         subject_cd = req.getParameter("subject_cd"); // 科目コード
         subject_name = req.getParameter("subject_name"); // 科目名
 
-        // 全角チェックの正規表現パターン
+        // 全角チェックの正規表現パターン(ブラウザ対応用）
         Pattern fullWidthPattern = Pattern.compile("[^\\u0020-\\u007E]");
-
         // 全角チェック
         if (fullWidthPattern.matcher(subject_cd).find()) {
             errors.put("subject_cd", "科目コードは半角で入力してください。");
@@ -58,7 +57,8 @@ public class SubjectCreateExecuteAction extends Action {
                 // subject_cdが3文字でない場合
                 errors.put("subject_cd", "科目コードが3文字になっていません");
             }
-        } else if (subject != null) { // 入力された科目コードがDBに保存されていた場合
+        } else if (subject != null) {
+        	// 入力された科目コードがDBに保存されていた場合
             errors.put("subject_cd", "科目コードが重複しています");
         }
 

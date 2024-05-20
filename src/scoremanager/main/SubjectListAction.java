@@ -1,6 +1,5 @@
 package scoremanager.main;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ public class SubjectListAction extends Action {
 		HttpSession session = req.getSession();//セッション
 		Teacher teacher = (Teacher)session.getAttribute("user");//ログインユーザー
 		List<Subject> subjects = null;// 科目リスト
-		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
+//		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		SubjectDao subDao = new SubjectDao();//科目Dao
 
 

@@ -15,13 +15,13 @@ public class SubjectDao extends Dao{
 	/**
 	 * getメソッド 科目コードと学校コードを指定して科目インスタンスを1件取得する
 	 *
-	 * @param cd:String
+	 * @param subject_cd:String
 	 *            科目コード
+	 * @param school:School
+	 *            学校
 	 * @return 科目クラスのインスタンス 存在しない場合はnull
 	 * @throws Exception
 	 */
-
-
 	public Subject get(String subject_cd,School school) throws Exception {
 		Subject subject = new Subject();
 
@@ -38,8 +38,6 @@ public class SubjectDao extends Dao{
 	        statement.setString(2, school.getSchool_cd());
 
 		    ResultSet rSet = statement.executeQuery();
-
-		    SchoolDao schoolDao = new SchoolDao();
 
 	        // リザルトセットから学生インスタンスを作成
 	        if (rSet.next()) {
@@ -120,11 +118,11 @@ public class SubjectDao extends Dao{
 	}
 
 	/**
-	 * filterメソッド 学校、在学フラグを指定して学生の一覧を取得する
+	 * filterメソッド 学校、を指定して科目の一覧を取得する
 	 *
 	 * @param school:School
 	 *            学校
-	 * @return 学生のリスト:List<Sbubject> 存在しない場合は0件のリスト
+	 * @return 科目のリスト:List<Sbubject> 存在しない場合は0件のリスト
 	 * @throws Exception
 	 */
 	public List<Subject> filter(School school) throws Exception {
@@ -176,13 +174,11 @@ public class SubjectDao extends Dao{
 	}
 
 	/**
-	 * filterメソッド 学校、在学フラグを指定して学生の一覧を取得する
+	 * deletefilterメソッド 学校、科目フラグを指定して科目の一覧を取得する
 	 *
 	 * @param school:School
 	 *            学校
-	 * @param isAttend:boolean
-	 *            在学フラグ
-	 * @return 学生のリスト:List<Student> 存在しない場合は0件のリスト
+	 * @return 科目復元管理のリスト:List<Subject> 存在しない場合は0件のリスト
 	 * @throws Exception
 	 */
 	public List<Subject> deletefilter(School school) throws Exception {
@@ -297,6 +293,7 @@ public class SubjectDao extends Dao{
 		    return false;
 		}
 }
+
 	public boolean delete (Subject subject) throws Exception {
 		//コネクションを確立
 		Connection connection = getConnection();

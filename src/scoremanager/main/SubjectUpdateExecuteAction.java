@@ -36,7 +36,6 @@ public class SubjectUpdateExecuteAction extends Action{
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で4～5が分岐
-
 		if (!subject.isSubject_now()) {
 			//科目が論理削除されていた場合
 			errors.put("subject_now", "科目が存在していません");
@@ -47,14 +46,11 @@ public class SubjectUpdateExecuteAction extends Action{
 			subject.setSubject_name(subject_name);
 			// 科目を保存
 			subDao.save(subject);
-
 		}
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//レスポンス値をセット 6
 		//JSPへフォワード 7
-//		req.setAttribute("class_num_set", list);
-
 		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
 			// リクエスト属性をセット
 			req.setAttribute("errors", errors);
@@ -62,7 +58,7 @@ public class SubjectUpdateExecuteAction extends Action{
 			req.getRequestDispatcher("subject_update.jsp").forward(req, res);
 			return;
 		}
-
+		// 成功した場合、完了画面へフォワード
 		req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
 	}
 }

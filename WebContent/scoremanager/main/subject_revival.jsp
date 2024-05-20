@@ -30,7 +30,7 @@
 	    <c:forEach var="subject" items="${subjects}" >
 	    <%--科目をチェックリストで表示--%>
 	    	<tr>
-		        <td><input type="checkbox" name="s_Items" value="${subject.subject_cd}"></td>
+		        <td><input type="checkbox" name="s_Rvival" value="${subject.subject_cd}"></td>
 		        <td> ${subject.subject_cd}</td>
 		        <td>${subject.getSubject_name()}</td>
 	        </tr>
@@ -38,8 +38,8 @@
 	    </table>
 
 	    <%--チェックリストが１つも選択されずに復元をした場合の表示--%>
-	    <c:if test="${not empty errors.s_Items}">
-			<div style="color: red;">${errors.s_Items}</div>
+	    <c:if test="${not empty errors.s_Rvival}">
+			<div style="color: red;">${errors.s_Rvival}</div>
 		</c:if>
 
 	    <input type="submit" value="復元">

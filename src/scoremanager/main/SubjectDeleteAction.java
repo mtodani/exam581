@@ -45,6 +45,7 @@ public class SubjectDeleteAction extends Action{
 			req.setAttribute("errors", errors);
 		}
 		//JSPへフォワード 7
+		// 成功した場合、完了画面へフォワード
 		req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
 	}
 }

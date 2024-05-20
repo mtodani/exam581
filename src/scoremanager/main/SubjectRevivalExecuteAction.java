@@ -25,17 +25,17 @@ public class SubjectRevivalExecuteAction extends Action{
 
 
 		//リクエストパラメータ―の取得 2
-		String[] s_Items = req.getParameterValues("s_Items");
+		String[] s_Rvival = req.getParameterValues("s_Rvival");
 
 //		//ビジネスロジック 4
 //		//DBへデータ保存 5
 //		//条件で4～5が分岐
-		if (s_Items == null || s_Items.length == 0) {
-            errors.put("s_Items", "少なくとも一つの科目を選択してください。");
+		if (s_Rvival == null || s_Rvival.length == 0) {
+            errors.put("s_Rvival", "少なくとも一つの科目を選択してください。");
 
 		}else{
 		        // 選択された科目のコードを処理する
-		        for (String s_Str : s_Items) {
+		        for (String s_Str : s_Rvival) {
 		            // 各選択肢に対する処理を実行
 		        	Subject subject = subDao.get(s_Str,teacher.getSchool());// 科目コードと学校コードから科目インスタンスを取得
 		        	subject.setSubject_now(subject_now);// インスタンスに値をセット
