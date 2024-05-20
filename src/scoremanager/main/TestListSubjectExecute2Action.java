@@ -82,10 +82,9 @@ public class TestListSubjectExecute2Action extends Action{
 			entYearSet.add(i);
 		}
 
-
-
 		//DBへデータ保存 5
 		//なし
+
 		//レスポンス値をセット 6
 		if (entYear == 0 || classNum.equals("0") || subjectCd.equals("0")) {// 入学年度が選択されていない場合
 			errors.put("select", "入学年度、クラス、科目のすべてを選択してください");
