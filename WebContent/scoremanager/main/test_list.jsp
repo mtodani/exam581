@@ -19,9 +19,11 @@
 			<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 			<div class="p-3 ms-5">科目情報</div>
 
+			<%-- フォームで検索条件をexecuteファイルに渡す --%>
 			<%-- 入学年度、クラス、科目を選択させる --%>
 			<form action="TestListSubjectExecute.action" method="post" class="ms-5">
 
+				<%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
 				<label>入学年度 </label>
 				<select name="f1">
 					<option value="0">--------</option>
@@ -31,6 +33,7 @@
 					</c:forEach>
 				</select>
 
+				<%-- クラスのリストを受け取り一覧をセレクトボックスで表示 --%>
 				<label>クラス</label>
 				<select name="f2">
 					<option value="0">--------</option>
@@ -40,6 +43,7 @@
 					</c:forEach>
 				</select>
 
+				<%-- 科目のリストを受け取り一覧をセレクトボックスで表示 --%>
 				<label>科目</label>
 				<select name="f3">
 					<option value="0">--------</option>
@@ -56,6 +60,8 @@
 			<%-- bootstrapで線を入れる --%>
 			<hr width=”30%” align=”center”>
 
+
+			<%-- フォームで検索条件をexecuteファイルに渡す --%>
 			<%-- 学生番号を入力 --%>
 			<form action = "TestListStudentExecute.action" method="post">
 

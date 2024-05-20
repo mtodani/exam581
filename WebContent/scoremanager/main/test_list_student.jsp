@@ -10,6 +10,8 @@
 
 	<c:param name="content">
 
+	<%-- 科目検索と学生検索に二通りの検索ボックスを作る（StudentExecuteAction or SubjectExecuteAction） --%>
+
 		<%-- 背景に薄いグレーをいれる --%>
 		<%-- daiによって、科目か学生かの表示を変える --%>
 		<h2 class="p-3 mb-2 bg-light text-dark">成績一覧(${dai })</h2>
@@ -20,8 +22,12 @@
 			<%-- マージンなどを使用して余白を入れる（位置調整） --%>
 			<div class="p-3 ms-5">科目情報</div>
 
+			<%-- 科目検索 --%>
+
+			<%-- フォームで検索条件をexecuteファイルに渡す --%>
 			<form action="TestListSubjectExecute.action" method="post" class="ms-5">
 
+				<%-- 入学年度のリストを受け取り一覧をセレクトボックスで表示 --%>
 				<label>入学年度 </label>
 				<select name="f1">
 					<option value="0">--------</option>
@@ -31,6 +37,7 @@
 					</c:forEach>
 				</select>
 
+				<%-- クラスのリストを受け取り一覧をセレクトボックスで表示 --%>
 				<label>クラス</label>
 				<select name="f2">
 					<option value="0">--------</option>
@@ -40,6 +47,7 @@
 					</c:forEach>
 				</select>
 
+				<%-- 科目のリストを受け取り一覧をセレクトボックスで表示 --%>
 				<label>科目</label>
 				<select name="f3">
 					<option value="0">--------</option>
@@ -56,6 +64,9 @@
 			<%-- bootstrapで線を入れる --%>
 			<hr width=”30%” align=”center”>
 
+			<%-- 学生番号検索 --%>
+
+			<%-- フォームで検索条件をexecuteファイルに渡す --%>
 			<form action = "TestListStudentExecute.action" method="post">
 
 				<%-- マージンなどを使用して余白を入れる（位置調整） --%>
