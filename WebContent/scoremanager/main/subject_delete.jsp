@@ -10,7 +10,7 @@
 	<c:param name="scripts"></c:param>
 
 	<c:param name="content">
-		<h2>科目情報削除</h2>
+		<h2 class="p-3 mb-2 bg-light text-dark">科目情報削除</h2>
 	<form action = "SubjectDeleteExecute.action" method="post">
 
 	<c:choose>
@@ -23,9 +23,9 @@
 		<c:otherwise>
 			<input type= "hidden" name="subject_name" value="${subject_name}">
 			<input type= "hidden" name="subject_cd" value="${subject_cd}">
-			「${subject.getSubject_name()}(${subject.getSubject_cd()})を削除しますか？」
+			<h3>「${subject.getSubject_name()}(${subject.getSubject_cd()})を削除しますか？」</h3>
 
-			<br><input type="submit" value="削除">
+			<br><input type="submit" class="btn btn-primary" value="削除">
 		</c:otherwise>
 
 	</c:choose>
