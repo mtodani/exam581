@@ -72,6 +72,7 @@
 		<c:when test="${tests.size()>0}">
 			<div>検索結果：${tests.size()}件</div>
 
+			<div style="display: flex;">
 			<form action="TestRegistExecute.action" method="post">
 			<table class="table table-hover">
 				<tr>
@@ -80,7 +81,6 @@
 					<th>学生番号</th>
 					<th>氏名</th>
 					<th>点数</th>
-					<th>削除</th>
 				</tr>
 				<c:forEach var="test" items="${tests}">
 					<tr>
@@ -96,7 +96,8 @@
 						</c:choose>
 						<div>${errors.get("test_error")}</div>
 						</td>
-						<td><a href="StudentUpdate.action?no=${student.student_no}">削除</a></td>
+						<td>
+						<%--<a href="TestDeleteExecute.action?no=${test.student.student_no}?sub_cd=${test.subject.subject_cd}?num=${test.num}">削除</a></td>--%>
 						<%-- <td><a href="StudentUpdate.action?no=${student.student_no}">変更</a></td>--%>
 					</tr>
 				</c:forEach>
@@ -106,9 +107,26 @@
 				<input type="hidden" name="f3" value="${f3}"/>
 				<input type="hidden" name="f4" value="${f4}"/>
 				<input type="submit" value="登録して終了">
-
 			<%--<button type="submit">登録して終了</button>--%>
         </form>
+        <form action="TestDeleteExecute.action" method="post">
+			<table class="table table-hover"style="border-collapse:separate; border-spacing:3px; border:1px">
+				<tr>
+					<th>削除</th>
+				</tr>
+				<c:forEach var="test" items="${tests}">
+					<tr>
+						<%--<td>削除</td>--%>
+						<input type="hidden" name="f1" value="${test.student.student_no}"/>
+						<input type="hidden" name="f2" value="${test.subject.subject_cd}"/>
+						<input type="hidden" name="f3" value="${test.no}"/>
+						<td><input type="submit" value="削除" style="height:20px;width:50px"></td>
+					</tr>
+				</c:forEach>
+				</table>
+
+        </form>
+        </div>
 		</c:when>
 	</c:choose>
 
