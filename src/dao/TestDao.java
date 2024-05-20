@@ -90,7 +90,7 @@ public class TestDao extends Dao{
 	    try {
 	        //プリペアードSQL文をセット
 	    	statement = connection.prepareStatement(
-	    			"select * from test where student_no= ? and subject_cd= ? and school_cd= ? and test_no= ? ");
+	    			"select point from test where student_no= ? and subject_cd= ? and school_cd= ? and test_no= ? ");
 	    	//プリペアードステートメントに学校コードをバインド
 	    	statement.setString(1, student.getStudent_no());
 	    	statement.setString(2, subject.getSubject_cd());
@@ -108,11 +108,11 @@ public class TestDao extends Dao{
 	            test.setSchool(school);
 	            test.setNo(test_no);
 	            test.setPoint(rSet.getInt("point"));
-	          //test.setClassNum(rSet.getString("class_num"));d
+	          //test.setClassNum(rSet.getString("class_num"));
 	            System.out.println("get処理完了");
 	        }
 	        else{
-	        	test= null;
+	        	test = null;
 	        	System.out.println("get出来てない");
 	        }
 	    } catch (SQLException e) {
@@ -446,7 +446,7 @@ public class TestDao extends Dao{
 		try{
 				//プリペアードステートメントにINSERT文をセット
 				statement = connection.prepareStatement(
-						"delete from test where student_no= ? and subject_cd=? and school_cd=? and test_no=?");
+						"delete from test where student_no = ? and subject_cd = ? and school_cd = ? and test_no = ?");
 						//delete from test where student_no= 2377888 and subject_cd='IT1' and school_cd='knz' and test_no=1
 				statement.setString(1, test.getStudent().getStudent_no());
 		    	statement.setString(2, test.getSubject().getSubject_cd());
@@ -454,7 +454,8 @@ public class TestDao extends Dao{
 		    	statement.setInt(4, test.getNo());
 		    	System.out.println("Deleteの処理");
 
-		    	rSet = statement.executeQuery();
+		    	count = statement.executeUpdate();
+		    	System.out.println(count);
 			//プリペアードステートメントを実行
 		} catch (Exception e){
 			throw e;

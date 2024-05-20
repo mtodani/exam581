@@ -28,6 +28,7 @@ public class TestDeleteExecuteAction extends Action{
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
 
+		String no = "";
 		int num = 0;// 回数
 		int entYear = 0;// 入学年度
 		StudentDao sDao = new StudentDao();// 学生Dao
@@ -39,6 +40,9 @@ public class TestDeleteExecuteAction extends Action{
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
+		List<Test> tests= new ArrayList<>();// 学生リスト
+
+
 		List<Test> DeleteTestlist= new ArrayList<>();// 学生リスト
 		List<Test> list = new ArrayList<>();
 		List<Integer> list_point = new ArrayList<>();
@@ -49,41 +53,45 @@ public class TestDeleteExecuteAction extends Action{
 
 
 		//リクエストパラメータ―の取得 2
-		String no = req.getParameter("d1");//学番
-		String subStr = req.getParameter("d2");
-		String numStr = req.getParameter("d3");
-		//学番
-		System.out.println(no);
-		//科目
-		System.out.println(subStr);
-		//回数
-		System.out.println(numStr);
 
-		Subject subject = subjectDao.get(subStr,teacher.getSchool());
-		Student student = sDao.get(no);
+		String entYearStr = req.getParameter("f1");
+		String classNum = req.getParameter("f2");
+		String subjectcd = req.getParameter("f3");
+		String numStr = req.getParameter("f4");
 
-//		String noStr = req.getParameter("student_no");
-//		String pointStr = req.getParameter("point");
-//		int point = Integer.parseInt(pointStr);
-
-		//tests = req.getParameter("tests");
+		if (entYearStr != null) {
+			// 数値に変換
+			entYear = Integer.parseInt(entYearStr);
+		}
 		if (numStr != null) {
 			// 数値に変換
 			num = Integer.parseInt(numStr);
 		}
 
+		Subject subject = subjectDao.get(subjectcd,teacher.getSchool());
+
+		students = sDao.filter(teacher.getSchool(), entYear, classNum, is_Attend);
+
+		System.out.println(students.get(0).getStudent_no());
+		System.out.println(subject.getSubject_cd());
+		System.out.println(num);
+
 		Test DeleteTest = new Test();
+		for(Student stu:students ){
+			no = req.getParameter("d1_" + stu.getStudent_no());//学番
+			if(no != null){
+				DeleteTest= tDao.delete_get(stu, subject, teacher.getSchool(), num);
+				System.out.println("DeleteTest");
+				System.out.println(DeleteTest);
+				boolean bool = tDao.delete(DeleteTest);
+			}
 
-		DeleteTest= tDao.delete_get(student, subject, teacher.getSchool(), num);
-		//DeleteTestlist.add(DeleteTest);
-		System.out.println("DeleteTest");
-		System.out.println(DeleteTest);
-
+		}
 
 
 		//繰り返しで1つずつ格納
 
-		tDao.delete(DeleteTest);
+
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//JSPへフォワード 7

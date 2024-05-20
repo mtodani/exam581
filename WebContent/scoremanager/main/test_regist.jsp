@@ -115,12 +115,16 @@
 					<tr>
 						<th>削除</th>
 					</tr>
+					<input type="hidden" name="f1" value="${f1}"/>
+					<input type="hidden" name="f2" value="${f2}"/>
+					<input type="hidden" name="f3" value="${f3}"/>
+					<input type="hidden" name="f4" value="${f4}"/>
+
 					<c:forEach var="del_test" items="${tests2}">
 						<tr>
-							<%--<td>削除</td>--%>
-							<input type="hidden" name="d1" value="${del_test.student.student_no}"/>
-							<input type="hidden" name="d2" value="${del_test.subject.subject_cd}"/>
-							<input type="hidden" name="d3" value="${del_test.no}"/>
+							<input type="hidden" name="d1_${del_test.student.student_no}" value="${del_test.student.student_no}"/>
+							<%-- <input type="hidden" name="d2" value="${del_test.subject.subject_cd}"/>
+							<input type="hidden" name="d3" value="${del_test.no}"/> --%>
 							<td><input type="submit" value="削除" style="height:20px;width:50px"></td>
 						</tr>
 					</c:forEach>
