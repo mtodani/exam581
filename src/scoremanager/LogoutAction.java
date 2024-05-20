@@ -13,18 +13,17 @@ public class LogoutAction extends Action{
 			HttpServletRequest request, HttpServletResponse response
 		) throws Exception {
 
+			//セッション情報をゲット
 			HttpSession session=request.getSession();
 
 			//ログインしていた場合はセッションからユーザーを取り除く
 			if (session.getAttribute("user")!=null) {
 				session.removeAttribute("user");
-
+				//そして、logout画面にフォワード
 				request.getRequestDispatcher("logout.jsp").forward(request, response);
 
 			}
 
-			//エラーの場合の対応は未実装
-//			return "logout-error.jsp";
 		}
 
 }

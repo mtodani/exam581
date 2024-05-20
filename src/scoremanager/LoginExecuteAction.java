@@ -33,13 +33,14 @@ public class LoginExecuteAction extends Action{
 
 			// 認証成功した場合リダイレクト
 			if (teacher != null) {
-				//セッションに"user"という変数名で値はTeacher型
+				//セッションに"user"という変数名で値はTeacher型をセット
 	            session.setAttribute("user", teacher);
 	            //menuページにリダイレクト
 	    		url = "main/Menu.action";
 	    		res.sendRedirect(url);
 	        } else {
 	        	//認証失敗の場合
+//	        	エラーメッセージをリクエストにセット
 	            req.setAttribute("errorMessage", "ログインに失敗しました。IDまたはパスワードが正しくありません。");
 	            // エラーメッセージとともにログインページに戻る
 	            req.getRequestDispatcher("Login.action").forward(req, res);

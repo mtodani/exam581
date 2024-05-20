@@ -21,8 +21,7 @@ public class MenuAction extends Action{
 		//なし
 		//レスポンス値をセット 6
 		//なし
-		//JSPへフォワード 7
-
+		//menu.JSPへフォワード 7
 		req.getRequestDispatcher("menu.jsp").forward(req, res);
 	}
 

@@ -24,7 +24,7 @@ public class TeacherDao extends Dao {
 
         ResultSet rs = stmt.executeQuery();
 
-        if (rs.next()) { // 認証成功の場合
+        if (rs.next()) { // 認証成功の場合（該当アカウントがあった場合）
 
             String teacherName = rs.getString("TEACHER_NAME");
             String schoolCd = rs.getString("SCHOOL_CD");
